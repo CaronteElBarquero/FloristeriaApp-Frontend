@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useCategoryStore, useUiStore } from "../../../hooks";
+import { useSelector } from 'react-redux';
 import Modal from "react-modal";
 
 import {
@@ -36,8 +37,8 @@ Modal.setAppElement("#root");
 export const CategoryModal = () => {
   const { isDateModalOpen, closeDateModal } = useUiStore();
 
-  const { activeCategory, startSavingCategory, startActiveCreateCategory, startActiveUpdateCategory } = useCategoryStore();
-
+  const { activeCategory, startSavingCategory, startUpdateCategory } = useCategoryStore();
+  const { activeCreateCategory, activeUpdateCategory } = useSelector(state => state.category)
   const [formValues, setFormValues] = useState({
     name: "",
     description: "",
@@ -65,14 +66,17 @@ export const CategoryModal = () => {
     }
     // console.log(formValues);
     // TODO:
-    if (startActiveCreateCategory) {
+    if (activeCreateCategory) {
       await startSavingCategory(formValues);
     }
-    if (startActiveUpdateCategory) {
-      // await startUpdateCategory(formValues);
-      console.log('Se edito exitosamente');
+    if (activeUpdateCategory) {
+      await startUpdateCategory(formValues);
     }
 
+    setFormValues({
+      name: "",
+      description: "",
+    });
     closeDateModal();
   };
 
@@ -103,7 +107,9 @@ export const CategoryModal = () => {
           fontSize="large"
           sx={{ m: 1 }}
         >
-          Nueva Categoria
+          {
+            activeCreateCategory ? 'Crear Categoria' : 'Editar Categoria'
+          }
         </Typography>
       </Box>
 

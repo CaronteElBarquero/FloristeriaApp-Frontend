@@ -12,10 +12,12 @@ export const useAuthStore = () => {
     const startLogin = async({ email, password }) => {
         // console.log({ email, password });
         dispatch( onChecking() );
-
+console.log('startLogin');
+console.log(email, password);
 
         try {
             const { data } = await floristeriaApi.post('/auth', { email, password });
+            console.log(data);
             localStorage.setItem( 'token', data.token );
             localStorage.setItem( 'token-init-date', new Date().getTime() );
             dispatch( onLogin({ name: data.name, uid: data.uid }) );
@@ -35,7 +37,7 @@ export const useAuthStore = () => {
 
     const startRegister = async({ name, email, password }) => {
 
-        dispatch( onChecking() );
+        // dispatch( onChecking() );
 
         try {
             const { data } = await floristeriaApi.post('/auth/new', { name, email, password });

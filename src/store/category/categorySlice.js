@@ -21,63 +21,68 @@ export const categorySlice = createSlice({
     activeCategory: null,
     activeCreateCategory: false,
     activeUpdateCategory: false,
+    activeIdCategory: '',
   },
 
   reducers: {
-        onSetActiveCategory: (state, { payload }) => {
-        state.activeCategory = payload;
-        },
-
-        onAddNewCategory: (state, { payload }) => {
-        state.categories.push(payload);
-        state.activeCategory = null;
-        state.activeCreateCategory = true;
-        state.activeUpdateCategory = false;
-        },
-
-        onUpdateCategory: (state, { payload }) => {
-        state.categories = state.categories.map((event) => {
-            if (event.id === payload.id) {
-            return payload;
-            }
-            return event;
-        });
-        state.activeUpdateCategory = true;
-        // state.activeCategory = payload;
-        },
-
-        onDeleteCategory: (state) => {
-        if (state.activeCategory) {
-            state.categories = state.categories.filter(
-            (event) => event.id !== state.activeCategory.id
-            );
-        }
-        },
-
-        onLoadCategory: (state, { payload = [] }) => {
-        state.isLoadingCategory = false;
-
-        payload.forEach((event) => {
-            const exist = state.categories.some(
-            (dbCategory) => dbCategory.id === event.id
-            );
-
-            if (!exist) {
-            state.categories.push(event);
-            }
-        });
-        },
-
-        onActiveCreateCategory: (state) => {
-        state.activeCreateCategory = true;
-        state.activeUpdateCategory = false;
-        },
-
-        onActiveUpdateCategory: (state) => {
-        state.activeUpdateCategory = true;
-        state.activeCreateCategory = false;
-        },
+    onSetActiveCategory: (state, { payload }) => {
+      state.activeCategory = payload;
     },
+
+    onAddNewCategory: (state, { payload }) => {
+      state.categories.push(payload);
+      state.activeCategory = null;
+      state.activeCreateCategory = true;
+      state.activeUpdateCategory = false;
+    },
+
+    onUpdateCategory: (state, { payload }) => {
+      state.categories = state.categories.map((category) => {
+        if (category.id === payload.id) {
+          return payload;
+        }
+        return category;
+      });
+      state.activeUpdateCategory = true;
+      // state.activeCategory = payload;
+    },
+
+    onDeleteCategory: (state) => {
+      if (state.activeCategory) {
+        state.categories = state.categories.filter(
+          (event) => event.id !== state.activeCategory.id
+        );
+      }
+    },
+
+    onLoadCategory: (state, { payload = [] }) => {
+      state.isLoadingCategory = false;
+
+      payload.forEach((event) => {
+        const exist = state.categories.some(
+          (dbCategory) => dbCategory.id === event.id
+        );
+
+        if (!exist) {
+          state.categories.push(event);
+        }
+      });
+    },
+
+    onActiveCreateCategory: (state) => {
+      state.activeCreateCategory = true;
+      state.activeUpdateCategory = false;
+    },
+
+    onActiveUpdateCategory: (state) => {
+      state.activeUpdateCategory = true;
+      state.activeCreateCategory = false;
+    },
+
+    onIdActiveCategory: (stata, { payload }) => {
+      stata.activeIdCategory = payload;
+    },
+  },
 });
 
 export const {
@@ -88,4 +93,5 @@ export const {
   onLoadCategory,
   onActiveCreateCategory,
   onActiveUpdateCategory,
+  onIdActiveCategory
 } = categorySlice.actions;

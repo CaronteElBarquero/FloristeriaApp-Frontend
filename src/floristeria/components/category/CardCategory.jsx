@@ -1,4 +1,4 @@
-import { Box, Button, Card, CardActions, CardContent, CardMedia, Typography } from'@mui/material';
+import { Box, Button, Card, CardActions, CardContent, CardMedia, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useCategoryStore, useUiStore } from '../../../hooks';
@@ -6,8 +6,8 @@ import { useCategoryStore, useUiStore } from '../../../hooks';
 
 export const CardCategory = () => {
 
-    const { categories } = useSelector( state => state.category )
-    const { setActiveCategory, startLoadingCategory, startActiveCreateCategory, startActiveUpdateCategory } = useCategoryStore();
+    const { categories, activeCreateCategory } = useSelector(state => state.category)
+    const { startLoadingCategory, startActiveUpdateCategory, startIdActiveCategory } = useCategoryStore();
     const { openDateModal } = useUiStore();
 
 
@@ -17,13 +17,17 @@ export const CardCategory = () => {
     useEffect(() => {
         startLoadingCategory()
     }, [])
-    
+
+    console.log('Cargando categorias', activeCreateCategory);
 
 
-    const onSelect = ( event ) => {
-        setActiveCategory( event );
+    const onUpdate = (idCategory) => {
+
         console.log('Hola estoy en Edit');
         startActiveUpdateCategory();
+        startIdActiveCategory(idCategory);
+
+        console.log("este es el id", idCategory);
         openDateModal();
     }
 
@@ -35,11 +39,11 @@ export const CardCategory = () => {
 
     return (
 
-        <Box   sx={{ display: 'flex', flexWrap: 'wrap', minWidth: 300, width: '100%' }} >
+        <Box sx={{ display: 'flex', flexWrap: 'wrap', minWidth: 300, width: '100%' }} >
 
             {
-                categories.map( category => (
-                    <Card sx={{ maxWidth: 320, mt: 10, ml: 2.5, borderRadius: '15px' }} key={ category.id } >
+                categories.map(category => (
+                    <Card sx={{ maxWidth: 320, mt: 10, ml: 2.5, borderRadius: '15px' }} key={category.id} >
                         <CardMedia
                             component="img"
                             height="135"
@@ -48,20 +52,20 @@ export const CardCategory = () => {
                         />
                         <CardContent>
                             <Typography gutterBottom variant="h5" component="div">
-                                { category.name }
+                                {category.name}
                             </Typography>
-                            <Typography variant="body2" noWrap  color="text.secondary">
-                                { category.description }
+                            <Typography variant="body2" noWrap color="text.secondary">
+                                {category.description}
                             </Typography>
                         </CardContent>
                         <CardActions>
-                            <Button size="small" onClick={ onSelect } >Editar</Button>
+                            <Button size="small" onClick={() => onUpdate(category.id)} >Editar</Button>
                             <Button size="small" >Eliminar</Button>
                         </CardActions>
                     </Card>
                 ))
             }
-            
+
         </Box>
 
     );
