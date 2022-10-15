@@ -1,9 +1,7 @@
-
 /*
     FUNCIONES QUE AYUDAN A LA REALIZACION DEL DRAWNER
     SE HACE CON EL FIN DE DESPEJAR EL COMPONENTE Y NO MANTENERLO CARGADO
 */
-
 
 import MuiDrawer from '@mui/material/Drawer';
 import MuiAppBar from '@mui/material/AppBar';
@@ -47,7 +45,6 @@ export const drawerFunction = () => {
     }));
 
 
-
     const AppBar = styled(MuiAppBar, {
         shouldForwardProp: (prop) => prop !== 'open',
         })(({ theme, open }) => ({
@@ -65,7 +62,6 @@ export const drawerFunction = () => {
             }),
         }),
     }));
-
 
 
     const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(

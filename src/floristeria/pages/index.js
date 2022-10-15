@@ -1,6 +1,12 @@
 
 
 export * from './FloristeriaPage';
-export * from './InicioPage';
-export * from './AcercaDe';
+export * from './ProductPage';
+export * from './CategoryPage';
+
+
+
+
+
+
 

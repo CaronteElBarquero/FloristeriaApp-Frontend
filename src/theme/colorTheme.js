@@ -1,7 +1,5 @@
-
-
-import { createTheme } from "@mui/material";
-
+import { ThemeContext } from "@emotion/react";
+import { createTheme, Typography } from "@mui/material";
 import { red } from '@mui/material/colors';
 
 
@@ -20,11 +18,14 @@ export const colorTheme = createTheme({
 
         error: {
             main: red.A400
-        }
+        }   
+    },
 
-        
+    typography: {
+        fontFamily: 'poppins'
     }
-    
+
+
 
 
 });

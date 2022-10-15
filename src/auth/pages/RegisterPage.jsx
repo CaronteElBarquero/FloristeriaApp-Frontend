@@ -140,7 +140,7 @@ export const RegisterPage = () => {
             
             <Grid container spacing={ 4 } sx={{ mb: 6, mt: 1 }} justifyContent="center">
               <Grid item xs={ 11.5 } sm={ 11.5 } >
-                <Button variant='contained' fullWidth sx={{ mt: 2, mb: 1 }} type='submit'>
+                <Button variant='contained' fullWidth sx={{ mt: 2, mb: 1, background: 'linear-gradient(100deg, #C22557 35%, #ED5887 59%, #FFF 140%)' }} type='submit'>
                   Crear cuenta
                 </Button>
               </Grid>

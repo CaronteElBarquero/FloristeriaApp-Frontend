@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
 import { FloristeriaApp } from './FloristeriaApp'
 
-import './style.css'
+import './style/style.css'
 
 
 

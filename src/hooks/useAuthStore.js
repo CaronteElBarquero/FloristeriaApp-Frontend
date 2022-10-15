@@ -1,5 +1,3 @@
-
-
 import { useDispatch, useSelector } from 'react-redux';
 import { floristeriaApi } from '../api';
 import { clearErrorMessage, onChecking, onLogin, onLogout } from '../store';
@@ -8,14 +6,11 @@ import { clearErrorMessage, onChecking, onLogin, onLogout } from '../store';
 
 export const useAuthStore = () => {
 
-
     const { status, user, errorMessage } = useSelector( state => state.auth );
     const dispatch = useDispatch();
 
-
     const startLogin = async({ email, password }) => {
         // console.log({ email, password });
-
         dispatch( onChecking() );
 
 
@@ -29,7 +24,6 @@ export const useAuthStore = () => {
         } catch (error) {
 
             dispatch( onLogout( 'Credenciales Incorrectas' ) );
-
 
             // Limpia el error que puede exister en 10 s, me limpia la parte del reducer
             setTimeout(() => {
@@ -56,13 +50,10 @@ export const useAuthStore = () => {
             // Si el usuario ya existe me devolvera el error que existe, tambien devolvera error en los campos si no estan completos
             dispatch( onLogout( error.response.data?.msg || 'Todos los campos son necesarios' ) ); 
 
-
             // Limpia el error que puede exister en 10 s, me limpia la parte del reducer
             setTimeout(() => {
                 dispatch( clearErrorMessage() )
-            }, 3);
-
-            
+            }, 3);            
         }
     }
 
@@ -85,9 +76,7 @@ export const useAuthStore = () => {
 
             localStorage.clear();
             dispatch( onLogout() );
-            
         }
-
     }
 
 
@@ -95,8 +84,6 @@ export const useAuthStore = () => {
         localStorage.clear();
         dispatch( onLogout() );
     }
-
-
 
 
     return {
@@ -112,6 +99,4 @@ export const useAuthStore = () => {
         startRegister,
         startLogout,
     }
-
-
 }

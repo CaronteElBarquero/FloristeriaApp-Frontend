@@ -1,21 +1,16 @@
-import { DraweBar } from "../components"
+import { CategoryModal, InitionImages, SpeelProduct } from "../components"
+import { DraweBar } from "../../ui/components"
+// import { ProductPage } from "./ProductPage"
 
 
 export const FloristeriaPage = () => {
   
   return (
-    <>
-      <DraweBar />
+
+    <DraweBar>
+
+      <InitionImages />
       
-      <h3>Bienvenidos a FloristeriaPage</h3>
-
-      <ul>
-
-        <li>1</li>
-        <li>2</li>
-        <li>3</li>
-
-      </ul>
-    </>
+    </DraweBar>
   )
 }
