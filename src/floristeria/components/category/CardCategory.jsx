@@ -1,8 +1,13 @@
-import { Box, Button, Card, CardActions, CardContent, CardMedia, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+
+import { AutoFixHigh, Delete, DeleteForever } from '@mui/icons-material';
+import { Box, Button, Card, CardActions, CardContent, CardMedia, IconButton, Typography } from '@mui/material';
 import { useCategoryStore, useUiStore } from '../../../hooks';
-// import Button from '@mui/material/Button';
+
+import Swal from 'sweetalert2'
+import 'sweetalert2/dist/sweetalert2.css'
+
 
 export const CardCategory = () => {
 
@@ -11,7 +16,6 @@ export const CardCategory = () => {
     const { openDateModal } = useUiStore();
 
 
-    // console.log( categories )
 
     //LLAMAR LAS CATEGORIAS DEL BACKEND
     useEffect(() => {
@@ -19,20 +23,54 @@ export const CardCategory = () => {
     }, [])
 
 
-
     const onUpdate = (category) => {
-
         startActiveUpdateCategory();
         startIdActiveCategory(category);
-
         openDateModal();
     }
 
-    const onDelete = (category) => {
-        console.log(category);
-        startDeleteCategory(category);
-    }
 
+    const onDelete = (category) => {
+        // console.log(category);
+
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+              confirmButton: 'btn btn-success',
+              cancelButton: 'btn btn-danger'
+            },
+            buttonsStyling: true
+        })
+        swalWithBootstrapButtons.fire({
+            title: '¿Está seguro?',
+            text: "¡No podrás revertir esto!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Si, bórralo!',
+            cancelButtonText: 'No, cancelar!',
+            reverseButtons: true
+          }).then((result) => {
+            if (result.isConfirmed) {
+              swalWithBootstrapButtons.fire(
+                'Borrado!',
+                'Su archivo ha sido eliminado.',
+                'success'
+              )
+    
+              startDeleteCategory(category);
+              
+            } else if (
+              /* Read more about handling dismissals below */
+              result.dismiss === Swal.DismissReason.cancel
+            ) {
+              swalWithBootstrapButtons.fire(
+                'Cancelado',
+                'Tú archivo está a salvo :)',
+                'error'
+              )
+            }
+        })
+
+    }
 
 
     return (
@@ -41,30 +79,35 @@ export const CardCategory = () => {
 
             {
                 categories.slice(0).reverse().map(category => (
-                    <Card sx={{ maxWidth: 320, mt: 10, ml: 2.5, borderRadius: '15px' }} key={category.id} >
+                    <Card sx={{ maxWidth: 320, mt: 9, ml: 4, borderRadius: '15px' }} key={category.id} >
                         <CardMedia
                             component="img"
                             height="135"
                             image="http://localhost:3000/src/assets/6.jpg"
-                            alt="green iguana"
+                            alt="imagen categoria"
                         />
                         <CardContent>
-                            <Typography gutterBottom variant="h5" component="div">
-                                {category.name}
+                            <Typography gutterBottom variant="h5" noWrap component="div" sx={{ maxWidth: 200 }} >
+                                <strong> {category.name} </strong>
                             </Typography>
-                            <Typography variant="body2" noWrap color="text.secondary">
+                            <Typography variant="body2" noWrap color="text.secondary" sx={{ maxWidth: 175 }}>
                                 {category.description}
                             </Typography>
                         </CardContent>
-                        <CardActions>
-                            <Button size="small" onClick={() => onUpdate(category)} >Editar</Button>
-                            <Button size="small" onClick={() => onDelete(category.id)}>Eliminar</Button>
+                        <CardActions sx={{ ml:1 }}>
+
+                            <IconButton size="small" sx={{ color: 'secondary.main' }} onClick={() => onUpdate(category)} >
+                                <AutoFixHigh />
+                            </IconButton>
+                            
+                            <IconButton size="small" sx={{ color: 'secondary.main'}} onClick={() => onDelete(category.id)}>
+                                <DeleteForever />
+                            </IconButton>
+
                         </CardActions>
                     </Card>
                 ))
             }
-
         </Box>
-
     );
 }

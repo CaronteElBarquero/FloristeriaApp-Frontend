@@ -25,66 +25,50 @@ export const useCategoryStore = () => {
 
     const startSavingCategory = async (categoryEvent) => {
 
-
-        // if (categoryEvent.id) {
-        //     //ACTUALIZANDO
-        //     const { data } = await floristeriaApi.put(`/category/${categoryEvent.id}`, categoryEvent);
-        //     dispatch(onUpdateCategory({ ...categoryEvent }));
-
-        // } else {
-        //     // CREANDO
+        // CREANDO
         const { data } = await floristeriaApi.post('/category', categoryEvent);
         console.log({ data })
 
         dispatch(onAddNewCategory({ ...categoryEvent, id: data.category.id }))
-        // }
-    }
+    };
 
     const startUpdateCategory = async (categoryEvent) => {
+        //ACTUALIZANDO
         await floristeriaApi.put(`/category/${activeCategoryUpdate.id}`, categoryEvent);
         dispatch(onUpdateCategory({ ...categoryEvent, id: activeCategoryUpdate.id }));
-    }
-
+    };
 
     const startDeleteCategory = async (idCategory) => {
         await floristeriaApi.delete(`/category/${idCategory}`);
         dispatch(onDeleteCategory(idCategory));
-    }
+    };
 
     const startLoadingCategory = async () => {
 
         try {
-
             const { data } = await floristeriaApi.get('/category');
             dispatch(onLoadCategory(data.categories));
-
 
         } catch (error) {
             console.log('Error en cargar las categorias');
             console.log(error);
-
         }
-    }
+    };
 
     const startActiveCreateCategory = () => {
         dispatch(onActiveCreateCategory());
-    }
+    };
 
     const startActiveUpdateCategory = () => {
         dispatch(onActiveUpdateCategory())
-    }
-
+    };
 
     const startIdActiveCategory = (category) => {
         dispatch(onActiveCategory(category))
-    }
-
-
-
+    };
 
 
     return {
-
         //* Propiedades
         activeCategory,
         categories,

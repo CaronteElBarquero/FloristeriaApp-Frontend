@@ -1,0 +1,82 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300&family=Poppins:ital,wght@0,500;1,400;1,700&display=swap');
+.fondo {
+    object-fit: cover;
+}
+
+
+/* .btn-creation:hover {
+    color: #c22557;
+    
+}
+
+
+.spel {
+    display: flex;
+    justify-content: right;
+} */ */
+
+
+
+.letra {
+    font-family: poppins;
+}
+
+.fondo {
+    background-color: black;
+}
+
+
+
+
+
+/* Modal */
+.ReactModalPortal > div{
+    opacity: 0;
+}
+
+.ReactModalPortal .ReactModal__Overlay {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    transition: opacity .2s ease-in-out;
+    z-index: 999;
+}
+
+.modal-fondo {
+    background-color: rgba(0, 0, 0, 0.3);
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: 0;
+    position: fixed;
+}
+
+.ReactModalPortal .ReactModal__Overlay--after-open {
+    opacity: 1;
+}
+
+.ReactModalPortal .ReactModal__Overlay--before-close {
+    opacity: 0;
+}
+
+/* background: linear-gradient(111deg, #FE6B8B 45%, #FF8E53 85%)", */
+
+.modal-product {
+    background: white;
+    /* background: linear-gradient(111deg, #FE6B8B 45%, #FF8E53 85%); */
+    border-radius: 10px ;
+    border-style: solid;
+    border-color: #980a5f;
+    border-width: 1px;
+    color: #980a5f;
+    display: inline;
+    max-height: 1000px;
+    max-width: 700px;
+    outline: none;
+    padding: 20px;
+    font-family: poppins;
+    position: fixed;
+
+
+}

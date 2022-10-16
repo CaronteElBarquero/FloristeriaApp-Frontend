@@ -6,22 +6,22 @@ import Typography from '@mui/material/Typography';
 
 const images = [
   {
-    url: 'http://localhost:3000/src/assets/flowers.jpg',
+    url: 'http://localhost:3000/src/assets/1.jpg',
     title: 'Breakfast',
     width: '40%',
   },
   {
-    url: 'http://localhost:3000/src/assets/girasol.jpg',
+    url: 'http://localhost:3000/src/assets/2.jpg',
     title: 'Burgers',
     width: '30%',
   },
   {
-    url: 'http://localhost:3000/src/assets/girasol2.jpg',
+    url: 'http://localhost:3000/src/assets/3.jpg',
     title: 'Camera2',
     width: '30%',
   },
   {
-    url: 'http://localhost:3000/src/assets/girasol2.jpg',
+    url: 'http://localhost:3000/src/assets/4.jpg',
     title: 'Camera',
     width: '30%',
   },

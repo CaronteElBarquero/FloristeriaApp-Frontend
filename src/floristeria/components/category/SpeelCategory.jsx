@@ -2,19 +2,14 @@ import { useCategoryStore, useUiStore } from "../../../hooks";
 import { CategoryPage } from "../../pages";
 
 import { Box, SpeedDial, SpeedDialIcon, SpeedDialAction } from "@mui/material";
+
 import {
-  CreateNewFolder,
-  DeleteForever,
-  FileCopy,
-  AutoFixHigh,
-  Save,
-  Print,
-  Share,
-  Edit,
+  CreateNewFolder, DeleteForever, AutoFixHigh, Print, Edit,
 } from "@mui/icons-material";
-import { CategoryModal } from "./CategoryModal";
+
 
 export const SpeelCategory = () => {
+
   const { openDateModal } = useUiStore();
   const { categories, setActiveCategory, startActiveCreateCategory } =
     useCategoryStore();
@@ -43,12 +38,12 @@ export const SpeelCategory = () => {
       ),
       name: "CREAR",
     },
-    { icon: <AutoFixHigh sx={{ color: "secondary.main" }} />, name: "EDITAR" },
-    { icon: <Print sx={{ color: "secondary.main" }} />, name: "IMPRIMIR" },
-    {
-      icon: <DeleteForever sx={{ color: "secondary.main" }} />,
-      name: "ELIMINAR",
-    },
+    // { icon: <AutoFixHigh sx={{ color: "secondary.main" }} />, name: "EDITAR" },
+    // { icon: <Print sx={{ color: "secondary.main" }} />, name: "IMPRIMIR" },
+    // {
+    //   icon: <DeleteForever sx={{ color: "secondary.main" }} />,
+    //   name: "ELIMINAR",
+    // },
   ];
 
   return (
@@ -58,7 +53,7 @@ export const SpeelCategory = () => {
 
       <SpeedDial
         ariaLabel="SpeedDial openIcon example"
-        sx={{ position: "absolute", bottom: 670, right: "30px" }}
+        sx={{ position: "absolute", bottom: 650, right: "30px" }}
         icon={<SpeedDialIcon openIcon={<Edit />} />}
         direction="left"
       >

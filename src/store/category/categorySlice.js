@@ -1,16 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-// const tempCategory = {
-//     _id: new Date().getTime(),
-//     name: 'Margaritas',
-//     description: 'Margaritas con tulipanes',
-//     user: {
-//         _id: '123',
-//         name: 'Fernando'
-//     }
-// }
+
 
 export const categorySlice = createSlice({
+
   name: "category",
 
   initialState: {
@@ -26,12 +19,14 @@ export const categorySlice = createSlice({
       name: '',
       description: ''
     },
+    // errorMessage: undefined,
   },
 
   reducers: {
     onSetActiveCategory: (state, { payload }) => {
       state.activeCategory = payload;
     },
+
 
     onAddNewCategory: (state, { payload }) => {
       state.categories.push(payload);
@@ -48,13 +43,15 @@ export const categorySlice = createSlice({
         return category;
       });
       state.activeUpdateCategory = true;
-      // state.activeCategory = payload;
+      // errorMessage = payload;
     },
+
 
     onDeleteCategory: (state, { payload }) => {
       state.categories = state.categories.filter((category) => category.id !== payload);
     },
 
+    
     onLoadCategory: (state, { payload = [] }) => {
       state.isLoadingCategory = false;
 
@@ -69,21 +66,25 @@ export const categorySlice = createSlice({
       });
     },
 
+
     onActiveCreateCategory: (state) => {
       state.activeCreateCategory = true;
       state.activeUpdateCategory = false;
     },
+
 
     onActiveUpdateCategory: (state) => {
       state.activeUpdateCategory = true;
       state.activeCreateCategory = false;
     },
 
+
     onActiveCategory: (stata, { payload }) => {
       stata.activeCategoryUpdate = payload;
     },
   },
 });
+
 
 export const {
   onSetActiveCategory,

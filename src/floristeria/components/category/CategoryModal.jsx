@@ -1,25 +1,21 @@
 import { useState, useEffect } from "react";
+
 import { useCategoryStore, useUiStore } from "../../../hooks";
 import { useSelector } from 'react-redux';
+
 import Modal from "react-modal";
 
 import {
-  Divider,
-  OutlinedInput,
-  FormControl,
-  Grid,
-  IconButton,
-  InputLabel,
-  Typography,
-  TextareaAutosize,
-  TextField,
+  FormControl, Grid, IconButton, Typography, TextField, Button,
 } from "@mui/material";
 
-import { Save } from "@mui/icons-material";
+import { Save, Close, HighlightOff } from "@mui/icons-material";
 import { Box } from "@mui/system";
 
 import Swal from "sweetalert2";
 import "sweetalert2/dist/sweetalert2.min.css";
+
+
 
 const customStyles = {
   content: {
@@ -35,10 +31,13 @@ const customStyles = {
 Modal.setAppElement("#root");
 
 export const CategoryModal = () => {
+
   const { isDateModalOpen, closeDateModal } = useUiStore();
 
   const { activeCategory, startSavingCategory, startUpdateCategory } = useCategoryStore();
+
   const { activeCreateCategory, activeUpdateCategory, activeCategoryUpdate } = useSelector(state => state.category)
+
   const [formValues, setFormValues] = useState({
     name: "",
     description: "",
@@ -67,23 +66,24 @@ export const CategoryModal = () => {
   const onSubmit = async (event) => {
     event.preventDefault();
 
-    if (formValues.name.length <= 0) {
+    if ( formValues.name.length <= 0  ) {
       Swal.fire("Nombre Incorrecto", "El nombre es obligatorio", "error");
       return;
     }
-    // console.log(formValues);
+
     // TODO:
     if (activeCreateCategory) {
       await startSavingCategory(formValues);
     }
+
     if (activeUpdateCategory) {
       await startUpdateCategory(formValues);
     }
+
     setFormValues({
       name: "",
       description: "",
     });
-
     closeDateModal();
   };
 
@@ -120,7 +120,7 @@ export const CategoryModal = () => {
         </Typography>
       </Box>
 
-      <form onSubmit={onSubmit}>
+      <form onSubmit={ onSubmit }>
         <Grid container>
           <Grid sx={{ mt: 2 }}>
             <Typography variant="h7" sx={{ ml: 2, mt: 1 }}>
@@ -162,12 +162,32 @@ export const CategoryModal = () => {
           </Grid>
         </Grid>
 
-        <IconButton
+        <Button 
+          sx={{ mt: 2, ml: 2, color: "white", background: "linear-gradient(111deg, #FE6B8B 45%, #FF8E53 85%)" }}
+          type="submit"
+          startIcon={ <Save /> } 
+          size="large"
+          variant="contained"
+        >
+          Guardar
+        </Button>
+
+        <Button 
+          sx={{ mt: 2, ml: 17, color: "white", background: "linear-gradient(111deg, #FE6B8B 45%, #FF8E53 85%)" }}
+          startIcon={ <HighlightOff /> } 
+          size="large"
+          variant="contained"
+          onClick={ onCloseModal }
+        >
+          Cerrar
+        </Button>
+
+        {/* <IconButton
           sx={{ mt: 1.5, ml: 1, color: "primary.main" }}
           type="submit"
         >
           <Save fontSize="large" />
-        </IconButton>
+        </IconButton> */}
       </form>
     </Modal>
   );
