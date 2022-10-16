@@ -21,7 +21,11 @@ export const categorySlice = createSlice({
     activeCategory: null,
     activeCreateCategory: false,
     activeUpdateCategory: false,
-    activeIdCategory: '',
+    activeCategoryUpdate: {
+      id: '',
+      name: '',
+      description: ''
+    },
   },
 
   reducers: {
@@ -47,12 +51,8 @@ export const categorySlice = createSlice({
       // state.activeCategory = payload;
     },
 
-    onDeleteCategory: (state) => {
-      if (state.activeCategory) {
-        state.categories = state.categories.filter(
-          (event) => event.id !== state.activeCategory.id
-        );
-      }
+    onDeleteCategory: (state, { payload }) => {
+      state.categories = state.categories.filter((category) => category.id !== payload);
     },
 
     onLoadCategory: (state, { payload = [] }) => {
@@ -79,8 +79,8 @@ export const categorySlice = createSlice({
       state.activeCreateCategory = false;
     },
 
-    onIdActiveCategory: (stata, { payload }) => {
-      stata.activeIdCategory = payload;
+    onActiveCategory: (stata, { payload }) => {
+      stata.activeCategoryUpdate = payload;
     },
   },
 });
@@ -93,5 +93,5 @@ export const {
   onLoadCategory,
   onActiveCreateCategory,
   onActiveUpdateCategory,
-  onIdActiveCategory
+  onActiveCategory
 } = categorySlice.actions;

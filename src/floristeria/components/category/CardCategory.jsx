@@ -7,7 +7,7 @@ import { useCategoryStore, useUiStore } from '../../../hooks';
 export const CardCategory = () => {
 
     const { categories, activeCreateCategory } = useSelector(state => state.category)
-    const { startLoadingCategory, startActiveUpdateCategory, startIdActiveCategory } = useCategoryStore();
+    const { startLoadingCategory, startActiveUpdateCategory, startIdActiveCategory, startDeleteCategory } = useCategoryStore();
     const { openDateModal } = useUiStore();
 
 
@@ -18,22 +18,20 @@ export const CardCategory = () => {
         startLoadingCategory()
     }, [])
 
-    console.log('Cargando categorias', activeCreateCategory);
 
 
-    const onUpdate = (idCategory) => {
+    const onUpdate = (category) => {
 
-        console.log('Hola estoy en Edit');
         startActiveUpdateCategory();
-        startIdActiveCategory(idCategory);
+        startIdActiveCategory(category);
 
-        console.log("este es el id", idCategory);
         openDateModal();
     }
 
-    // const handleClicDelete = () => {
-    //     startDeleteCategory();
-    // }
+    const onDelete = (category) => {
+        console.log(category);
+        startDeleteCategory(category);
+    }
 
 
 
@@ -42,7 +40,7 @@ export const CardCategory = () => {
         <Box sx={{ display: 'flex', flexWrap: 'wrap', minWidth: 300, width: '100%' }} >
 
             {
-                categories.map(category => (
+                categories.slice(0).reverse().map(category => (
                     <Card sx={{ maxWidth: 320, mt: 10, ml: 2.5, borderRadius: '15px' }} key={category.id} >
                         <CardMedia
                             component="img"
@@ -59,8 +57,8 @@ export const CardCategory = () => {
                             </Typography>
                         </CardContent>
                         <CardActions>
-                            <Button size="small" onClick={() => onUpdate(category.id)} >Editar</Button>
-                            <Button size="small" >Eliminar</Button>
+                            <Button size="small" onClick={() => onUpdate(category)} >Editar</Button>
+                            <Button size="small" onClick={() => onDelete(category.id)}>Eliminar</Button>
                         </CardActions>
                     </Card>
                 ))

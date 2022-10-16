@@ -7,7 +7,7 @@ import {
     onUpdateCategory,
     onActiveCreateCategory,
     onActiveUpdateCategory,
-    onIdActiveCategory
+    onActiveCategory
 } from '../store';
 
 import { floristeriaApi } from '../api';
@@ -17,13 +17,11 @@ export const useCategoryStore = () => {
 
     const dispatch = useDispatch();
 
-    const { categories, activeCategory, activeIdCategory } = useSelector(state => state.category);
-
+    const { categories, activeCategory, activeCategoryUpdate } = useSelector(state => state.category);
 
     const setActiveCategory = (categoryEvent) => {
         dispatch(onSetActiveCategory(categoryEvent))
     };
-
 
     const startSavingCategory = async (categoryEvent) => {
 
@@ -43,19 +41,15 @@ export const useCategoryStore = () => {
     }
 
     const startUpdateCategory = async (categoryEvent) => {
-        console.log(categoryEvent);
-        console.log(activeIdCategory);
-        await floristeriaApi.put(`/category/${activeIdCategory}`, categoryEvent);
-        dispatch(onUpdateCategory({ ...categoryEvent, id: activeIdCategory }));
+        await floristeriaApi.put(`/category/${activeCategoryUpdate.id}`, categoryEvent);
+        dispatch(onUpdateCategory({ ...categoryEvent, id: activeCategoryUpdate.id }));
     }
 
 
-    const startDeleteCategory = () => {
-
-        dispatch(onDeleteCategory());
+    const startDeleteCategory = async (idCategory) => {
+        await floristeriaApi.delete(`/category/${idCategory}`);
+        dispatch(onDeleteCategory(idCategory));
     }
-
-
 
     const startLoadingCategory = async () => {
 
@@ -63,7 +57,7 @@ export const useCategoryStore = () => {
 
             const { data } = await floristeriaApi.get('/category');
             dispatch(onLoadCategory(data.categories));
-            // console.log({ data });
+
 
         } catch (error) {
             console.log('Error en cargar las categorias');
@@ -81,8 +75,8 @@ export const useCategoryStore = () => {
     }
 
 
-    const startIdActiveCategory = (id) => {
-        dispatch(onIdActiveCategory(id))
+    const startIdActiveCategory = (category) => {
+        dispatch(onActiveCategory(category))
     }
 
 

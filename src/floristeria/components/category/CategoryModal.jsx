@@ -38,7 +38,7 @@ export const CategoryModal = () => {
   const { isDateModalOpen, closeDateModal } = useUiStore();
 
   const { activeCategory, startSavingCategory, startUpdateCategory } = useCategoryStore();
-  const { activeCreateCategory, activeUpdateCategory } = useSelector(state => state.category)
+  const { activeCreateCategory, activeUpdateCategory, activeCategoryUpdate } = useSelector(state => state.category)
   const [formValues, setFormValues] = useState({
     name: "",
     description: "",
@@ -49,6 +49,13 @@ export const CategoryModal = () => {
       setFormValues({ ...activeCategory });
     }
   }, [activeCategory]);
+
+  useEffect(() => {
+    setFormValues({
+      name: activeCategoryUpdate.name,
+      description: activeCategoryUpdate.description,
+    });
+  }, [activeCategoryUpdate]);
 
   const onInputChanged = ({ target }) => {
     setFormValues({
@@ -72,11 +79,11 @@ export const CategoryModal = () => {
     if (activeUpdateCategory) {
       await startUpdateCategory(formValues);
     }
-
     setFormValues({
       name: "",
       description: "",
     });
+
     closeDateModal();
   };
 
