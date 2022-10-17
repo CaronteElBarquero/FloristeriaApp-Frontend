@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-import { useCategoryStore, useUiStore } from "../../../hooks";
+import { useCategoryStore, useProductStore, useUiStore } from "../../../hooks";
 import { useSelector } from 'react-redux';
 
 import Modal from "react-modal";
@@ -35,28 +35,41 @@ Modal.setAppElement("#root");
 export const ProductModal = () => {
 
     const { isDateModalOpen, closeDateModal } = useUiStore();
-    const { categories } = useSelector(state => state.category)
-
+    const { categories } = useSelector(state => state.category);
+    const { startLoadingCategory} = useCategoryStore();
+    const { activeCreateProduct, activeUpdateProduct } = useSelector(state => state.product)
+    const {startUpdateProduct, startSavingProduct  } = useProductStore();
 
     //METODO PARA EL CAMBIO DE CATEGPRIAS
-    const [category, setCategory] = useState('');
+    const [category, setCategory] = useState(categories[0].id);
 
-    const handleCategoryChange = (event) => {
-        setCategory(event.target.value);
-    };
+    // const handleCategoryChange = (event) => {
+    //     setCategory(event.target.value);
+    // };
+
+    // useEffect(() => {
+    //   startLoadingCategory();
+    // }, []
+    
+
 
   
-
+    
 
   
-  const activeProduct = true;
+  // const activeProduct = true;
 //   const { activeCategory, startSavingCategory, startUpdateCategory } = useCategoryStore();
 
 //   const { activeCreateCategory, activeUpdateCategory, activeCategoryUpdate } = useSelector(state => state.category)
 
   const [formValues, setFormValues] = useState({
+    code: "",
     name: "",
     description: "",
+    price: 0,
+    stock: 0,
+    category,
+    image: "",
   });
 
 //   useEffect(() => {
@@ -80,27 +93,33 @@ export const ProductModal = () => {
   };
 
   const onSubmit = async (event) => {
-    // event.preventDefault();
+    event.preventDefault();
 
-    // if ( formValues.name.length <= 0  ) {
-    //   Swal.fire("Nombre Incorrecto", "El nombre es obligatorio", "error");
-    //   return;
-    // }
+    if ( formValues.name.length <= 0  ) {
+      Swal.fire("Nombre Incorrecto", "El nombre es obligatorio", "error");
+      return;
+    }
 
-    // // TODO:
-    // if (activeCreateCategory) {
-    //   await startSavingCategory(formValues);
-    // }
+    // TODO:
+    if (activeCreateProduct) {
 
-    // if (activeUpdateCategory) {
-    //   await startUpdateCategory(formValues);
-    // }
+      await startSavingProduct(formValues);
+    }
 
-    // setFormValues({
-    //   name: "",
-    //   description: "",
-    // });
-    // closeDateModal();
+    if (activeUpdateProduct) {
+      await startUpdateProduct(formValues);
+    }
+
+    setFormValues({
+      code: "",
+      name: "",
+      description: "",
+      price: 0,
+      stock: 0,
+      category,
+      image: "",
+    });
+    closeDateModal();
   };
 
   const onCloseModal = () => {
@@ -132,7 +151,7 @@ export const ProductModal = () => {
           sx={{ m: 1 }}
         >
           {
-            activeProduct ? 'Crear Producto' : 'Editar Producto'
+            activeCreateProduct ? 'Crear Producto' : 'Editar Producto'
           }
         </Typography>
       </Box>
@@ -156,7 +175,7 @@ export const ProductModal = () => {
                 type="text"
                 // placeholder="categoria"
                 name="code"
-                value={formValues.name}
+                value={formValues.code}
                 onChange={onInputChanged}
               />
             </FormControl>
@@ -199,8 +218,8 @@ export const ProductModal = () => {
                 label="L 0.00"
                 type="number"
                 // placeholder="categoria"
-                name="code"
-                value={formValues.name}
+                name="price"
+                value={formValues.price}
                 onChange={onInputChanged}
               />
             </FormControl>
@@ -222,7 +241,7 @@ export const ProductModal = () => {
                 type="number"
                 // placeholder="categoria"
                 name="stock"
-                value={formValues.name}
+                value={formValues.stock}
                 onChange={onInputChanged}
               />
             </FormControl>
@@ -244,7 +263,7 @@ export const ProductModal = () => {
                     type="text"
                     // placeholder="categoria"
                     name="description"
-                    value={formValues.name}
+                    value={formValues.description}
                     onChange={onInputChanged}
                 />
             </FormControl>
@@ -263,8 +282,8 @@ export const ProductModal = () => {
             <TextField
                 // id="outlined-select-currency"
                 select
-                value={ category }
-                onChange={ handleCategoryChange }
+                value={ formValues.category }
+                onChange={ onInputChanged }
                 name="category"
                 helperText="Seleccione una categoria"
             >

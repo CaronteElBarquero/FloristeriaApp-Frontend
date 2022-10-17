@@ -9,7 +9,7 @@ export const categorySlice = createSlice({
   initialState: {
     isLoadingCategory: true,
     categories: [
-      // tempCategory
+    
     ],
     activeCategory: null,
     activeCreateCategory: false,
