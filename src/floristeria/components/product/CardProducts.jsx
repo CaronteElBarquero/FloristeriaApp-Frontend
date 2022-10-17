@@ -32,6 +32,8 @@ export const CardProducts = () => {
 
 
     <Box sx={{ display: 'flex', flexWrap: 'wrap', minWidth: 300, width: '100%' }} >
+
+      
     
       <Card sx={{ maxWidth: 345, mt: 2, ml: 3, borderRadius: '15px' }}>
         <CardHeader

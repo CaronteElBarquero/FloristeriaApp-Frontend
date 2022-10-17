@@ -11,8 +11,7 @@ import {
 export const SpeelCategory = () => {
 
   const { openDateModal } = useUiStore();
-  const { categories, setActiveCategory, startActiveCreateCategory } =
-    useCategoryStore();
+  const { categories, setActiveCategory, startActiveCreateCategory } = useCategoryStore();
 
   //FUNCION PERMITE ABRIR EL MODAL PARA CREAR UNA NUEVA CATEGORIA
   const handleClickNew = () => {
