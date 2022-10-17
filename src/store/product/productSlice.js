@@ -26,9 +26,9 @@ export const productSlice = createSlice({
   },
 
   reducers: {
-    // onSetActiveCategory: (state, { payload }) => {
-    //   state.activeCategory = payload;
-    // },
+    onSetActiveProduct: (state, { payload }) => {
+      state.activeProduct = payload;
+    },
 
     onAddNewProduct: (state, { payload }) => {
       state.products.push(payload);
@@ -92,5 +92,6 @@ export const {
 	onLoadProduct, 
 	onActiveCreateProduct, 
 	onActiveUpdateProduct, 
-	onActiveProduct
+	onActiveProduct,
+  onSetActiveProduct
 } = productSlice.actions;
