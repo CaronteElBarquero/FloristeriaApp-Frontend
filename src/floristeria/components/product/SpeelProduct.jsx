@@ -2,7 +2,7 @@ import { ProductPage } from '../../pages';
 
 import { Box, SpeedDial, SpeedDialIcon, SpeedDialAction } from '@mui/material'
 import { CreateNewFolder,  DeleteForever, FileCopy, AutoFixHigh, Save, Print, Share, Edit  } from '@mui/icons-material';
-import { useUiStore } from '../../../hooks';
+import { useProductStore, useUiStore } from '../../../hooks';
 
 
 
@@ -12,14 +12,16 @@ export const SpeelProduct = () => {
   
   
   const { openDateModal } = useUiStore();
+  const {startActiveCreateProducto} = useProductStore();
   
-  
-  const handleClickProduct = () => {
+  const handleNewProduct = () => {
+    startActiveCreateProducto();
     openDateModal();
+
   };
   
   const actions = [
-    { icon: <CreateNewFolder onClick={ handleClickProduct } sx={{ color: 'secondary.main' }}  />, name: 'CREAR' },
+    { icon: <CreateNewFolder onClick={ handleNewProduct } sx={{ color: 'secondary.main' }}  />, name: 'CREAR' },
     { icon: <AutoFixHigh sx={{ color: 'secondary.main' }} />, name: 'EDITAR' },
     { icon: <Print sx={{ color: 'secondary.main' }} />, name: 'IMPRIMIR' },
     { icon: < DeleteForever sx={{ color: 'secondary.main' }} />, name: 'ELIMINAR' },

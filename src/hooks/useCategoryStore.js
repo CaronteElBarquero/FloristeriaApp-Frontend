@@ -47,6 +47,7 @@ export const useCategoryStore = () => {
 
         try {
             const { data } = await floristeriaApi.get('/category');
+            
             dispatch(onLoadCategory(data.categories));
 
         } catch (error) {

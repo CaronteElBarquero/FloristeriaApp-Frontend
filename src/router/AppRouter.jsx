@@ -5,15 +5,16 @@ import { useAuthStore } from '../hooks';
 import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
 import { AuthRoute } from '../auth/routes/AuthRoute';
 import { FloristeriaRoute } from '../floristeria/routes/FloristeriaRoute';
-
+import { useCategoryStore } from '../hooks/useCategoryStore';
 
 export const AppRouter = () => {
 
     const {  checkAuthToken, status } = useAuthStore();
-
+    const { startLoadingCategory} = useCategoryStore();
 
     useEffect(() => {
         checkAuthToken();
+        startLoadingCategory();
     }, []);
 
     
