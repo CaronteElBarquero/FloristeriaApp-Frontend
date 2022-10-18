@@ -22,8 +22,10 @@ export const useProductStore = () => {
     };
 
     const startUpdateProduct = async (productEvent) => {
-        await floristeriaApi.put(`/product/${activeProduct.id}`, productEvent);
-        dispatch(onUpdateProduct({ ...productEvent, id: activeProduct.id }));
+        const categoryData = productEvent.category.split(' ');
+        const dataFormat = {...productEvent, category: categoryData[0]}
+        await floristeriaApi.put(`/product/${activeProduct.id}`, dataFormat);
+        dispatch(onUpdateProduct({ ...productEvent, id: activeProduct.id, category: {_id: categoryData[0], name: categoryData[1]} }));
     };
 
     const startDeleteProduct = async (idProduct) => {
