@@ -24,7 +24,7 @@ export const CardProducts = () => {
 
   const {products  } = useSelector(state => state.product)
   const {startLoadingCategory} = useCategoryStore();
-  const {  startLoadingProduct, startActiveUpdateProduct, startIdActiveProduct } = useProductStore();
+  const {  startLoadingProduct, startActiveUpdateProduct, startIdActiveProduct, startDeleteProduct } = useProductStore();
   const { openDateModal } = useUiStore();
   const [expanded, setExpanded] = useState(false);
 
@@ -40,10 +40,13 @@ export const CardProducts = () => {
   };
 
   const onUpdate = (product) => {
-    console.log(product);
     startActiveUpdateProduct();
     startIdActiveProduct(product);
     openDateModal();
+  }
+
+  const onDelete = (productId) => {
+    startDeleteProduct(productId);
   }
 
   return (
@@ -89,7 +92,7 @@ export const CardProducts = () => {
             <AutoFixHigh  />
           </IconButton>
 
-          <IconButton aria-label="share" size="small" sx={{ color: 'secondary.main' }}>
+          <IconButton onClick={()=> onDelete(product.id)} aria-label="share" size="small" sx={{ color: 'secondary.main' }}>
             <DeleteForever />
           </IconButton>
 

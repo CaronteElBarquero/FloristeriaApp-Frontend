@@ -37,53 +37,63 @@ export const ProductModal = () => {
     const { isDateModalOpen, closeDateModal } = useUiStore();
     const { categories } = useSelector(state => state.category);
     const { startLoadingCategory} = useCategoryStore();
-    const { activeCreateProduct, activeUpdateProduct } = useSelector(state => state.product)
+    const { activeCreateProduct, activeUpdateProduct, activeProduct } = useSelector(state => state.product)
     const {startUpdateProduct, startSavingProduct  } = useProductStore();
 
-    //METODO PARA EL CAMBIO DE CATEGPRIAS
-    const [category, setCategory] = useState(categories[0].id);
+
+    const [categoryId, setCategoryId] = useState(null);
 
     // const handleCategoryChange = (event) => {
     //     setCategory(event.target.value);
     // };
 
-    // useEffect(() => {
-    //   startLoadingCategory();
-    // }, []
-    
+    useEffect(() => {
+      startLoadingCategory();
+    }, [])
 
-
-  
-    
-
-  
-  // const activeProduct = true;
-//   const { activeCategory, startSavingCategory, startUpdateCategory } = useCategoryStore();
-
-//   const { activeCreateCategory, activeUpdateCategory, activeCategoryUpdate } = useSelector(state => state.category)
+    useEffect(() => {
+      startLoadingCategory();
+      setCategoryId(categories[0].id);
+    }, [categories])
 
   const [formValues, setFormValues] = useState({
-    code: "",
+    code: '',
     name: "",
     description: "",
-    price: 0,
-    stock: 0,
-    category,
+    price: '',
+    stock: '',
+    category: "",
     image: "",
   });
 
-//   useEffect(() => {
-//     if (activeCategory !== null) {
-//       setFormValues({ ...activeCategory });
-//     }
-//   }, [activeCategory]);
+console.log(formValues); 
 
-//   useEffect(() => {
-//     setFormValues({
-//       name: activeCategoryUpdate.name,
-//       description: activeCategoryUpdate.description,
-//     });
-//   }, [activeCategoryUpdate]);
+  useEffect(() => {
+    if(activeUpdateProduct) {
+      setFormValues({
+        code: activeProduct.code,
+        name: activeProduct.name,
+        description: activeProduct.description,
+        price: activeProduct.price,
+        stock: activeProduct.stock,
+        category: activeProduct.category,
+        image: activeProduct.image,
+      });
+    }else{
+      setFormValues({
+        code: '',
+        name: '',
+        description: '',
+        price: '',
+        stock: '',
+        category: '',
+        image: '',
+      });
+    }
+  }, [activeProduct]);
+  console.log(categories, 'categories');
+
+
 
   const onInputChanged = ({ target }) => {
     setFormValues({
@@ -102,7 +112,6 @@ export const ProductModal = () => {
 
     // TODO:
     if (activeCreateProduct) {
-
       await startSavingProduct(formValues);
     }
 
@@ -110,15 +119,6 @@ export const ProductModal = () => {
       await startUpdateProduct(formValues);
     }
 
-    setFormValues({
-      code: "",
-      name: "",
-      description: "",
-      price: 0,
-      stock: 0,
-      category,
-      image: "",
-    });
     closeDateModal();
   };
 
@@ -276,21 +276,23 @@ export const ProductModal = () => {
                 Categoria
             </Typography>
             <FormControl
-                sx={{ m: 0.5, mt: 4, width: "%" }}
+                sx={{ m: 0.5, mt: 4, width: "80%" }}
                 variant="outlined"
             >
             <TextField
                 // id="outlined-select-currency"
+               label="Seleccione" 
+               id="select"
                 select
-                value={ formValues.category }
+                value={formValues.category?._id || ''}
                 onChange={ onInputChanged }
                 name="category"
-                helperText="Seleccione una categoria"
+                // helperText="Seleccione una categoria"
             >
                 {
-                    categories.map((category) => (
-                        <MenuItem key={category.id} value={category.id}>
-                            {category.name}
+                    categories?.map(({id, name}) => (
+                        <MenuItem key={id} value={id}>
+                            {name}
                         </MenuItem>
                     ))
                 }

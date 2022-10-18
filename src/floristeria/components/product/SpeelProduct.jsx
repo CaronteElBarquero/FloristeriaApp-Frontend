@@ -12,10 +12,28 @@ export const SpeelProduct = () => {
   
   
   const { openDateModal } = useUiStore();
-  const {startActiveCreateProducto} = useProductStore();
+  const {startActiveCreateProducto, setActiveProduct, startIdActiveProduct} = useProductStore();
   
   const handleNewProduct = () => {
-    startActiveCreateProducto();
+    // setActiveProduct({
+    // code: '',
+    // name: "",
+    // description: "",
+    // price: '',
+    // stock: '',
+    // category: "",
+    // image: "",
+    // });
+    startIdActiveProduct({
+      code: '',
+      name: "",
+      description: "",
+      price: '',
+      stock: '',
+      category: "",
+      image: "",
+      });
+      startActiveCreateProducto();
     openDateModal();
 
   };

@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { onActiveCreateProduct, onActiveProduct, onActiveUpdateProduct, onAddNewProduct, onDeleteProduct, onLoadProduct, onUpdateProduct } from '../store';
+import {onSetActiveProduct, onActiveCreateProduct, onActiveProduct, onActiveUpdateProduct, onAddNewProduct, onDeleteProduct, onLoadProduct, onUpdateProduct } from '../store';
 
 import { floristeriaApi } from '../api';
 
@@ -10,12 +10,11 @@ export const useProductStore = () => {
 
     const { activeProduct } = useSelector(state => state.product);
 
-    // const setActiveCategory = (categoryEvent) => {
-    //     dispatch(onSetActiveCategory(categoryEvent))
-    // };
+    const setActiveProduct = (productEvent) => {
+        dispatch(onSetActiveProduct(productEvent))
+    };
 
     const startSavingProduct = async (productEvent) => {
-        console.log(productEvent);
         const { data } = await floristeriaApi.post('/product', productEvent);
         console.log({ data })
         dispatch(onAddNewProduct({ ...productEvent, id: data.product.id }))
@@ -27,6 +26,7 @@ export const useProductStore = () => {
     };
 
     const startDeleteProduct = async (idProduct) => {
+        console.log(idProduct);
         await floristeriaApi.delete(`/product/${idProduct}`);
         dispatch(onDeleteProduct(idProduct));
     };
@@ -66,7 +66,8 @@ export const useProductStore = () => {
 		startLoadingProduct,
 		startActiveCreateProducto,
 		startActiveUpdateProduct,
-		startIdActiveProduct
+		startIdActiveProduct,
+        setActiveProduct
       
 
     }
