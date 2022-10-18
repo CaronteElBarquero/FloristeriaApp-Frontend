@@ -54,73 +54,71 @@ export const CardProducts = () => {
 
     <Box sx={{ display: 'flex', flexWrap: 'wrap', minWidth: 300, width: '100%' }} >
 
-      
+
     
-    {
-      products.slice(0).reverse().map(product => (
-        <Card sx={{ maxWidth: 345, mt: 2, ml: 3, borderRadius: '15px' }} key={product.id}>
-        <CardHeader
-          avatar={
-            <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-              G
-            </Avatar>
-          }
-          action={
-            <IconButton aria-label="settings">
-              <MoreVert />
-            </IconButton>
-          }
-          title={product.name}
-          subheader={product.category?.name}
-        />
-        <CardMedia
-          component="img"
-          height="194"
-          image={product.image ? product.image.secure_url : 'http://localhost:3000/src/assets/1.jpg'}
-          alt="Paella dish"
-        />
-        <CardContent>
-          <Typography variant="body2" color="text.secondary">
-           {
-            product.price
-           }
-          </Typography>
-        </CardContent>
-
-        <CardActions disableSpacing>
-          <IconButton onClick={()=>onUpdate(product)} aria-label="add to favorites" size="small" sx={{ mr: 1, color: 'secondary.main' }}>
-            <AutoFixHigh  />
-          </IconButton>
-
-          <IconButton onClick={()=> onDelete(product.id)} aria-label="share" size="small" sx={{ color: 'secondary.main' }}>
-            <DeleteForever />
-          </IconButton>
-
-          <ExpandMore
-            expand={expanded}
-            onClick={handleExpandClick}
-            aria-expanded={expanded}
-            aria-label="show more"
-          >
-            <ExpandMoreIcon />
-          </ExpandMore>
-        </CardActions>
-
-        <Collapse in={expanded} timeout="auto" unmountOnExit>
+      {
+        products.slice(0).reverse().map(product => (
+          <Card sx={{ maxWidth: 345, mt: 3, ml: 3, borderRadius: '15px' }} key={product.id}>
+          <CardHeader
+            avatar={
+              <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
+                G
+              </Avatar>
+            }
+            action={
+              <IconButton aria-label="settings">
+                <MoreVert />
+              </IconButton>
+            }
+            title={product.name}
+            subheader={product.category?.name}
+          />
+          <CardMedia
+            component="img"
+            height="194"
+            image={product.image ? product.image.secure_url : 'http://localhost:3000/src/assets/1.jpg'}
+            alt="Paella dish"
+          />
           <CardContent>
-            <Typography paragraph>Descripción:</Typography>
-            <Typography paragraph>
-              {
-                product.description
-              }
+            <Typography variant="body2" color="text.secondary">
+            {
+              product.price
+            }
             </Typography>
           </CardContent>
-        </Collapse>
-      </Card>
-      ))
-    }
 
-      
+          <CardActions disableSpacing>
+            <IconButton onClick={()=>onUpdate(product)} aria-label="add to favorites" size="small" sx={{ mr: 1, color: 'secondary.main' }}>
+              <AutoFixHigh  />
+            </IconButton>
+
+            <IconButton onClick={()=> onDelete(product.id)} aria-label="share" size="small" sx={{ color: 'secondary.main' }}>
+              <DeleteForever />
+            </IconButton>
+
+            <ExpandMore
+              expand={expanded}
+              onClick={handleExpandClick}
+              aria-expanded={expanded}
+              aria-label="show more"
+            >
+              <ExpandMoreIcon />
+            </ExpandMore>
+          </CardActions>
+
+          <Collapse in={expanded} timeout="auto" unmountOnExit>
+            <CardContent>
+              <Typography paragraph>Descripción:</Typography>
+              <Typography paragraph>
+                {
+                  product.description
+                }
+              </Typography>
+            </CardContent>
+          </Collapse>
+        </Card>
+        ))
+      }
 
     </Box>
 

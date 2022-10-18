@@ -1,23 +1,26 @@
 import { useState, useEffect } from "react";
 
 import { useCategoryStore, useProductStore, useUiStore } from "../../../hooks";
-import { useSelector } from 'react-redux';
+import { useSelector } from "react-redux";
 
 import Modal from "react-modal";
 
 import {
-  FormControl, Grid, IconButton, Typography, TextField, Button, InputAdornment, MenuItem,
+  FormControl,
+  Grid,
+  IconButton,
+  Typography,
+  TextField,
+  Button,
+  InputAdornment,
+  MenuItem,
 } from "@mui/material";
 
 import { Save, Close, HighlightOff, PhotoCamera } from "@mui/icons-material";
 import { Box } from "@mui/system";
 
-
-
 import Swal from "sweetalert2";
 import "sweetalert2/dist/sweetalert2.min.css";
-
-
 
 const customStyles = {
   content: {
@@ -33,43 +36,42 @@ const customStyles = {
 Modal.setAppElement("#root");
 
 export const ProductModal = () => {
+  const { isDateModalOpen, closeDateModal } = useUiStore();
+  const { categories } = useSelector((state) => state.category);
+  const { startLoadingCategory } = useCategoryStore();
+  const { activeCreateProduct, activeUpdateProduct, activeProduct } =
+    useSelector((state) => state.product);
+  const { startUpdateProduct, startSavingProduct } = useProductStore();
 
-    const { isDateModalOpen, closeDateModal } = useUiStore();
-    const { categories } = useSelector(state => state.category);
-    const { startLoadingCategory} = useCategoryStore();
-    const { activeCreateProduct, activeUpdateProduct, activeProduct } = useSelector(state => state.product)
-    const {startUpdateProduct, startSavingProduct  } = useProductStore();
+  const [categoryId, setCategoryId] = useState(null);
 
+  // const handleCategoryChange = (event) => {
+  //     setCategory(event.target.value);
+  // };
 
-    const [categoryId, setCategoryId] = useState(null);
+  useEffect(() => {
+    startLoadingCategory();
+  }, []);
 
-    // const handleCategoryChange = (event) => {
-    //     setCategory(event.target.value);
-    // };
-
-    useEffect(() => {
-      startLoadingCategory();
-    }, [])
-
-    useEffect(() => {
-      startLoadingCategory();
-      setCategoryId(categories[0].id);
-    }, [categories])
+  useEffect(() => {
+    startLoadingCategory();
+    setCategoryId(categories[0].id);
+  }, [categories]);
 
   const [formValues, setFormValues] = useState({
-    code: '',
+    code: "",
     name: "",
     description: "",
-    price: '',
-    stock: '',
+    price: "",
+    stock: "",
     category: "",
     image: "",
   });
 
-console.log(formValues); 
+  // console.log(formValues);
 
   useEffect(() => {
-    if(activeUpdateProduct) {
+    if (activeUpdateProduct) {
       setFormValues({
         code: activeProduct.code,
         name: activeProduct.name,
@@ -79,21 +81,19 @@ console.log(formValues);
         category: activeProduct.category,
         image: activeProduct.image,
       });
-    }else{
+    } else {
       setFormValues({
-        code: '',
-        name: '',
-        description: '',
-        price: '',
-        stock: '',
-        category: '',
-        image: '',
+        code: "",
+        name: "",
+        description: "",
+        price: "",
+        stock: "",
+        category: "",
+        image: "",
       });
     }
   }, [activeProduct]);
-  console.log(categories, 'categories');
-
-
+  // console.log(categories, 'categories');
 
   const onInputChanged = ({ target }) => {
     setFormValues({
@@ -105,7 +105,7 @@ console.log(formValues);
   const onSubmit = async (event) => {
     event.preventDefault();
 
-    if ( formValues.name.length <= 0  ) {
+    if (formValues.name.length <= 0) {
       Swal.fire("Nombre Incorrecto", "El nombre es obligatorio", "error");
       return;
     }
@@ -124,7 +124,6 @@ console.log(formValues);
 
   const onCloseModal = () => {
     closeDateModal();
-
   };
 
   return (
@@ -150,18 +149,18 @@ console.log(formValues);
           fontSize="large"
           sx={{ m: 1 }}
         >
-          {
-            activeCreateProduct ? 'Crear Producto' : 'Editar Producto'
-          }
+          {activeCreateProduct ? "Crear Producto" : "Editar Producto"}
         </Typography>
       </Box>
 
-      <form onSubmit={ onSubmit }>
-
-
-    <Grid container spacing={0.5}>
-
-        <Grid item xs={12} sm={5.5} sx={{ mt: 2, ml: 3, display: 'flex', flexDirection: 'row'}} >
+      <form onSubmit={onSubmit}>
+        <Grid container spacing={0.5}>
+          <Grid
+            item
+            xs={12}
+            sm={5.5}
+            sx={{ mt: 2, ml: 3, display: "flex", flexDirection: "row" }}
+          >
             <Typography variant="h7" sx={{ ml: 1, mt: 4, mr: 0.5 }}>
               Codigo
             </Typography>
@@ -179,12 +178,15 @@ console.log(formValues);
                 onChange={onInputChanged}
               />
             </FormControl>
-        </Grid>
+          </Grid>
 
-
-        <Grid item xs={12} sm={5} sx={{ mt: 2, display: 'flex', flexDirection: 'row'}}  >
-    
-            <Typography variant="h7" sx={{ ml: 1, mt: 4, mr: 0.5 }}  >
+          <Grid
+            item
+            xs={12}
+            sm={5}
+            sx={{ mt: 2, display: "flex", flexDirection: "row" }}
+          >
+            <Typography variant="h7" sx={{ ml: 1, mt: 4, mr: 0.5 }}>
               Nombre
             </Typography>
             <FormControl
@@ -201,11 +203,14 @@ console.log(formValues);
                 onChange={onInputChanged}
               />
             </FormControl>
+          </Grid>
 
-        </Grid>
-
-
-        <Grid item xs={12} sm={5.5} sx={{ mt: 2, ml: 3, display: 'flex', flexDirection: 'row'}} >
+          <Grid
+            item
+            xs={12}
+            sm={5.5}
+            sx={{ mt: 2, ml: 3, display: "flex", flexDirection: "row" }}
+          >
             <Typography variant="h7" sx={{ ml: 1, mt: 4, mr: 1 }}>
               Precio
             </Typography>
@@ -223,12 +228,15 @@ console.log(formValues);
                 onChange={onInputChanged}
               />
             </FormControl>
-        </Grid>
+          </Grid>
 
-
-        <Grid item xs={12} sm={5} sx={{ mt: 2, display: 'flex', flexDirection: 'row'}}  >
-    
-            <Typography variant="h7" sx={{ ml: 2, mt: 4, mr: 1.5 }}  >
+          <Grid
+            item
+            xs={12}
+            sm={5}
+            sx={{ mt: 2, display: "flex", flexDirection: "row" }}
+          >
+            <Typography variant="h7" sx={{ ml: 2, mt: 4, mr: 1.5 }}>
               Stock
             </Typography>
             <FormControl
@@ -245,105 +253,103 @@ console.log(formValues);
                 onChange={onInputChanged}
               />
             </FormControl>
+          </Grid>
 
-        </Grid>
-
-        <Grid item xs={12} sm={6} sx={{ mt: 0, display: 'flex', flexDirection: 'row'}}  >
-    
-            <Typography variant="h7" sx={{ ml: 2, mt: 4 }}  >
-            Descripcion
+          <Grid
+            item
+            xs={12}
+            sm={6}
+            sx={{ mt: 0, display: "flex", flexDirection: "row" }}
+          >
+            <Typography variant="h7" sx={{ ml: 2, mt: 4 }}>
+              Descripcion
             </Typography>
-            <FormControl
-                sx={{ m: 1, mt: 2.5, width: "%" }}
-                variant="outlined"
-            >
-                <TextField
-                    sx={{ width: 460 }}
-                    label="Descripcion"
-                    type="text"
-                    // placeholder="categoria"
-                    name="description"
-                    value={formValues.description}
-                    onChange={onInputChanged}
-                />
+            <FormControl sx={{ m: 1, mt: 2.5, width: "%" }} variant="outlined">
+              <TextField
+                sx={{ width: 460 }}
+                label="Descripcion"
+                type="text"
+                // placeholder="categoria"
+                name="description"
+                value={formValues.description}
+                onChange={onInputChanged}
+              />
             </FormControl>
+          </Grid>
 
-        </Grid>
-
-        <Grid item xs={12} sm={6} sx={{ mr: 2,  display: 'flex', flexDirection: 'row'}}  >
-    
-            <Typography variant="h7" sx={{ ml: 4, mt: 6.5, mr: 2 }}  >
-                Categoria
+          <Grid
+            item
+            xs={12}
+            sm={6}
+            sx={{ mr: 2, display: "flex", flexDirection: "row" }}
+          >
+            <Typography variant="h7" sx={{ ml: 4, mt: 6.5, mr: 2 }}>
+              Categoria
             </Typography>
             <FormControl
-                sx={{ m: 0.5, mt: 4, width: "80%" }}
-                variant="outlined"
+              sx={{ m: 0.5, mt: 4, width: "80%" }}
+              variant="outlined"
             >
-            <TextField
+              <TextField
                 // id="outlined-select-currency"
-               label="Seleccione" 
-               id="select"
+                label="Seleccione"
+                id="select"
                 select
-                value={formValues.category?._id || ''}
-                onChange={ onInputChanged }
+                value={formValues.category?._id || ""}
+                onChange={onInputChanged}
                 name="category"
                 // helperText="Seleccione una categoria"
-            >
-                {
-                    categories?.map(({id, name}) => (
-                        <MenuItem key={id} value={id}>
-                            {name}
-                        </MenuItem>
-                    ))
-                }
-
-            </TextField>
-
+              >
+                {categories?.map(({ id, name }) => (
+                  <MenuItem key={id} value={id}>
+                    {name}
+                  </MenuItem>
+                ))}
+              </TextField>
             </FormControl>
-
+          </Grid>
         </Grid>
-        
 
-    </Grid>
-    
+        <IconButton
+          sx={{ mt: 4, ml: 5, color: "primary.main" }}
+          aria-label="upload picture"
+          component="label"
+          size="large"
+        >
+          <input hidden accept="image/*" type="file" />
+          <PhotoCamera />
+        </IconButton>
 
-            <IconButton
-                sx={{ mt: 4, ml: 5, color: "primary.main" }} aria-label="upload picture" component="label"
-                size="large"
-            >
-                <input hidden accept="image/*" type="file" />
-                <PhotoCamera />
-            </IconButton>
-    
-    
-            <Button 
-              sx={{ mt: 4, ml: 8, color: "white", background: "linear-gradient(111deg, #FE6B8B 45%, #FF8E53 85%)" }}
-              type="submit"
-              startIcon={ <Save /> } 
-            //   size="large"
-              variant="contained"
-            >
+        <Button
+          sx={{
+            mt: 4,
+            ml: 8,
+            color: "white",
+            background: "linear-gradient(111deg, #FE6B8B 45%, #FF8E53 85%)",
+          }}
+          type="submit"
+          startIcon={<Save />}
+          //   size="large"
+          variant="contained"
+        >
+          Guardar
+        </Button>
 
-              Guardar
-            </Button>
-    
-    
-            <Button 
-              sx={{ mt: 4, ml: 8, color: "white", background: "linear-gradient(111deg, #FE6B8B 45%, #FF8E53 85%)" }}
-              startIcon={ <HighlightOff /> } 
-            //   size="large"
-              variant="contained"
-              onClick={ onCloseModal }
-            >
-              Cerrar
-            </Button>
-
-        </form>
+        <Button
+          sx={{
+            mt: 4,
+            ml: 8,
+            color: "white",
+            background: "linear-gradient(111deg, #FE6B8B 45%, #FF8E53 85%)",
+          }}
+          startIcon={<HighlightOff />}
+          //   size="large"
+          variant="contained"
+          onClick={onCloseModal}
+        >
+          Cerrar
+        </Button>
+      </form>
     </Modal>
-
-
-
-    //   </form>
-    // </Modal>
   );
 };
