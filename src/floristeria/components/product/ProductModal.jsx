@@ -41,7 +41,7 @@ export const ProductModal = () => {
     const {startUpdateProduct, startSavingProduct  } = useProductStore();
 
 
-    const [categoryId, setCategoryId] = useState(null);
+    // const [categoryId, setCategoryId] = useState(null);
 
     // const handleCategoryChange = (event) => {
     //     setCategory(event.target.value);
@@ -51,10 +51,10 @@ export const ProductModal = () => {
       startLoadingCategory();
     }, [])
 
-    useEffect(() => {
-      startLoadingCategory();
-      setCategoryId(categories[0].id);
-    }, [categories])
+    // useEffect(() => {
+    //   startLoadingCategory();
+    //   setCategoryId(categories[0].id);
+    // }, [categories])
 
   const [formValues, setFormValues] = useState({
     code: '',
@@ -62,37 +62,42 @@ export const ProductModal = () => {
     description: "",
     price: '',
     stock: '',
-    category: "",
+    category: '',
     image: "",
   });
 
-console.log(formValues); 
 
   useEffect(() => {
-    if(activeUpdateProduct) {
+      if(activeCreateProduct && !activeUpdateProduct){
+        setFormValues({
+        code: '',
+        name: '',
+        description: '',
+        price: '',
+        stock: '',
+        category: 'default',
+        image: '',
+      });
+    
+    }
+  }, [ activeProduct]);
+
+
+
+  useEffect(() => {
+    if(activeUpdateProduct && !activeCreateProduct) {
       setFormValues({
         code: activeProduct.code,
         name: activeProduct.name,
         description: activeProduct.description,
         price: activeProduct.price,
         stock: activeProduct.stock,
-        category: activeProduct.category,
+        category: activeProduct.category._id +  ' ' + activeProduct.category.name,
         image: activeProduct.image,
       });
-    }else{
-      setFormValues({
-        code: '',
-        name: '',
-        description: '',
-        price: '',
-        stock: '',
-        category: '',
-        image: '',
-      });
     }
-  }, [activeProduct]);
-  console.log(categories, 'categories');
-
+  }, [activeProduct])
+  
 
 
   const onInputChanged = ({ target }) => {
@@ -104,6 +109,7 @@ console.log(formValues);
 
   const onSubmit = async (event) => {
     event.preventDefault();
+    
 
     if ( formValues.name.length <= 0  ) {
       Swal.fire("Nombre Incorrecto", "El nombre es obligatorio", "error");
@@ -281,18 +287,26 @@ console.log(formValues);
             >
             <TextField
                 // id="outlined-select-currency"
-               label="Seleccione" 
-               id="select"
+               label="Categoria" 
+              //  placeholder="Seleccione"
+              //  id="select"
                 select
-                value={formValues.category?._id || ''}
+                value={formValues.category}
                 onChange={ onInputChanged }
                 name="category"
                 // helperText="Seleccione una categoria"
             >
+              <MenuItem disabled={true} value={'default'}>Seleccione</MenuItem>
                 {
-                    categories?.map(({id, name}) => (
-                        <MenuItem key={id} value={id}>
-                            {name}
+                    categories?.map((cat) => (
+                        <MenuItem 
+                        key={cat.id} 
+                        value={cat.id +" "+ cat.name}
+                        // value={activeUpdateProduct ? cat.id : activeCreateProduct ? cat.id +" "+ cat.name : 'default'}
+
+                        
+                        >
+                            {cat.name}
                         </MenuItem>
                     ))
                 }

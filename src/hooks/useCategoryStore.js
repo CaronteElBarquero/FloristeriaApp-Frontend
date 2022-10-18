@@ -27,7 +27,6 @@ export const useCategoryStore = () => {
 
         // CREANDO
         const { data } = await floristeriaApi.post('/category', categoryEvent);
-        console.log({ data })
 
         dispatch(onAddNewCategory({ ...categoryEvent, id: data.category.id }))
     };

@@ -15,9 +15,10 @@ export const useProductStore = () => {
     };
 
     const startSavingProduct = async (productEvent) => {
-        const { data } = await floristeriaApi.post('/product', productEvent);
-        console.log({ data })
-        dispatch(onAddNewProduct({ ...productEvent, id: data.product.id }))
+        const categoryData = productEvent.category.split(' ');
+        const dataFormat = {...productEvent, category: categoryData[0]}
+        const { data } = await floristeriaApi.post('/product', dataFormat);
+        dispatch(onAddNewProduct({ ...productEvent, id: data.product.id, category: {_id: categoryData[0], name: categoryData[1]} }))
     };
 
     const startUpdateProduct = async (productEvent) => {
@@ -26,7 +27,6 @@ export const useProductStore = () => {
     };
 
     const startDeleteProduct = async (idProduct) => {
-        console.log(idProduct);
         await floristeriaApi.delete(`/product/${idProduct}`);
         dispatch(onDeleteProduct(idProduct));
     };
