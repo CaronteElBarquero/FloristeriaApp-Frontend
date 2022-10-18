@@ -30,7 +30,7 @@ export const SpeelProduct = () => {
       description: "",
       price: '',
       stock: '',
-      category: "",
+      category: "default",
       image: "",
       });
       startActiveCreateProducto();

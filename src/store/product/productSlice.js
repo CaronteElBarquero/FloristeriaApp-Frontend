@@ -19,7 +19,7 @@ export const productSlice = createSlice({
 		description: '',
 		price: '',
 		stock: '',
-		category: '',
+		category: null, 
 		image: ''
     },
     // errorMessage: undefined,
