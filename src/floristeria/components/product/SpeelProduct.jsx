@@ -40,9 +40,9 @@ export const SpeelProduct = () => {
   
   const actions = [
     { icon: <CreateNewFolder onClick={ handleNewProduct } sx={{ color: 'secondary.main' }}  />, name: 'CREAR' },
-    { icon: <AutoFixHigh sx={{ color: 'secondary.main' }} />, name: 'EDITAR' },
-    { icon: <Print sx={{ color: 'secondary.main' }} />, name: 'IMPRIMIR' },
-    { icon: < DeleteForever sx={{ color: 'secondary.main' }} />, name: 'ELIMINAR' },
+    // { icon: <AutoFixHigh sx={{ color: 'secondary.main' }} />, name: 'EDITAR' },
+    // { icon: <Print sx={{ color: 'secondary.main' }} />, name: 'IMPRIMIR' },
+    // { icon: < DeleteForever sx={{ color: 'secondary.main' }} />, name: 'ELIMINAR' },
   ];
 
   return (
@@ -54,7 +54,7 @@ export const SpeelProduct = () => {
       
       <SpeedDial
         ariaLabel="SpeedDial openIcon example"
-        sx={{ position: 'absolute', bottom: 410, right: '15px' }}
+        sx={{ position: 'absolute', bottom: 580, right: '30px' }}
         icon={<SpeedDialIcon openIcon={<Edit />} />}
         direction='down'
       >

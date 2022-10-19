@@ -80,16 +80,12 @@ export const CardCategory = () => {
     }
 
 
- 
 
     return (
-
 
         <Box sx={{ display: 'flex', flexWrap: 'wrap', minWidth: 300, width: '100%' }} >
 
             {
-
-
                 categories[0]?.name !== 'Sin categoría' && (
                 categories.slice(0).reverse().map(category => (
                     <Card sx={{ maxWidth: 320, mt: 9, ml: 4, borderRadius: '15px' }} key={category.id} >

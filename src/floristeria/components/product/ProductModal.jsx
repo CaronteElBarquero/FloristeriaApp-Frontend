@@ -1,23 +1,28 @@
 import { useState, useEffect } from "react";
 
 import { useCategoryStore, useProductStore, useUiStore } from "../../../hooks";
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from "react-redux";
 
 import Modal from "react-modal";
 
 import {
-  FormControl, Grid, IconButton, Typography, TextField, Button, InputAdornment, MenuItem,
+  FormControl,
+  Grid,
+  IconButton,
+  Typography,
+  TextField,
+  Button,
+  InputAdornment,
+  MenuItem,
+  Input,
 } from "@mui/material";
 
-import { Save, Close, HighlightOff, PhotoCamera } from "@mui/icons-material";
+import { Save, Close, HighlightOff, PhotoCamera, UploadOutlined } from "@mui/icons-material";
 import { Box } from "@mui/system";
-
-
 
 import Swal from "sweetalert2";
 import "sweetalert2/dist/sweetalert2.min.css";
-
-
+import { useRef } from "react";
 
 const customStyles = {
   content: {
@@ -34,71 +39,70 @@ Modal.setAppElement("#root");
 
 export const ProductModal = () => {
 
-    const { isDateModalOpen, closeDateModal } = useUiStore();
-    const { categories } = useSelector(state => state.category);
-    const { startLoadingCategory} = useCategoryStore();
-    const { activeCreateProduct, activeUpdateProduct, activeProduct } = useSelector(state => state.product)
-    const {startUpdateProduct, startSavingProduct  } = useProductStore();
+  const dispatch = useDispatch();
+  
+  const [profile, setProfile] = useState();
 
+  const { isDateModalOpen, closeDateModal } = useUiStore();
 
-    // const [categoryId, setCategoryId] = useState(null);
+  const { categories } = useSelector((state) => state.category);
 
-    // const handleCategoryChange = (event) => {
-    //     setCategory(event.target.value);
-    // };
+  const { startLoadingCategory } = useCategoryStore();
 
-    useEffect(() => {
-      startLoadingCategory();
-    }, [])
+  const { activeCreateProduct, activeUpdateProduct, activeProduct } = useSelector((state) => state.product);
 
-    // useEffect(() => {
-    //   startLoadingCategory();
-    //   setCategoryId(categories[0].id);
-    // }, [categories])
+  const { startUpdateProduct, startSavingProduct, startUploadingFiles } = useProductStore();
+
+  //SIMULANDO EL CLICK PARA SUBIR ARCHIVOS
+  const fileInputRef = useRef();
+ 
+  useEffect(() => {
+    startLoadingCategory();
+  }, []);
+
+  // useEffect(() => {
+  //   startLoadingCategory();
+  //   setCategoryId(categories[0].id);
+  // }, [categories])
 
   const [formValues, setFormValues] = useState({
-    code: '',
+    code: "",
     name: "",
     description: "",
-    price: '',
-    stock: '',
-    category: '',
+    price: "",
+    stock: "",
+    category: "",
     image: "",
   });
 
-
   useEffect(() => {
-      if(activeCreateProduct && !activeUpdateProduct){
-        setFormValues({
-        code: '',
-        name: '',
-        description: '',
-        price: '',
-        stock: '',
-        category: 'default',
-        image: '',
+    if (activeCreateProduct && !activeUpdateProduct) {
+      setFormValues({
+        code: "",
+        name: "",
+        description: "",
+        price: "",
+        stock: "",
+        category: "default",
+        image: "",
       });
-    
     }
-  }, [ activeProduct]);
-
-
+  }, [activeProduct]);
 
   useEffect(() => {
-    if(activeUpdateProduct && !activeCreateProduct) {
+    if (activeUpdateProduct && !activeCreateProduct) {
       setFormValues({
         code: activeProduct.code,
         name: activeProduct.name,
         description: activeProduct.description,
         price: activeProduct.price,
         stock: activeProduct.stock,
-        category: activeProduct.category._id +  ' ' + activeProduct.category.name,
+        category:
+          activeProduct.category._id + " " + activeProduct.category.name,
         image: activeProduct.image,
       });
     }
-  }, [activeProduct])
-  
-
+  }, [activeProduct]);
 
   const onInputChanged = ({ target }) => {
     setFormValues({
@@ -109,9 +113,8 @@ export const ProductModal = () => {
 
   const onSubmit = async (event) => {
     event.preventDefault();
-    
 
-    if ( formValues.name.length <= 0  ) {
+    if (formValues.name.length <= 0) {
       Swal.fire("Nombre Incorrecto", "El nombre es obligatorio", "error");
       return;
     }
@@ -128,9 +131,20 @@ export const ProductModal = () => {
     closeDateModal();
   };
 
+  const onFileInputChange = ({ target }) => {
+
+    if ( target.files > 0 ) return;
+
+      // TODO: agregar una imagen
+      dispatch( startUploadingFiles( target.files ) );
+
+
+    // console.log( 'subiendo archivos' );
+  }
+
+
   const onCloseModal = () => {
     closeDateModal();
-
   };
 
   return (
@@ -156,18 +170,18 @@ export const ProductModal = () => {
           fontSize="large"
           sx={{ m: 1 }}
         >
-          {
-            activeCreateProduct ? 'Crear Producto' : 'Editar Producto'
-          }
+          {activeCreateProduct ? "Crear Producto" : "Editar Producto"}
         </Typography>
       </Box>
 
-      <form onSubmit={ onSubmit }>
-
-
-    <Grid container spacing={0.5}>
-
-        <Grid item xs={12} sm={5.5} sx={{ mt: 2, ml: 3, display: 'flex', flexDirection: 'row'}} >
+      <form onSubmit={onSubmit}>
+        <Grid container spacing={0.5}>
+          <Grid
+            item
+            xs={12}
+            sm={5.5}
+            sx={{ mt: 1.5, ml: 4, display: "flex", flexDirection: "row" }}
+          >
             <Typography variant="h7" sx={{ ml: 1, mt: 4, mr: 0.5 }}>
               Codigo
             </Typography>
@@ -176,21 +190,23 @@ export const ProductModal = () => {
               variant="outlined"
             >
               <TextField
-                sx={{ width: 180 }}
+                sx={{ mt: 1, width: 180 }}
                 label="Codigo"
                 type="text"
-                // placeholder="categoria"
                 name="code"
                 value={formValues.code}
                 onChange={onInputChanged}
               />
             </FormControl>
-        </Grid>
+          </Grid>
 
-
-        <Grid item xs={12} sm={5} sx={{ mt: 2, display: 'flex', flexDirection: 'row'}}  >
-    
-            <Typography variant="h7" sx={{ ml: 1, mt: 4, mr: 0.5 }}  >
+          <Grid
+            item
+            xs={12}
+            sm={5}
+            sx={{ mt: 1.5, mr: 1, display: "flex", flexDirection: "row" }}
+          >
+            <Typography variant="h7" sx={{ ml: 1, mt: 4, mr: 0.5 }}>
               Nombre
             </Typography>
             <FormControl
@@ -201,40 +217,44 @@ export const ProductModal = () => {
                 sx={{ width: 180 }}
                 label="Nombre"
                 type="text"
-                // placeholder="categoria"
                 name="name"
                 value={formValues.name}
                 onChange={onInputChanged}
               />
             </FormControl>
+          </Grid>
 
-        </Grid>
-
-
-        <Grid item xs={12} sm={5.5} sx={{ mt: 2, ml: 3, display: 'flex', flexDirection: 'row'}} >
-            <Typography variant="h7" sx={{ ml: 1, mt: 4, mr: 1 }}>
+          <Grid
+            item
+            xs={12}
+            sm={5.5}
+            sx={{ mt: 1, ml: 4, display: "flex", flexDirection: "row" }}
+          >
+            <Typography variant="h7" sx={{ ml: 1.5, mt: 4, mr: 1 }}>
               Precio
             </Typography>
             <FormControl
-              sx={{ m: 2, mt: 2.5, width: "90%" }}
+              sx={{ m: 2,  mt: 2.5, width: "90%" }}
               variant="outlined"
             >
               <TextField
-                sx={{ width: 195 }}
+                sx={{ width: 180 }}
                 label="L 0.00"
                 type="number"
-                // placeholder="categoria"
                 name="price"
                 value={formValues.price}
                 onChange={onInputChanged}
               />
             </FormControl>
-        </Grid>
+          </Grid>
 
-
-        <Grid item xs={12} sm={5} sx={{ mt: 2, display: 'flex', flexDirection: 'row'}}  >
-    
-            <Typography variant="h7" sx={{ ml: 2, mt: 4, mr: 1.5 }}  >
+          <Grid
+            item
+            xs={12}
+            sm={5}
+            sx={{ mt: 1, display: "flex", flexDirection: "row" }}
+          >
+            <Typography variant="h7" sx={{ ml: 2.5, mt: 4, mr: 1.5 }}>
               Stock
             </Typography>
             <FormControl
@@ -242,123 +262,121 @@ export const ProductModal = () => {
               variant="outlined"
             >
               <TextField
-                sx={{ width: 195 }}
+                sx={{ width: 180 }}
                 label="Stock"
                 type="number"
-                // placeholder="categoria"
                 name="stock"
                 value={formValues.stock}
                 onChange={onInputChanged}
               />
             </FormControl>
+          </Grid>
 
-        </Grid>
-
-        <Grid item xs={12} sm={6} sx={{ mt: 0, display: 'flex', flexDirection: 'row'}}  >
-    
-            <Typography variant="h7" sx={{ ml: 2, mt: 4 }}  >
-            Descripcion
+          <Grid
+            item
+            xs={12}
+            sm={6}
+            sx={{ ml: 10, display: "flex", flexDirection: "column" }}
+          >
+            <Typography textAlign="center" variant="h7" sx={{ ml: 20, mt: 0.5 }}>
+              Descripcion
             </Typography>
-            <FormControl
-                sx={{ m: 1, mt: 2.5, width: "%" }}
-                variant="outlined"
-            >
-                <TextField
-                    sx={{ width: 460 }}
-                    label="Descripcion"
-                    type="text"
-                    // placeholder="categoria"
-                    name="description"
-                    value={formValues.description}
-                    onChange={onInputChanged}
-                />
+            <FormControl sx={{ m: 1, mt: 1, width: "100%" }} variant="outlined">
+              <TextField
+                sx={{ width: '160%' }}
+                label="Descripcion"
+                type="text"
+                name="description"
+                value={formValues.description}
+                onChange={onInputChanged}
+              />
             </FormControl>
+          </Grid>
 
-        </Grid>
-
-        <Grid item xs={12} sm={6} sx={{ mr: 2,  display: 'flex', flexDirection: 'row'}}  >
-    
-            <Typography variant="h7" sx={{ ml: 4, mt: 6.5, mr: 2 }}  >
-                Categoria
+          <Grid
+            item
+            xs={12}
+            sm={6}
+            sx={{ mr: 2, display: "flex", flexDirection: "row", ml: 12 }}
+          >
+            <Typography variant="h7" sx={{ ml: 4, mt: 3.5, mr: 2 }}>
+              Categoria
             </Typography>
             <FormControl
-                sx={{ m: 0.5, mt: 4, width: "80%" }}
-                variant="outlined"
+              sx={{ m: 0.5, mt: 2, width: "80%" }}
+              variant="outlined"
             >
-            <TextField
-                // id="outlined-select-currency"
-               label="Categoria" 
-              //  placeholder="Seleccione"
-              //  id="select"
+              <TextField
+                label="Categoria"
                 select
                 value={formValues.category}
-                onChange={ onInputChanged }
+                onChange={onInputChanged}
                 name="category"
-                // helperText="Seleccione una categoria"
-            >
-              <MenuItem disabled={true} value={'default'}>Seleccione</MenuItem>
-                {
-                    categories?.map((cat) => (
-                        <MenuItem 
-                        key={cat.id} 
-                        value={cat.id +" "+ cat.name}
-                        // value={activeUpdateProduct ? cat.id : activeCreateProduct ? cat.id +" "+ cat.name : 'default'}
-
-                        
-                        >
-                            {cat.name}
-                        </MenuItem>
-                    ))
-                }
-
-            </TextField>
-
+              >
+                <MenuItem disabled={true} value={"default"}>
+                  Seleccione
+                </MenuItem>
+                {categories?.map((cat) => (
+                  <MenuItem
+                    key={cat.id}
+                    value={cat.id + " " + cat.name}
+                    // value={activeUpdateProduct ? cat.id : activeCreateProduct ? cat.id +" "+ cat.name : 'default'}
+                  >
+                    {cat.name}
+                  </MenuItem>
+                ))}
+              </TextField>
             </FormControl>
-
+          </Grid>
         </Grid>
-        
 
-    </Grid>
-    
 
-            <IconButton
-                sx={{ mt: 4, ml: 5, color: "primary.main" }} aria-label="upload picture" component="label"
-                size="large"
-            >
-                <input hidden accept="image/*" type="file" />
-                <PhotoCamera />
-            </IconButton>
-    
-    
-            <Button 
-              sx={{ mt: 4, ml: 8, color: "white", background: "linear-gradient(111deg, #FE6B8B 45%, #FF8E53 85%)" }}
-              type="submit"
-              startIcon={ <Save /> } 
-            //   size="large"
-              variant="contained"
-            >
 
-              Guardar
-            </Button>
-    
-    
-            <Button 
-              sx={{ mt: 4, ml: 8, color: "white", background: "linear-gradient(111deg, #FE6B8B 45%, #FF8E53 85%)" }}
-              startIcon={ <HighlightOff /> } 
-            //   size="large"
-              variant="contained"
-              onClick={ onCloseModal }
-            >
-              Cerrar
-            </Button>
+        <input 
+          type="file"
+          multiple
+          ref={ fileInputRef}
+          style={{ display: 'none' }}
+          // onChange={ onFileInputChange }
 
-        </form>
+        />
+
+        <IconButton
+          sx={{ mt: 6, ml: 7, color: "primary.main" }}
+          onClick={ () => fileInputRef.current.click() } 
+        >
+          <UploadOutlined />
+        </IconButton> 
+
+
+
+
+        <Button
+          sx={{
+            mt: 6, ml: 7, color: "white",
+            background: "linear-gradient(111deg, #FE6B8B 45%, #FF8E53 85%)",
+          }}
+          type="submit"
+          startIcon={<Save />}
+          variant="contained"
+          onClick={ onFileInputChange }
+
+        >
+          Guardar
+        </Button>
+
+        <Button
+          sx={{
+            mt: 6, ml: 10, color: "white",
+            background: "linear-gradient(111deg, #FE6B8B 45%, #FF8E53 85%)",
+          }}
+          startIcon={<HighlightOff />}
+          variant="contained"
+          onClick={onCloseModal}
+        >
+          Cerrar
+        </Button>
+      </form>
     </Modal>
-
-
-
-    //   </form>
-    // </Modal>
   );
-  //Subir al main
 };

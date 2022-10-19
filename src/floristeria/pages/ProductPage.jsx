@@ -10,7 +10,7 @@ export const ProductPage = () => {
     <DraweBar>
 
       <Typography variant="h4"  align="center" ><strong>Bienvenido a productos</strong></Typography>
-      <Divider />      
+      <Divider  />      
       <CardProducts />
       <ProductModal />
 

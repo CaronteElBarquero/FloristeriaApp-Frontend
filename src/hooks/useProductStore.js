@@ -1,7 +1,8 @@
 import { useDispatch, useSelector } from 'react-redux';
-import {onSetActiveProduct, onActiveCreateProduct, onActiveProduct, onActiveUpdateProduct, onAddNewProduct, onDeleteProduct, onLoadProduct, onUpdateProduct } from '../store';
+import {onSetActiveProduct, onActiveCreateProduct, onActiveProduct, onActiveUpdateProduct, onAddNewProduct, onDeleteProduct, onLoadProduct, onUpdateProduct, setPhotosToProduct } from '../store';
 
 import { floristeriaApi } from '../api';
+import { fileUpload } from '../helpers';
 
 
 export const useProductStore = () => {
@@ -15,8 +16,10 @@ export const useProductStore = () => {
     };
 
     const startSavingProduct = async (productEvent) => {
+
         const categoryData = productEvent.category.split(' ');
         const dataFormat = {...productEvent, category: categoryData[0]}
+
         const { data } = await floristeriaApi.post('/product', dataFormat);
         dispatch(onAddNewProduct({ ...productEvent, id: data.product.id, category: {_id: categoryData[0], name: categoryData[1]} }))
     };
@@ -57,6 +60,15 @@ export const useProductStore = () => {
         dispatch(onActiveProduct(product))
     };
 
+    const startUploadingFiles = ( files = [] ) => {
+        return async( dispatch ) => {
+
+            await fileUpload( files[0] );
+            // dispatch( setPhotosToProduct( files[0] ) ); 
+        }
+    };
+
+
 
     return {
         //* Propiedades
@@ -66,6 +78,7 @@ export const useProductStore = () => {
 		startUpdateProduct,
 		startDeleteProduct,
 		startLoadingProduct,
+        startUploadingFiles,
 		startActiveCreateProducto,
 		startActiveUpdateProduct,
 		startIdActiveProduct,

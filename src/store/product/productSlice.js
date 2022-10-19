@@ -81,6 +81,12 @@ export const productSlice = createSlice({
     onActiveProduct: (stata, { payload }) => {
       stata.activeProduct = payload;
     },
+
+    setPhotosToProduct: (state, { payload }) => {
+      state.activeProduct.image = payload;
+    },
+
+
   },
 });
 
@@ -93,5 +99,6 @@ export const {
 	onActiveCreateProduct, 
 	onActiveUpdateProduct, 
 	onActiveProduct,
-  onSetActiveProduct
+  onSetActiveProduct,
+  setPhotosToProduct
 } = productSlice.actions;
