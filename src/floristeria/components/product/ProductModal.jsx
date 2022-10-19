@@ -14,8 +14,11 @@ import {
   Button,
   InputAdornment,
   MenuItem,
-  Input,
+  Input
+
 } from "@mui/material";
+
+import CircularProgress from '@mui/material/CircularProgress';
 
 import { Save, Close, HighlightOff, PhotoCamera, UploadOutlined } from "@mui/icons-material";
 import { Box } from "@mui/system";
@@ -40,7 +43,7 @@ Modal.setAppElement("#root");
 export const ProductModal = () => {
 
   const dispatch = useDispatch();
-  
+
   const [profile, setProfile] = useState();
 
   const { isDateModalOpen, closeDateModal } = useUiStore();
@@ -49,13 +52,13 @@ export const ProductModal = () => {
 
   const { startLoadingCategory } = useCategoryStore();
 
-  const { activeCreateProduct, activeUpdateProduct, activeProduct } = useSelector((state) => state.product);
+  const { activeCreateProduct, activeUpdateProduct, activeProduct, activeUploadImage, activeImage } = useSelector((state) => state.product);
 
-  const { startUpdateProduct, startSavingProduct, startUploadingFiles } = useProductStore();
+  const { startUpdateProduct, startSavingProduct, startUploadingFiles, startImageUpload } = useProductStore();
 
   //SIMULANDO EL CLICK PARA SUBIR ARCHIVOS
   const fileInputRef = useRef();
- 
+
   useEffect(() => {
     startLoadingCategory();
   }, []);
@@ -72,7 +75,10 @@ export const ProductModal = () => {
     price: "",
     stock: "",
     category: "",
-    image: "",
+    image: {
+      public_id: "",
+      secure_url: "",
+    },
   });
 
   useEffect(() => {
@@ -84,7 +90,10 @@ export const ProductModal = () => {
         price: "",
         stock: "",
         category: "default",
-        image: "",
+        image: {
+          public_id: "",
+          secure_url: "",
+        },
       });
     }
   }, [activeProduct]);
@@ -133,11 +142,11 @@ export const ProductModal = () => {
 
   const onFileInputChange = ({ target }) => {
 
-    if ( target.files > 0 ) return;
+    if (target.files > 0) return;
 
-      // TODO: agregar una imagen
-      dispatch( startUploadingFiles( target.files ) );
-
+    // TODO: agregar una imagen
+    dispatch(startUploadingFiles(target.files));
+    startImageUpload(true);
 
     // console.log( 'subiendo archivos' );
   }
@@ -234,7 +243,7 @@ export const ProductModal = () => {
               Precio
             </Typography>
             <FormControl
-              sx={{ m: 2,  mt: 2.5, width: "90%" }}
+              sx={{ m: 2, mt: 2.5, width: "90%" }}
               variant="outlined"
             >
               <TextField
@@ -320,7 +329,7 @@ export const ProductModal = () => {
                   <MenuItem
                     key={cat.id}
                     value={cat.id + " " + cat.name}
-                    // value={activeUpdateProduct ? cat.id : activeCreateProduct ? cat.id +" "+ cat.name : 'default'}
+                  // value={activeUpdateProduct ? cat.id : activeCreateProduct ? cat.id +" "+ cat.name : 'default'}
                   >
                     {cat.name}
                   </MenuItem>
@@ -332,26 +341,33 @@ export const ProductModal = () => {
 
 
 
-        <input 
+        <input
           type="file"
           multiple
-          ref={ fileInputRef}
+          ref={fileInputRef}
           style={{ display: 'none' }}
-          // onChange={ onFileInputChange }
+          onChange={onFileInputChange}
 
         />
 
-        <IconButton
-          sx={{ mt: 6, ml: 7, color: "primary.main" }}
-          onClick={ () => fileInputRef.current.click() } 
-        >
-          <UploadOutlined />
-        </IconButton> 
+        {
+          activeUploadImage ? (
 
+            <CircularProgress sx={{ mt: 6, ml: 7, color: "primary.main" }} size={20} />
+          ) :
+            (
+              <IconButton
+                sx={{ mt: 6, ml: 7, color: "primary.main" }}
+                onClick={() => fileInputRef.current.click()}
+              >
+                <UploadOutlined />
+              </IconButton>
+            )
 
-
+        }
 
         <Button
+          disabled={activeUploadImage}
           sx={{
             mt: 6, ml: 7, color: "white",
             background: "linear-gradient(111deg, #FE6B8B 45%, #FF8E53 85%)",
@@ -359,7 +375,7 @@ export const ProductModal = () => {
           type="submit"
           startIcon={<Save />}
           variant="contained"
-          onClick={ onFileInputChange }
+        // onClick={ onFileInputChange }
 
         >
           Guardar

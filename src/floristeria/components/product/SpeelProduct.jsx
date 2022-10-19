@@ -1,7 +1,7 @@
 import { ProductPage } from '../../pages';
 
 import { Box, SpeedDial, SpeedDialIcon, SpeedDialAction } from '@mui/material'
-import { CreateNewFolder,  DeleteForever, FileCopy, AutoFixHigh, Save, Print, Share, Edit  } from '@mui/icons-material';
+import { CreateNewFolder, DeleteForever, FileCopy, AutoFixHigh, Save, Print, Share, Edit } from '@mui/icons-material';
 import { useProductStore, useUiStore } from '../../../hooks';
 
 
@@ -9,11 +9,11 @@ import { useProductStore, useUiStore } from '../../../hooks';
 
 
 export const SpeelProduct = () => {
-  
-  
+
+
   const { openDateModal } = useUiStore();
-  const {startActiveCreateProducto, setActiveProduct, startIdActiveProduct} = useProductStore();
-  
+  const { startActiveCreateProducto, setActiveProduct, startIdActiveProduct, startDataImageUpload } = useProductStore();
+
   const handleNewProduct = () => {
     // setActiveProduct({
     // code: '',
@@ -31,15 +31,22 @@ export const SpeelProduct = () => {
       price: '',
       stock: '',
       category: "default",
-      image: "",
-      });
-      startActiveCreateProducto();
+      image: {
+        public_id: '',
+        secure_url: '',
+      },
+    });
+    startDataImageUpload({
+      public_id: '',
+      secure_url: '',
+    })
+    startActiveCreateProducto();
     openDateModal();
 
   };
-  
+
   const actions = [
-    { icon: <CreateNewFolder onClick={ handleNewProduct } sx={{ color: 'secondary.main' }}  />, name: 'CREAR' },
+    { icon: <CreateNewFolder onClick={handleNewProduct} sx={{ color: 'secondary.main' }} />, name: 'CREAR' },
     // { icon: <AutoFixHigh sx={{ color: 'secondary.main' }} />, name: 'EDITAR' },
     // { icon: <Print sx={{ color: 'secondary.main' }} />, name: 'IMPRIMIR' },
     // { icon: < DeleteForever sx={{ color: 'secondary.main' }} />, name: 'ELIMINAR' },
@@ -48,10 +55,10 @@ export const SpeelProduct = () => {
   return (
 
     <Box sx={{ height: '100vh', transform: 'translateZ(0px)', flexGrow: 1 }}>
-      
+
       {/* PAGINA DE PRODUCTOS */}
       <ProductPage />
-      
+
       <SpeedDial
         ariaLabel="SpeedDial openIcon example"
         sx={{ position: 'absolute', bottom: 580, right: '30px' }}
@@ -67,6 +74,6 @@ export const SpeelProduct = () => {
         ))}
       </SpeedDial>
     </Box>
-// Subir al mai
+    // Subir al mai
   );
 }

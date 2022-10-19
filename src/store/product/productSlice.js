@@ -13,16 +13,24 @@ export const productSlice = createSlice({
     activeProduct: null,
     activeCreateProduct: false,
     activeUpdateProduct: false,
-    activeProduct: {
-		code: '',
-		name: '',
-		description: '',
-		price: '',
-		stock: '',
-		category: null, 
-		image: ''
+    activeUploadImage: false,
+    activeImage: {
+      public_id: "",
+      secure_url: "",
     },
-    // errorMessage: undefined,
+    activeProduct: {
+      code: '',
+      name: '',
+      description: '',
+      price: '',
+      stock: '',
+      category: null,
+      image: {
+        public_id: '',
+        secure_url: '',
+      },
+    },
+    // errorMessage,: undefined,
   },
 
   reducers: {
@@ -53,9 +61,9 @@ export const productSlice = createSlice({
       state.products = state.products.filter((product) => product.id !== payload);
     },
 
-    
+
     onLoadProduct: (state, { payload = [] }) => {
-    //   state.isLoadingCategory = false;
+      //   state.isLoadingCategory = false;
 
       payload.forEach((event) => {
         const exist = state.products.some(
@@ -83,22 +91,27 @@ export const productSlice = createSlice({
     },
 
     setPhotosToProduct: (state, { payload }) => {
-      state.activeProduct.image = payload;
+      state.activeUploadImage = payload;
     },
 
+    getPhotosToProduct: (state, { payload }) => {
+      state.activeImage.public_id = payload.public_id;
+      state.activeImage.secure_url = payload.secure_url;
+    },
 
   },
 });
 
 
 export const {
-	onAddNewProduct, 
-	onUpdateProduct,
-	onDeleteProduct, 
-	onLoadProduct, 
-	onActiveCreateProduct, 
-	onActiveUpdateProduct, 
-	onActiveProduct,
+  onAddNewProduct,
+  onUpdateProduct,
+  onDeleteProduct,
+  onLoadProduct,
+  onActiveCreateProduct,
+  onActiveUpdateProduct,
+  onActiveProduct,
   onSetActiveProduct,
-  setPhotosToProduct
+  setPhotosToProduct,
+  getPhotosToProduct
 } = productSlice.actions;

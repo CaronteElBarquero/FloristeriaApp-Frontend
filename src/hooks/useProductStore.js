@@ -1,7 +1,19 @@
 import { useDispatch, useSelector } from 'react-redux';
-import {onSetActiveProduct, onActiveCreateProduct, onActiveProduct, onActiveUpdateProduct, onAddNewProduct, onDeleteProduct, onLoadProduct, onUpdateProduct, setPhotosToProduct } from '../store';
+import {
+    onSetActiveProduct,
+    onActiveCreateProduct,
+    onActiveProduct,
+    onActiveUpdateProduct,
+    onAddNewProduct,
+    onDeleteProduct,
+    onLoadProduct,
+    onUpdateProduct,
+    setPhotosToProduct,
+    getPhotosToProduct
+} from '../store';
 
 import { floristeriaApi } from '../api';
+import { useFileUpload } from './useFileUpload';
 import { fileUpload } from '../helpers';
 
 
@@ -9,7 +21,8 @@ export const useProductStore = () => {
 
     const dispatch = useDispatch();
 
-    const { activeProduct } = useSelector(state => state.product);
+    const { activeProduct, activeImage } = useSelector(state => state.product);
+    // const { fileUpload } = useFileUpload();
 
     const setActiveProduct = (productEvent) => {
         dispatch(onSetActiveProduct(productEvent))
@@ -18,17 +31,18 @@ export const useProductStore = () => {
     const startSavingProduct = async (productEvent) => {
 
         const categoryData = productEvent.category.split(' ');
-        const dataFormat = {...productEvent, category: categoryData[0]}
+        const dataFormat = { ...productEvent, category: categoryData[0], image: activeImage };
 
         const { data } = await floristeriaApi.post('/product', dataFormat);
-        dispatch(onAddNewProduct({ ...productEvent, id: data.product.id, category: {_id: categoryData[0], name: categoryData[1]} }))
+        console.log(activeImage, ", Esta es la imagen");
+        dispatch(onAddNewProduct({ ...productEvent, id: data.product.id, category: { _id: categoryData[0], name: categoryData[1] }, image: activeImage }));
     };
 
     const startUpdateProduct = async (productEvent) => {
         const categoryData = productEvent.category.split(' ');
-        const dataFormat = {...productEvent, category: categoryData[0]}
+        const dataFormat = { ...productEvent, category: categoryData[0] }
         await floristeriaApi.put(`/product/${activeProduct.id}`, dataFormat);
-        dispatch(onUpdateProduct({ ...productEvent, id: activeProduct.id, category: {_id: categoryData[0], name: categoryData[1]} }));
+        dispatch(onUpdateProduct({ ...productEvent, id: activeProduct.id, category: { _id: categoryData[0], name: categoryData[1] }, image: activeImage }));
     };
 
     const startDeleteProduct = async (idProduct) => {
@@ -60,30 +74,42 @@ export const useProductStore = () => {
         dispatch(onActiveProduct(product))
     };
 
-    const startUploadingFiles = ( files = [] ) => {
-        return async( dispatch ) => {
 
-            await fileUpload( files[0] );
-            // dispatch( setPhotosToProduct( files[0] ) ); 
+    const startUploadingFiles = (files = []) => {
+        return async (dispatch) => {
+            const dataImage = await fileUpload(files[0]);
+            dispatch(getPhotosToProduct(dataImage))
+            dispatch(setPhotosToProduct(false))
+
         }
     };
+
+    const startImageUpload = (activeImage) => {
+        dispatch(setPhotosToProduct(activeImage))
+    }
+
+    const startDataImageUpload = (file) => {
+        dispatch(getPhotosToProduct(file))
+    }
 
 
 
     return {
         //* Propiedades
-		
+
         //* Metodos
-		startSavingProduct,
-		startUpdateProduct,
-		startDeleteProduct,
-		startLoadingProduct,
+        startSavingProduct,
+        startUpdateProduct,
+        startDeleteProduct,
+        startLoadingProduct,
         startUploadingFiles,
-		startActiveCreateProducto,
-		startActiveUpdateProduct,
-		startIdActiveProduct,
-        setActiveProduct
-      
+        startActiveCreateProducto,
+        startActiveUpdateProduct,
+        startIdActiveProduct,
+        setActiveProduct,
+        startImageUpload,
+        startDataImageUpload
+
 
     }
 }
