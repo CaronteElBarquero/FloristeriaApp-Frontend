@@ -101,7 +101,10 @@ export const DraweBar = ( { children } ) => {
         
       )}
 
-      <Box component="main" sx={{ flexGrow: 1, p: 3, mt: 8, backgroundColor: '#eff3f8', height: '100vh' }}>
+      <Box component="main" 
+        
+        sx={{ flexGrow: 1, p: 3, mt: 8, backgroundColor: '#eff3f8', height: `100vh-240px` }}
+      >
         {/* EN ESTE APARTADO SE PONDRAN LOS HIJOS DEL DRAWEBAR ESTO APLICA A LOS PRODUCTS, CATEGORIAS, CLIENTES Y DEMAS HIJOS QUE EXISTAN */}
         { children }  
       </Box>

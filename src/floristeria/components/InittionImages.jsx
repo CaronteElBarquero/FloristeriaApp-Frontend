@@ -7,22 +7,22 @@ import Typography from '@mui/material/Typography';
 const images = [
   {
     url: 'http://localhost:3000/src/assets/1.jpg',
-    title: 'Breakfast',
+    title: 'Cateogorias',
     width: '40%',
   },
   {
     url: 'http://localhost:3000/src/assets/2.jpg',
-    title: 'Burgers',
+    title: 'Productos',
     width: '30%',
   },
   {
     url: 'http://localhost:3000/src/assets/3.jpg',
-    title: 'Camera2',
+    title: 'Productos',
     width: '30%',
   },
   {
     url: 'http://localhost:3000/src/assets/4.jpg',
-    title: 'Camera',
+    title: 'Categorias',
     width: '30%',
   },
 ];

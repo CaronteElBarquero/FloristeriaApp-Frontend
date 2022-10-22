@@ -9,7 +9,7 @@ import {
     onLoadProduct,
     onUpdateProduct,
     setPhotosToProduct,
-    getPhotosToProduct
+    getPhotosToProduct,
 } from '../store';
 
 import { floristeriaApi } from '../api';
@@ -43,7 +43,7 @@ export const useProductStore = () => {
         const dataFormat = { ...productEvent, category: categoryData[0] }
         await floristeriaApi.put(`/product/${activeProduct.id}`, dataFormat);
         dispatch(onUpdateProduct({ ...productEvent, id: activeProduct.id, category: { _id: categoryData[0], name: categoryData[1] }, image: activeImage }));
-    };
+f    };
 
     const startDeleteProduct = async (idProduct) => {
         await floristeriaApi.delete(`/product/${idProduct}`);
@@ -86,10 +86,13 @@ export const useProductStore = () => {
 
     const startImageUpload = (activeImage) => {
         dispatch(setPhotosToProduct(activeImage))
+
+
     }
 
     const startDataImageUpload = (file) => {
         dispatch(getPhotosToProduct(file))
+        
     }
 
 

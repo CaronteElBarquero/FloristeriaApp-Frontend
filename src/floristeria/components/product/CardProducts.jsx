@@ -1,13 +1,15 @@
 import { useState, useEffect } from 'react';
 
 import { styled } from '@mui/material/styles';
-import { Avatar, Card, CardHeader, CardMedia, CardContent, CardActions, Collapse, IconButton, Typography, Box, Divider } from '@mui/material'
-import { red } from '@mui/material/colors';
+import { Card, CardMedia, CardContent, CardActions, Collapse, IconButton, Typography, Box } from '@mui/material'
 import { useSelector } from 'react-redux';
-import { MoreVert, DeleteForever, AutoFixHigh } from '@mui/icons-material';
+import { DeleteForever, AutoFixHigh } from '@mui/icons-material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useCategoryStore, useProductStore, useUiStore } from '../../../hooks';
-import { border } from '@mui/system';
+
+import Swal from 'sweetalert2'
+import 'sweetalert2/dist/sweetalert2.css'
+
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -19,7 +21,6 @@ const ExpandMore = styled((props) => {
     duration: theme.transitions.duration.shortest,
   }),
 }));
-// Subir al main
 
 export const CardProducts = () => {
 
@@ -31,11 +32,8 @@ export const CardProducts = () => {
 
   useEffect(() => {
     startLoadingProduct();
-    startLoadingCategory()
+    startLoadingCategory();
   }, [])
-
-  //FUNCION MOSTRAR INICIALES NOMBRE
-
 
 
   const handleExpandClick = () => {
@@ -48,12 +46,50 @@ export const CardProducts = () => {
     openDateModal();
   }
 
+
+
   const onDelete = (productId) => {
-    startDeleteProduct(productId);
+
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: 'btn btn-success',
+        cancelButton: 'btn btn-danger'
+      },
+      buttonsStyling: true
+    })
+    swalWithBootstrapButtons.fire({
+      title: '¿Está seguro?',
+      text: "¡No podrás revertir esto!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Si, bórralo!',
+      cancelButtonText: 'No, cancelar!',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        swalWithBootstrapButtons.fire(
+          'Borrado!',
+          'Su archivo ha sido eliminado.',
+          'success'
+        )
+
+        startDeleteProduct(productId);
+        
+      } else if (
+        /* Read more about handling dismissals below */
+        result.dismiss === Swal.DismissReason.cancel
+      ) {
+        swalWithBootstrapButtons.fire(
+          'Cancelado',
+          'Tú archivo está a salvo :)',
+          'error'
+        )
+      }
+    })
   }
 
-  return (
 
+  return (
 
     <Box sx={{ display: 'flex', flexWrap: 'wrap', minWidth: 300, width: '100%' }} >
 
@@ -116,7 +152,7 @@ export const CardProducts = () => {
             <Collapse in={expanded} timeout="auto" unmountOnExit>
               <CardContent>
                 <Typography paragraph> Descripción:</Typography>
-                <Typography variant="body2" noWrap sx={{ maxWidth: 300 }} paragraph>
+                <Typography variant="h7" align='justify'>
                   {
                     product.description
                   }
@@ -127,10 +163,6 @@ export const CardProducts = () => {
         ))
       }
     </Box>
-
-
-
-
 
   );
 }

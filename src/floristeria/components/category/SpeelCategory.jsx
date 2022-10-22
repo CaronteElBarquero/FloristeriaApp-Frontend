@@ -52,9 +52,9 @@ export const SpeelCategory = () => {
 
       <SpeedDial
         ariaLabel="SpeedDial openIcon example"
-        sx={{ position: "absolute", bottom: 650, right: "30px" }}
+        sx={{ position: "absolute", bottom: 795, right: "30px" }}
         icon={<SpeedDialIcon openIcon={<Edit />} />}
-        direction="left"
+        direction="down"
       >
         {actions.map((action) => (
           <SpeedDialAction

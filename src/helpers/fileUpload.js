@@ -30,7 +30,7 @@ export const fileUpload = async (file) => {
         // return cloudResp.secure_url;
 
         const { secure_url, public_id } = await resp.json();
-        console.log({ secure_url, public_id });
+        // console.log({ secure_url, public_id });
         // if (secure_url && public_id) {
         //     startDataImageUpload({ secure_url, public_id, active: true });
         // }

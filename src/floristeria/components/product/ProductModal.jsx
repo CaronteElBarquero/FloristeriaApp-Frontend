@@ -94,9 +94,13 @@ export const ProductModal = () => {
           public_id: "",
           secure_url: "",
         },
+        
       });
     }
   }, [activeProduct]);
+
+
+  // console.log( activeProduct );
 
   useEffect(() => {
     if (activeUpdateProduct && !activeCreateProduct) {
@@ -123,8 +127,8 @@ export const ProductModal = () => {
   const onSubmit = async (event) => {
     event.preventDefault();
 
-    if (formValues.name.length <= 0) {
-      Swal.fire("Nombre Incorrecto", "El nombre es obligatorio", "error");
+    if ( formValues.code.length <= 0 || formValues.name.length <= 0 || formValues.description.length <= 0 || formValues.price.length <= 0  || formValues.stock.length <= 0) {
+      Swal.fire("Campos Obligatorios", "Todos los campos son obligatorio", "error");
       return;
     }
 
@@ -150,6 +154,15 @@ export const ProductModal = () => {
 
     // console.log( 'subiendo archivos' );
   }
+
+
+  const onExit = () => {
+    console.log( 'estoy saliendo')
+  }
+
+  <button>
+    onClick={ () => onExit() }
+  </button>
 
 
   const onCloseModal = () => {
@@ -189,13 +202,13 @@ export const ProductModal = () => {
             item
             xs={12}
             sm={5.5}
-            sx={{ mt: 1.5, ml: 4, display: "flex", flexDirection: "row" }}
+            sx={{ mt: 1.5, ml: 3, display: "flex", flexDirection: "row" }}
           >
             <Typography variant="h7" sx={{ ml: 1, mt: 4, mr: 0.5 }}>
               Codigo
             </Typography>
             <FormControl
-              sx={{ m: 2, mt: 2.5, width: "90%" }}
+              sx={{ m: 2, mt: 2, width: "90%" }}
               variant="outlined"
             >
               <TextField
@@ -237,7 +250,7 @@ export const ProductModal = () => {
             item
             xs={12}
             sm={5.5}
-            sx={{ mt: 1, ml: 4, display: "flex", flexDirection: "row" }}
+            sx={{ mt: 1, ml: 3, display: "flex", flexDirection: "row" }}
           >
             <Typography variant="h7" sx={{ ml: 1.5, mt: 4, mr: 1 }}>
               Precio
