@@ -17,13 +17,12 @@ const images = [
   },
   {
     url: 'http://localhost:3000/src/assets/3.jpg',
-    title: 'Productos',
+    title: 'Productos2',
     width: '30%',
   },
   {
     url: 'http://localhost:3000/src/assets/4.jpg',
-    title: 'Categorias',
-    width: '30%',
+    title: 'Categorias2'
   },
 ];
 

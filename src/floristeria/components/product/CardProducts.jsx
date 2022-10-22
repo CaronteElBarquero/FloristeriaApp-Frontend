@@ -26,7 +26,7 @@ export const CardProducts = () => {
 
   const { products } = useSelector(state => state.product)
   const { startLoadingCategory } = useCategoryStore();
-  const { startLoadingProduct, startActiveUpdateProduct, startIdActiveProduct, startDeleteProduct } = useProductStore();
+  const { startLoadingProduct, startActiveUpdateProduct, startIdActiveProduct, startDeleteProduct, startDataImageUpload } = useProductStore();
   const { openDateModal } = useUiStore();
   const [expanded, setExpanded] = useState(false);
 
@@ -41,6 +41,10 @@ export const CardProducts = () => {
   };
 
   const onUpdate = (product) => {
+    startDataImageUpload({
+      public_id: '',
+      secure_url: '',
+    })
     startActiveUpdateProduct();
     startIdActiveProduct(product);
     openDateModal();

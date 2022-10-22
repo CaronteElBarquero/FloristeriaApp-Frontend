@@ -40,10 +40,23 @@ export const useProductStore = () => {
 
     const startUpdateProduct = async (productEvent) => {
         const categoryData = productEvent.category.split(' ');
-        const dataFormat = { ...productEvent, category: categoryData[0] }
+        let dataFormat;
+
+        if(activeImage.public_id === ''){
+            dataFormat = { ...productEvent, category: categoryData[0] }
+        }else{
+            dataFormat = { ...productEvent, category: categoryData[0], image: activeImage }
+        }
+        
+        if(activeImage.public_id === ''){
+            dispatch(onUpdateProduct({ ...productEvent, id: activeProduct.id, category: { _id: categoryData[0], name: categoryData[1] }}));
+        }else{
+            dispatch(onUpdateProduct({ ...productEvent, id: activeProduct.id, category: { _id: categoryData[0], name: categoryData[1] }, image: activeImage }));
+        }
+
         await floristeriaApi.put(`/product/${activeProduct.id}`, dataFormat);
-        dispatch(onUpdateProduct({ ...productEvent, id: activeProduct.id, category: { _id: categoryData[0], name: categoryData[1] }, image: activeImage }));
-f    };
+
+ };
 
     const startDeleteProduct = async (idProduct) => {
         await floristeriaApi.delete(`/product/${idProduct}`);
