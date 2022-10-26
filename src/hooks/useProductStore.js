@@ -44,15 +44,17 @@ export const useProductStore = () => {
 
         if(activeImage.public_id === ''){
             dataFormat = { ...productEvent, category: categoryData[0] }
-        }else{
-            dataFormat = { ...productEvent, category: categoryData[0], image: activeImage }
-        }
-        
-        if(activeImage.public_id === ''){
             dispatch(onUpdateProduct({ ...productEvent, id: activeProduct.id, category: { _id: categoryData[0], name: categoryData[1] }}));
         }else{
+            dataFormat = { ...productEvent, category: categoryData[0], image: activeImage }
             dispatch(onUpdateProduct({ ...productEvent, id: activeProduct.id, category: { _id: categoryData[0], name: categoryData[1] }, image: activeImage }));
-        }
+
+        } 
+        // if(activeImage.public_id === ''){
+        //     dispatch(onUpdateProduct({ ...productEvent, id: activeProduct.id, category: { _id: categoryData[0], name: categoryData[1] }}));
+        // }else{
+        //     dispatch(onUpdateProduct({ ...productEvent, id: activeProduct.id, category: { _id: categoryData[0], name: categoryData[1] }, image: activeImage }));
+        // }
 
         await floristeriaApi.put(`/product/${activeProduct.id}`, dataFormat);
 

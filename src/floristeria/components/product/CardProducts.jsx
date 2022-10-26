@@ -6,9 +6,10 @@ import { useSelector } from 'react-redux';
 import { DeleteForever, AutoFixHigh } from '@mui/icons-material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useCategoryStore, useProductStore, useUiStore } from '../../../hooks';
-
+import { motion } from "framer-motion";
 import Swal from 'sweetalert2'
 import 'sweetalert2/dist/sweetalert2.css'
+import { variantsCard } from '../../../animation/framerValues';
 
 
 const ExpandMore = styled((props) => {
@@ -29,6 +30,7 @@ export const CardProducts = () => {
   const { startLoadingProduct, startActiveUpdateProduct, startIdActiveProduct, startDeleteProduct, startDataImageUpload } = useProductStore();
   const { openDateModal } = useUiStore();
   const [expanded, setExpanded] = useState(false);
+  const MotionCard = motion(Card);
 
   useEffect(() => {
     startLoadingProduct();
@@ -78,7 +80,7 @@ export const CardProducts = () => {
         )
 
         startDeleteProduct(productId);
-        
+
       } else if (
         /* Read more about handling dismissals below */
         result.dismiss === Swal.DismissReason.cancel
@@ -99,7 +101,11 @@ export const CardProducts = () => {
 
       {
         products.slice(0).reverse().map(product => (
-          <Card
+          <MotionCard
+            whileHover="hover"
+            initial="hidden"
+            animate="visible"
+            variants={variantsCard}
             sx={{
               width: 230,
               mt: 4, ml: 3,
@@ -163,7 +169,7 @@ export const CardProducts = () => {
                 </Typography>
               </CardContent>
             </Collapse>
-          </Card>
+          </MotionCard>
         ))
       }
     </Box>
