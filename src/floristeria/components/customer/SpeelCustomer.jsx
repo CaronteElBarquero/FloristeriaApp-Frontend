@@ -1,30 +1,32 @@
-import { useCategoryStore, useUiStore } from "../../../hooks";
-import { CategoryPage } from "../../pages";
+// import { useCategoryStore, useUiStore } from "../../../hooks";
+import { CustomerPage } from "../../pages";
 
 import { Box, SpeedDial, SpeedDialIcon, SpeedDialAction } from "@mui/material";
+
 
 import {
   CreateNewFolder, DeleteForever, AutoFixHigh, Print, Edit,
 } from "@mui/icons-material";
 
 
-export const SpeelCategory = () => {
+export const SpeelCustomer = () => {
 
-  const { openDateModal } = useUiStore();
-  const { categories, setActiveCategory, startActiveCreateCategory } = useCategoryStore();
+  // const { openDateModal } = useUiStore();
+//   const { categories, setActiveCategory, startActiveCreateCategory } = useCategoryStore();
+
 
   //FUNCION PERMITE ABRIR EL MODAL PARA CREAR UNA NUEVA CATEGORIA
   const handleClickNew = () => {
-    setActiveCategory({
-      name: "",
-      description: "",
-      user: {
-        _id: "123",
-        name: "Fernando",
-      },
-    });
-    startActiveCreateCategory();
-    openDateModal();
+  //   setActiveCategory({
+  //     name: "",
+  //     description: "",
+  //     user: {
+  //       _id: "123",
+  //       name: "Fernando",
+  //     },
+  //   });
+  //   startActiveCreateCategory();
+  //   openDateModal();
   };
 
   const actions = [
@@ -37,6 +39,8 @@ export const SpeelCategory = () => {
       ),
       name: "CREAR",
     },
+
+
     // { icon: <AutoFixHigh sx={{ color: "secondary.main" }} />, name: "EDITAR" },
     // { icon: <Print sx={{ color: "secondary.main" }} />, name: "IMPRIMIR" },
     // {
@@ -48,7 +52,7 @@ export const SpeelCategory = () => {
   return (
     <Box sx={{ height: "100vh", transform: "translateZ(0px)", flexGrow: 1 }}>
       {/* PAGINA DE CATEGORIA */}
-      <CategoryPage />
+      <CustomerPage />
 
       <SpeedDial
         ariaLabel="SpeedDial openIcon example"

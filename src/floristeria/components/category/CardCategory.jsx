@@ -4,9 +4,10 @@ import { useSelector } from 'react-redux';
 import { AutoFixHigh, Delete, DeleteForever } from '@mui/icons-material';
 import { Box, Button, Card, CardActions, CardContent, CardMedia, IconButton, Typography } from '@mui/material';
 import { useCategoryStore, useUiStore } from '../../../hooks';
-import { motion } from "framer-motion";
 import Swal from 'sweetalert2'
 import 'sweetalert2/dist/sweetalert2.css'
+
+import { motion } from "framer-motion";
 import { variantsCard } from '../../../animation/framerValues';
 
 
@@ -29,7 +30,19 @@ export const CardCategory = () => {
 
 
 
-
+    //IMAGEN ALEATORIA
+    const randomImage = () => {
+        const images = [
+            'http://localhost:3000/src/assets/categories/0.jpg',
+            'http://localhost:3000/src/assets/categories/1.jpg',
+            'http://localhost:3000/src/assets/categories/2.jpg',
+            'http://localhost:3000/src/assets/categories/3.jpg',
+            'http://localhost:3000/src/assets/categories/4.jpg',
+            'http://localhost:3000/src/assets/categories/5.jpg',
+        ]
+        return images[Math.floor(Math.random() * images.length)]
+    }
+    
 
     const onUpdate = (category) => {
         startActiveUpdateCategory();
@@ -97,7 +110,7 @@ export const CardCategory = () => {
                             <CardMedia
                                 component="img"
                                 height="135"
-                                image="http://localhost:3000/src/assets/6.jpg"
+                                image={randomImage()}
                                 alt="imagen categoria"
                             />
                             <CardContent>

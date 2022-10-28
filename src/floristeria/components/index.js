@@ -13,3 +13,10 @@ export * from "./category/SpeelCategory";
 export * from "./product/CardProducts";
 export * from "./product/SpeelProduct";
 export * from "./product/ProductModal";
+
+
+
+//* CLIENTES
+export * from "./customer/CardCustomer";
+export * from "./customer/SpeelCustomer";
+export * from "./customer/CustomerModal";

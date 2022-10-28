@@ -8,7 +8,7 @@ const images = [
   {
     url: 'http://localhost:3000/src/assets/1.jpg',
     title: 'Cateogorias',
-    width: '40%',
+    width: '30%',
   },
   {
     url: 'http://localhost:3000/src/assets/2.jpg',
@@ -20,10 +20,7 @@ const images = [
     title: 'Productos2',
     width: '30%',
   },
-  {
-    url: 'http://localhost:3000/src/assets/4.jpg',
-    title: 'Categorias2'
-  },
+
 ];
 
 const ImageButton = styled(ButtonBase)(({ theme }) => ({

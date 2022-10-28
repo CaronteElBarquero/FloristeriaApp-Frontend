@@ -110,7 +110,7 @@ export const CardProducts = () => {
               width: 230,
               mt: 4, ml: 3,
               borderWidth: 0.1,
-              borderRadius: '35px',
+              borderRadius: '25px',
             }} key={product.id}>
             <Typography textAlign="center" gutterBottom variant="h5" noWrap component="div" sx={{ maxWidth: 260, mt: 1 }} >
               <strong> {product.name} </strong>

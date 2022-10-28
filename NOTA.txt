@@ -1,1 +1,127 @@
-No hacer el push antes de revisar los cambios
+No hacer el push antes de revisar los 
+
+
+///AppBar
+import { AppBar, Box, Button, Container, Fab, Fade, IconButton, Toolbar, Typography, useScrollTrigger, } from '@mui/material/';
+import PropTypes from 'prop-types';
+import { AccountCircle, KeyboardArrowUp } from '@mui/icons-material';
+
+import CssBaseline from '@mui/material/CssBaseline';
+
+import styled from 'styled-components';
+import { mobile } from '../helpers/responsive';
+
+import logo from '../data/NolyLogo.png';
+import { useNavigate } from 'react-router-dom';
+
+
+
+
+const Center = styled.div`
+  flex:1;
+  text-align: center;
+  align-items: center;
+  ${mobile({font:"50px"})}
+`;
+
+const Logo = styled.img`
+  flex:1;
+  margin-right: 1400px;
+    
+  cursor: pointer;
+  width: 50px;
+  height: 50px;
+  ${mobile({height:"60px", width:"60px"})}
+`
+
+
+
+function ScrollTop(props) {
+  const { children, window } = props;
+
+  const trigger = useScrollTrigger({
+    target: window ? window() : undefined,
+    disableHysteresis: true,
+    threshold: 100,
+  });
+
+  const handleClick = (event) => {
+    const anchor = (event.target.ownerDocument || document).querySelector(
+      '#back-to-top-anchor',
+    );
+
+    if (anchor) {
+      anchor.scrollIntoView({
+        block: 'center',
+      });
+    }
+  };
+
+  return (
+    <Fade in={trigger}>
+      <Box
+        onClick={handleClick}
+        role="presentation"
+        sx={{ position: 'fixed', bottom: 20, right: 8 }}
+
+      >
+        {children}
+      </Box>
+    </Fade>
+  );
+}
+
+
+ScrollTop.propTypes = {
+  children: PropTypes.element.isRequired,
+  window: PropTypes.func,
+};
+
+
+export const  NavBar = (props) => {
+
+  const navigate = useNavigate();
+
+  const toLogin = () => {
+    navigate('/auth/login/');
+  }
+
+  return (
+    <>
+      <CssBaseline />
+      <AppBar position='fixed'>
+        <Toolbar>
+          <Typography variant="h6" component="div" sx={{ ml:4 }}>
+            NolyGifts
+          </Typography>
+
+          <Center>
+            <Logo src={logo} />
+          </Center>
+
+         
+
+          <IconButton  onClick={ toLogin }  >
+            <AccountCircle sx={{ color: 'white',}} />
+          </IconButton>
+
+        </Toolbar>
+      </AppBar>
+      <Toolbar id="back-to-top-anchor" />
+      <Container>
+ 
+      </Container>
+      <ScrollTop {...props}>
+        <Fab size="small" aria-label="scroll back to top" color='primary' >
+          <KeyboardArrowUp />
+        </Fab>
+      </ScrollTop>
+    </>
+  );
+}
+
+
+
+
+
+
