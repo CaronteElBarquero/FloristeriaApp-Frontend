@@ -1,14 +1,18 @@
 import { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
+
+import { useCategoryStore, useProductStore, useUiStore } from '../../../hooks';
 
 import { styled } from '@mui/material/styles';
 import { Card, CardMedia, CardContent, CardActions, Collapse, IconButton, Typography, Box } from '@mui/material'
-import { useSelector } from 'react-redux';
 import { DeleteForever, AutoFixHigh } from '@mui/icons-material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { useCategoryStore, useProductStore, useUiStore } from '../../../hooks';
-import { motion } from "framer-motion";
+
 import Swal from 'sweetalert2'
 import 'sweetalert2/dist/sweetalert2.css'
+
+
+import { motion } from "framer-motion";
 import { variantsCard } from '../../../animation/framerValues';
 
 

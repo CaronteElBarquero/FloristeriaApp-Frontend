@@ -20,3 +20,4 @@ export * from "./product/ProductModal";
 export * from "./customer/CardCustomer";
 export * from "./customer/SpeelCustomer";
 export * from "./customer/CustomerModal";
+export * from "./customer/AutoCustomer";

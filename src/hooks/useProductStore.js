@@ -23,6 +23,7 @@ export const useProductStore = () => {
 
     const { activeProduct, activeImage } = useSelector(state => state.product);
     // const { fileUpload } = useFileUpload();
+    
 
     const setActiveProduct = (productEvent) => {
         dispatch(onSetActiveProduct(productEvent))
@@ -72,7 +73,7 @@ export const useProductStore = () => {
             dispatch(onLoadProduct(data.products));
 
         } catch (error) {
-            console.log('Error en cargar las categorias');
+            console.log('Error en cargar los Productos');
             console.log(error);
         }
     };

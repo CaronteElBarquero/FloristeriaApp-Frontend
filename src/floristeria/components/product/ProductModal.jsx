@@ -48,7 +48,7 @@ export const ProductModal = () => {
 
   const { isDateModalOpen, closeDateModal } = useUiStore();
 
-  const { categories } = useSelector((state) => state.category);
+  const { categories } = useSelector( state => state.category);
 
   const { startLoadingCategory } = useCategoryStore();
 
@@ -154,15 +154,6 @@ export const ProductModal = () => {
 
     // console.log( 'subiendo archivos' );
   }
-
-
-  const onExit = () => {
-    console.log( 'estoy saliendo')
-  }
-
-  <button>
-    onClick={ () => onExit() }
-  </button>
 
 
   const onCloseModal = () => {

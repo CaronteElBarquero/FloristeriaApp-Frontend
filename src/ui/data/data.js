@@ -184,7 +184,7 @@ export const dataDigitalBestSeller = [
   {
     id: 6,
     title: 'Regalo de cumpleaños',
-    price: 'L 255.0',
+    price: 'L 255',
     category: 'Cumpleaños',
     linkImg:
       'https://res.cloudinary.com/dwozn2lvh/image/upload/v1666896217/Products/Dise%C3%B1o_sin_t%C3%ADtulo_6_wc3ezn.png',
@@ -200,7 +200,7 @@ export const dataDigitalBestSeller = [
   {
     id: 8,
     title: 'Felicita a esa persona especial',
-    price: 'L 370.0',
+    price: 'L 370',
     category: 'Celebración',
     sale: 63, //percent
     linkImg:
@@ -210,7 +210,7 @@ export const dataDigitalBestSeller = [
   {
     id: 9,
     title: 'Arreglo de rosas',
-    price: 'L 300.0',
+    price: 'L 300',
     category: 'Amor',
     sale: 63, //percent
     linkImg:
@@ -230,7 +230,7 @@ export const dataDigitalBestSeller = [
   {
     id: 11,
     title: 'Rosas con girasoles',
-    price: 'L 59.99',
+    price: 'L 500',
     category: 'Celebración',
     sale: 63, //percent
     linkImg:
@@ -240,7 +240,7 @@ export const dataDigitalBestSeller = [
   {
     id: 12,
     title: 'Dia del Padre',
-    price: 'L 300.0',
+    price: 'L 300',
     category: 'Celebración',
     sale: 63, //percent
     linkImg:
@@ -250,7 +250,7 @@ export const dataDigitalBestSeller = [
   {
     id: 13,
     title: 'Unravel Two',
-    price: 'L 59.99',
+    price: 'L 460',
     category: 'Florero',
     sale: 63, //percent
     linkImg:

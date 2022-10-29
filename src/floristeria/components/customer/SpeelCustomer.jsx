@@ -1,4 +1,4 @@
-// import { useCategoryStore, useUiStore } from "../../../hooks";
+import {  useCustomerStore, useUiStore } from "../../../hooks";
 import { CustomerPage } from "../../pages";
 
 import { Box, SpeedDial, SpeedDialIcon, SpeedDialAction } from "@mui/material";
@@ -11,42 +11,37 @@ import {
 
 export const SpeelCustomer = () => {
 
-  // const { openDateModal } = useUiStore();
-//   const { categories, setActiveCategory, startActiveCreateCategory } = useCategoryStore();
+  const { openDateModal } = useUiStore();
+  const {  startActiveIdCustomer, startActiveCreateCustomer } = useCustomerStore();
 
 
   //FUNCION PERMITE ABRIR EL MODAL PARA CREAR UNA NUEVA CATEGORIA
   const handleClickNew = () => {
-  //   setActiveCategory({
-  //     name: "",
-  //     description: "",
-  //     user: {
-  //       _id: "123",
-  //       name: "Fernando",
-  //     },
-  //   });
-  //   startActiveCreateCategory();
-  //   openDateModal();
+
+    startActiveIdCustomer({
+      name: "",
+      lastName: "",
+      email: "",
+      phone: "",
+      sonInLaw: "",
+    });
+
+    startActiveCreateCustomer();
+    openDateModal();
+
   };
 
   const actions = [
     {
       icon: (
         <CreateNewFolder
-          onClick={handleClickNew}
+          onClick={ handleClickNew }
           sx={{ color: "secondary.main" }}
         />
       ),
       name: "CREAR",
     },
 
-
-    // { icon: <AutoFixHigh sx={{ color: "secondary.main" }} />, name: "EDITAR" },
-    // { icon: <Print sx={{ color: "secondary.main" }} />, name: "IMPRIMIR" },
-    // {
-    //   icon: <DeleteForever sx={{ color: "secondary.main" }} />,
-    //   name: "ELIMINAR",
-    // },
   ];
 
   return (
@@ -56,7 +51,7 @@ export const SpeelCustomer = () => {
 
       <SpeedDial
         ariaLabel="SpeedDial openIcon example"
-        sx={{ position: "absolute", bottom: 800, right: "30px" }}
+        sx={{ position: "absolute", bottom: 700, right: "30px" }}
         icon={<SpeedDialIcon openIcon={<Edit />} />}
         direction="down"
       >

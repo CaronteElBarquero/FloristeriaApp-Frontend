@@ -7,9 +7,11 @@ export const productSlice = createSlice({
   name: "product",
 
   initialState: {
+
     products: [
       // tempCategory
     ],
+    
     activeProduct: null,
     activeCreateProduct: false,
     activeUpdateProduct: false,
@@ -18,6 +20,7 @@ export const productSlice = createSlice({
       public_id: "",
       secure_url: "",
     },
+    
     activeProduct: {
       code: '',
       name: '',
@@ -34,6 +37,8 @@ export const productSlice = createSlice({
   },
 
   reducers: {
+
+
     onSetActiveProduct: (state, { payload }) => {
       state.activeProduct = payload;
     },

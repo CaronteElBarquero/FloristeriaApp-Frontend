@@ -15,15 +15,6 @@ export const SpeelProduct = () => {
   const { startActiveCreateProducto, setActiveProduct, startIdActiveProduct, startDataImageUpload } = useProductStore();
 
   const handleNewProduct = () => {
-    // setActiveProduct({
-    // code: '',
-    // name: "",
-    // description: "",
-    // price: '',
-    // stock: '',
-    // category: "",
-    // image: "",
-    // });
     startIdActiveProduct({
       code: '',
       name: "",
@@ -61,7 +52,7 @@ export const SpeelProduct = () => {
 
       <SpeedDial
         ariaLabel="SpeedDial openIcon example"
-        sx={{ position: 'absolute', bottom: 800, right: '30px' }}
+        sx={{ position: 'absolute', bottom: 700, right: '30px' }}
         icon={<SpeedDialIcon openIcon={<Edit />} />}
         direction='down'
       >
