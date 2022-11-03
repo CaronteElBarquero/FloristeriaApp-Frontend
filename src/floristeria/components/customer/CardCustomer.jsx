@@ -97,6 +97,11 @@ export const CardCustomer = () => {
     })  
   };
 
+
+  const onFilterText = (e) => {
+    setFilter(e.target.value);
+  };
+
   
 
 
@@ -105,7 +110,6 @@ export const CardCustomer = () => {
     <Box sx={{ display: 'flex', flexWrap: 'wrap', minWidth: 310, width: '100%', mt: 2 }} >
 
       {
-
         customers.slice(0).reverse().map( customer => (
 
           <MotionCard 
@@ -113,8 +117,9 @@ export const CardCustomer = () => {
             initial="hidden"
             animate="visible"
             variants={variantsCard}
+            onChange={ onFilterText }
             sx={{
-              minWidth: 275, m: 0.5, mt: 2.5,
+              minWidth: 260, m: 0.5, mt: 2.5,
               borderWidth: 0.3,
               borderRadius: '25px', 
             }} 

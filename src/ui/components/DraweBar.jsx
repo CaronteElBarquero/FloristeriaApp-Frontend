@@ -12,7 +12,7 @@ import {
 } from "@mui/icons-material";
 
 import { ProductPage } from "../../floristeria/pages";
-import { SpeelProduct, InitionImages, ButtonList, ShowLogout } from "../../floristeria/components";
+import { SpeelProduct, ButtonList, ShowLogout } from "../../floristeria/components";
 
 
 // Helper de las funciones del componente DraweBar

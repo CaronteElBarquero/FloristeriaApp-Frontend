@@ -9,9 +9,10 @@ export * from './product/productSlice';
 
 export * from './customer/customerSlice';
 
+export * from './subs/subsSlice';
+
+
 export * from './ui/uiSlice';
-
-
 
 
 

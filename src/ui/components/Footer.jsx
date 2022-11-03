@@ -2,9 +2,18 @@
 
 
 import { Facebook, Instagram, Mail,  Phone, Room,  WatchLaterSharp, WhatsApp } from '@mui/icons-material';
-import { Button } from '@mui/material';
+import { Button, FormControl, TextField } from '@mui/material';
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+// import { useSelector } from 'react-redux';
 import styled from 'styled-components';
-// import { Home, ProductionQuantityLimits, Wysiwyg  } from '@mui/icons-material';
+// import { useForm } from '../../hooks';
+
+import Swal from "sweetalert2";
+import "sweetalert2/dist/sweetalert2.min.css";
+
+
+import { useSubsStore } from '../../hooks/useSubsStore';
 import { mobile } from '../helpers/responsive';
 
 
@@ -121,10 +130,83 @@ const ButtonSubs = styled.button`
 `
 
 
-
-
-
 export const Footer = () => {
+
+  const { activeCreateSub, errorMessage } = useSelector( state => state.subs );
+
+  const { startSavingSubs } = useSubsStore();
+
+  const [formValues, setFormValues] = useState({
+    email: "",
+  })
+
+
+  useEffect(() => {
+
+    if ( errorMessage !== undefined ) {
+      const Toast = Swal.mixin({
+        toast: true,
+        position: 'bottom-end',
+        showConfirmButton: false,
+        timer: 2500,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener('mouseenter', Swal.stopTimer)
+          toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+      })
+      
+      Toast.fire({
+        icon: 'error',
+        title: 'Correo ya registrado'
+      })
+    } 
+
+  }, [errorMessage])
+
+
+
+  const onInputChanged = ({ target }) => {
+    setFormValues({
+      ...formValues,
+      [target.name]: target.value,
+    });
+  };
+
+
+  const onSubmit = async( event ) => {
+
+    event.preventDefault();
+
+
+    if ( formValues.email.trim().length > 5 ) {
+
+      const Toast = Swal.mixin({
+        toast: true,
+        position: 'bottom-end',
+        showConfirmButton: false,
+        timer: 2000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener('mouseenter', Swal.stopTimer)
+          toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+      })
+      
+      Toast.fire({
+        icon: 'success',
+        title: 'Subscripción exitosa'
+      })
+    } 
+    await startSavingSubs( formValues );
+
+    setFormValues({
+      email: "",
+    });
+
+  }
+
+
   return (
     <Container>
       <Left>
@@ -182,20 +264,38 @@ export const Footer = () => {
         </SocialContainer>
        
       </Center>
-      <Right>
-        <Title>SUSCRIPCIÓN</Title>
-        <SimpleText>Suscribete para informarte sobre nuestros productos y promociones</SimpleText>
-        <br></br>
-        <MailAlert>Ingresa tu correo electrónico*</MailAlert>
-        <br></br>
-        <SubsItem></SubsItem>
-        <Button
-          variant='contained'
-          sx={{ width: '64%', height: '30px', marginTop: '10px', backgroundColor: 'secondary', color: 'white', borderRadius: '5px' }}
-        >
-          Suscribirse
-        </Button>
-      </Right>
+
+      <form onSubmit={ onSubmit }>
+
+        <Right>
+          <Title>SUSCRIPCIÓN</Title>
+          <SimpleText>Suscribete para informarte sobre nuestros productos y promociones</SimpleText>
+          <br></br>
+          <MailAlert>Ingresa tu correo electrónico*</MailAlert>
+          <br></br>
+
+          <FormControl
+              sx={{  width: "90%" }}
+         
+              variant="outlined"
+            >
+              <TextField
+                sx={{ width: 245 }}
+                label="@gmail.com"
+                type="email"
+                name="email"
+                value={formValues.email}
+                onChange={onInputChanged}
+              />
+            </FormControl>
+          <Button
+            variant='contained' type='submit'
+            sx={{ width: '55%', height: '30px', marginTop: '10px', backgroundColor: 'secondary', color: 'white', borderRadius: '5px' }}
+          >
+            Suscribirse
+          </Button>
+        </Right>
+      </form>
 
 
     </Container>

@@ -1,6 +1,13 @@
 export * from "./ShowLogout";
 export * from "./ButtonList";
-export * from "./InittionImages";
+// export * from "./InittionImages";
+
+
+export * from "../Graficas/PrimerGrafica"
+export * from "../Datos/Tarjetones"
+export * from "../Datos/BotonesNavigate"
+
+
 
 
 //* CATEGORIA

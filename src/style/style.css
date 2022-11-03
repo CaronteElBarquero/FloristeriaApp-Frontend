@@ -21,6 +21,12 @@
 
 .letra {
     font-family: poppins;
+    text-align: center;
+    font-size: 1.5rem;
+    color: #c22557;
+    font-weight: 700;
+    
+
 }
 
 .fondo {
