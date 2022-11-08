@@ -28,3 +28,11 @@ export * from "./customer/CardCustomer";
 export * from "./customer/SpeelCustomer";
 export * from "./customer/CustomerModal";
 export * from "./customer/AutoCustomer";
+
+
+
+//* VENTAS
+export * from "./invoice/InvoiceTable";
+export * from "./invoice/SpeelInvoice";
+export * from "./invoice/InvoiceModal";
+

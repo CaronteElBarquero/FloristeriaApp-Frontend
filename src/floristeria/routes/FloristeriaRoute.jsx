@@ -2,9 +2,9 @@ import {useEffect} from 'react';
 
 import { Navigate, Route, Routes } from "react-router-dom"
 
-import { SpeelProduct, SpeelCategory, SpeelCustomer } from "../components"
+import { SpeelProduct, SpeelCategory, SpeelCustomer, SpeelInvoice } from "../components"
 
-import {  FloristeriaPage  } from "../pages"
+import {  FloristeriaPage, InvoicePage  } from "../pages"
 
 import { useCategoryStore } from '../../hooks/useCategoryStore';
 
@@ -28,6 +28,9 @@ export const FloristeriaRoute = () => {
             <Route path="category" element={ <SpeelCategory /> }  />
 
             <Route path="customer" element={ <SpeelCustomer /> }  />
+
+            <Route path="invoice" element={ <SpeelInvoice /> }  />
+
 
 
             <Route path="/" element={ <FloristeriaPage /> }  />

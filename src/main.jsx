@@ -7,6 +7,8 @@ import './style/style.css'
 import './style/style_sweet.css'
 import './style/styleProducto.css'
 import './style/styleCustomer.css'
+import './style/styleInvoice.css'
+
 
 import './style/style_home.css'
 

@@ -19,7 +19,6 @@ export const FloristeriaPage = () => {
 
       <br />
 
-
       {/* <Tarjetones /> */}
 
       {/* <PrimerGrafica /> */}
