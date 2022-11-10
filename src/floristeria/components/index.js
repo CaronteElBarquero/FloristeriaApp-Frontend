@@ -3,7 +3,8 @@ export * from "./ButtonList";
 // export * from "./InittionImages";
 
 
-export * from "../Graficas/PrimerGrafica"
+export * from "../Graficas/PrimerGrafica";
+export * from "../Graficas/ProductStock";
 export * from "../Datos/Tarjetones"
 export * from "../Datos/BotonesNavigate"
 

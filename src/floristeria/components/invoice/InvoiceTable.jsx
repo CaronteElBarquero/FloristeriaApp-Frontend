@@ -3,9 +3,9 @@ import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { alpha } from '@mui/material/styles';
 
-import { 
-    Box, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow, TableSortLabel, Toolbar, Typography,
-    Paper, Checkbox, IconButton, Tooltip, FormControlLabel, Switch, 
+import {
+  Box, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow, TableSortLabel, Toolbar, Typography,
+  Paper, Checkbox, IconButton, Tooltip, FormControlLabel, Switch,
 } from '@mui/material';
 
 import { Delete, Edit, FilterList } from '@mui/icons-material';
@@ -161,8 +161,7 @@ EnhancedTableHead.propTypes = {
   rowCount: PropTypes.number.isRequired,
 };
 
-function EnhancedTableToolbar(props) {
-  const { numSelected } = props;
+function EnhancedTableToolbar({ numSelected, selected }) {
 
   return (
     <Toolbar
@@ -199,20 +198,22 @@ function EnhancedTableToolbar(props) {
       {numSelected > 0 ? (
 
         <>
-            {/* MAPEAR LOS PRODUCTOS SELECCIONADOS */}
+          {/* MAPEAR LOS PRODUCTOS SELECCIONADOS */}
 
 
-            <Tooltip title="Eliminar" onClick={ () => console.log( 'gola')  }>
-                <IconButton>
-                    <Delete />
-                </IconButton>
-            </Tooltip>
+          <Tooltip title="Eliminar" onClick={() => {
+            console.log(selected);
+          }}>
+            <IconButton>
+              <Delete />
+            </IconButton>
+          </Tooltip>
 
-            <Tooltip title="Editar">
-                <IconButton>
-                    <Edit />
-                </IconButton>
-            </Tooltip>
+          <Tooltip title="Editar">
+            <IconButton>
+              <Edit />
+            </IconButton>
+          </Tooltip>
         </>
 
       ) : (
@@ -296,9 +297,9 @@ export const InvoiceTable = () => {
 
   return (
 
-    <Box sx={{ width: '100%',  mt: 5 }}>
+    <Box sx={{ width: '100%', mt: 5 }}>
       <Paper sx={{ width: '100%', mb: 2 }}>
-        <EnhancedTableToolbar numSelected={selected.length} />
+        <EnhancedTableToolbar numSelected={selected.length} selected={selected} />
         <TableContainer>
           <Table
             sx={{ minWidth: 750 }}
