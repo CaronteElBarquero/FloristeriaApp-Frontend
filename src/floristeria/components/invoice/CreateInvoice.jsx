@@ -17,6 +17,7 @@ import { useNavigate } from "react-router-dom"
 
 
 export const CreateInvoice = () => {
+
   const [name, setName] = useState("")
   const [address, setAddress] = useState("")
   const [email, setEmail] = useState("")
@@ -30,7 +31,7 @@ export const CreateInvoice = () => {
   const [invoiceDate, setInvoiceDate] = useState("")
   const [dueDate, setDueDate] = useState("")
   const [notes, setNotes] = useState("")
-  const [description, setDescription] = useState("")
+  const [idProducto, setIdProduct] = useState("")
   const [quantity, setQuantity] = useState("")
   const [price, setPrice] = useState("")
   const [discount, setDiscount] = useState("")
@@ -64,13 +65,21 @@ export const CreateInvoice = () => {
     }
   }, [width])
 
+  // useEffect(() => {
+  //   const quantityProducto = products.filter((product) => { product.id === idProducto })
+  //   if (quantityProducto.length > 0) {
+  //     console.log(quantityProducto, 'quantityProducto')
+  //     setQuantity(quantityProducto.stock);
+  //   }
+  // }, [idProducto, setIdProduct])
+
   return (
 
 
 
 
     <>
-        
+
       <main className="m-1 p-4 xl:grid grid-cols-2 gap-6 xl:items-start ">
 
         <section>
@@ -79,7 +88,7 @@ export const CreateInvoice = () => {
 
             <div className=" flex">
 
-              <button class=" mr-5 relative group overflow-hidden px-6 h-12 rounded-full flex space-x-2 items-center bg-gradient-to-r from-pink-500 to-purple-500 hover:to-purple-600"
+              <button className=" mr-5 relative group overflow-hidden px-6 h-12 rounded-full flex space-x-2 items-center bg-gradient-to-r from-pink-500 to-purple-500 hover:to-purple-600"
                 onClick={toVentas}
               >
                 <span class="relative text-sm text-white">Volver</span>
@@ -91,20 +100,20 @@ export const CreateInvoice = () => {
                 </div>
               </button>
 
-              <button class=" ml-5 relative group overflow-hidden px-6 h-12 rounded-full flex space-x-2 items-center bg-gradient-to-r from-pink-500 to-purple-500 hover:to-purple-600"
+              <button className=" ml-5 relative group overflow-hidden px-6 h-12 rounded-full flex space-x-2 items-center bg-gradient-to-r from-pink-500 to-purple-500 hover:to-purple-600"
                 onClick={() => console.log("guardado")}
               >
-                <span class="relative text-sm text-white">Guardar</span>
-                <svg class="w-6 h-6" fill="none" stroke="white" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 13h6m-3-3v6m-9 1V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z"></path></svg>
+                <span className="relative text-sm text-white">Guardar</span>
+                <svg className="w-6 h-6" fill="none" stroke="white" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 13h6m-3-3v6m-9 1V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z"></path></svg>
               </button>
             </div>
-           
-            
+
+
 
 
 
             <div className="flex flex-col justify-center">
-                
+
               {/* <article className="md:grid grid-cols-2 gap-8">
                 <div className="flex flex-col">
                   <label htmlFor="name">Nombre del empleado</label>
@@ -278,8 +287,8 @@ export const CreateInvoice = () => {
               {/* This is our table form */}
               <article>
                 <TableForm
-                  description={description}
-                  setDescription={setDescription}
+                  idProduct={idProducto}
+                  setIdProduct={setIdProduct}
                   quantity={quantity}
                   setQuantity={setQuantity}
                   price={price}
@@ -326,9 +335,9 @@ export const CreateInvoice = () => {
         <div className="invoice__preview bg-white p-5 rounded">
           <ReactToPrint
             trigger={() => (
-              <button class="relative group overflow-hidden px-6 h-12 rounded-full flex space-x-2 items-center bg-gradient-to-r from-pink-500 to-purple-500 hover:to-purple-600">
-                <span class="relative text-sm text-white">Imprimir / Descargar</span>
-                <svg class="w-6 h-6" fill="none" stroke="white" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+              <button className="relative group overflow-hidden px-6 h-12 rounded-full flex space-x-2 items-center bg-gradient-to-r from-pink-500 to-purple-500 hover:to-purple-600">
+                <span className="relative text-sm text-white">Imprimir / Descargar</span>
+                <svg className="w-6 h-6" fill="none" stroke="white" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
               </button>
 
             )}
@@ -351,7 +360,7 @@ export const CreateInvoice = () => {
             />
 
             <Table
-              description={description}
+              description={idProducto}
               quantity={quantity}
               price={price}
               amount={amount}

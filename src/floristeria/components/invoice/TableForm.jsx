@@ -7,8 +7,8 @@ import { useSelector } from "react-redux"
 import { useProductStore } from "../../../hooks"
 
 export default function TableForm({
-  description,
-  setDescription,
+  setIdProduct,
+  idProduct,
   quantity,
   setQuantity,
   discount,
@@ -28,25 +28,27 @@ export default function TableForm({
 }) {
 
   const [isEditing, setIsEditing] = useState(false)
-
-  const { products } = useSelector( state => state.product);
+  const [counterProduct, setCounterProducto] = useState(0);
+  // const [idProductState, setIdProductoState] = useState(0);
+  const { products } = useSelector(state => state.product);
   const { startLoadingProduct } = useProductStore();
 
 
   //mapear los productos
 
 
-
   // Submit form function
   const handleSubmit = (e) => {
     e.preventDefault()
 
-    if (!description || !quantity || !price) {
+    if (!idProduct || !quantity || !price) {
       toast.error("Los campos son necesarios")
     } else {
+      const nameProducto = products.find(product => product.id === idProduct);
+
       const newItems = {
-        id: uuidv4(),
-        description,
+        id: nameProducto ? nameProducto.id : 'Sin id',
+        description: nameProducto ? nameProducto.name : 'Sin nombre',
         quantity,
         discount,
         price,
@@ -54,7 +56,7 @@ export default function TableForm({
         amount,
 
       }
-      setDescription("")
+      setIdProduct("")
       setQuantity("")
       setPrice("")
       setDiscount("")
@@ -63,6 +65,7 @@ export default function TableForm({
       setList([...list, newItems])
       setIsEditing(false)
     }
+
   }
 
 
@@ -70,23 +73,31 @@ export default function TableForm({
     startLoadingProduct();
   }, [])
 
+  useEffect(() => {
+    const activeProduct = products.find(product => product.id === idProduct);
+    if (activeProduct) {
+      setQuantity(activeProduct.stock);
+      setPrice(activeProduct.price);
+    }
+  }, [idProduct])
+
 
 
 
   // Calculate items amount function
   useEffect(() => {
     const calculateAmount = (amount) => {
-      
+
       isv = 0.15
-      let totalAmount = ( quantity * price )
-      let calcIsv = ( totalAmount * isv )
+      let totalAmount = (quantity * price)
+      let calcIsv = (totalAmount * isv)
 
       // let saleWithIsv = ( totalAmount + calcIsv - discount )
-      
-      setAmount( totalAmount + calcIsv - discount )
-    
+
+      setAmount(totalAmount + calcIsv - discount)
+
       // setAmount( (quantity * price ) - discount)
-      
+
       console.log(calcIsv);
 
     }
@@ -103,7 +114,7 @@ export default function TableForm({
     let rowDiscount = document.querySelectorAll(".discount")
     let sumDiscount = 0
 
-    for ( let i = 0; i < rowDiscount.length; i++ ) {
+    for (let i = 0; i < rowDiscount.length; i++) {
       sumDiscount += parseInt(rowDiscount[i].innerHTML)
       setTotalDiscount(sumDiscount)
     }
@@ -127,7 +138,7 @@ export default function TableForm({
     const editingRow = list.find((row) => row.id === id)
     setList(list.filter((row) => row.id !== id))
     setIsEditing(true)
-    setDescription(editingRow.description)
+    setIdProduct(editingRow.id)
     setQuantity(editingRow.quantity)
     setPrice(editingRow.price)
     setDiscount(editingRow.discount)
@@ -181,14 +192,17 @@ export default function TableForm({
           <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             id="description"
             name="description"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
+            value={idProduct}
+            onChange={(e) => setIdProduct(e.target.value)}
           >
             <option value="">Seleccione un producto</option>
             {
-              products.map( product => (
-                <option key={product.id} value={product.name}>{product.name}</option>
-              ))
+              products.map(product => {
+                // setCounterProducto(product.price)
+                return <option key={product.id} value={product.id}>{product.name}</option>
+
+              }
+              )
             }
           </select>
         </div>
@@ -198,7 +212,7 @@ export default function TableForm({
         {/* mostrar la cantidad del producto seleccionado */}
 
 
-      
+
 
 
         <div className="md:grid grid-cols-5 gap-10">
@@ -209,7 +223,7 @@ export default function TableForm({
               name="quantity"
               id="quantity"
               // placeholder="Quantity"
-              value={ quantity }
+              value={quantity}
               onChange={(e) => setQuantity(e.target.value)}
             />
 
@@ -253,7 +267,7 @@ export default function TableForm({
 
           <div className="flex flex-col">
             <label htmlFor="amount">Monto</label>
-            <p>{ Math.round(amount) }</p>
+            <p>{Math.round(amount)}</p>
           </div>
 
 
@@ -264,9 +278,9 @@ export default function TableForm({
           type="submit"
           className="mb-5 text-black font-bold py-2 px-8 rounded shadow border-2 border-blue-500 hover:bg-transparent hover:text-blue-500 transition-all duration-300"
         >
-          
+
           {isEditing ? "Editar producto" : "Agregar producto"}
-          
+
         </button>
       </form>
 
@@ -276,7 +290,7 @@ export default function TableForm({
       <table width="100%" className="mb-10">
         <thead>
           <tr className="bg-gray-100 p-1">
-            <td className="font-bold">Producto</td>
+            <td className="font-bold">Id Producto</td>
             <td className="font-bold">Cantidad</td>
             <td className="font-bold">Precio</td>
             <td className="font-bold">Descuento</td>
@@ -291,7 +305,7 @@ export default function TableForm({
                 <td>{quantity}</td>
                 <td>{price}</td>
                 <td className="discount" >{discount}</td>
-                <td className="amount">{ Math.round(amount) }</td>
+                <td className="amount">{Math.round(amount)}</td>
                 {/* <td className="discount">{discount}</td> */}
                 <td>
                   <button onClick={() => editRow(id)}>

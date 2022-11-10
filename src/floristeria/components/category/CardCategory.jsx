@@ -42,7 +42,7 @@ export const CardCategory = () => {
         ]
         return images[Math.floor(Math.random() * images.length)]
     }
-    
+
 
     const onUpdate = (category) => {
         startActiveUpdateCategory();
@@ -118,7 +118,7 @@ export const CardCategory = () => {
                                     <strong> {category.name} </strong>
                                 </Typography>
                                 <Typography variant="body2" noWrap color="text.secondary" sx={{ maxWidth: 175 }}>
-                                    {category.description}
+                                    {category.description ? category.description : category.name}
                                 </Typography>
                             </CardContent>
                             <CardActions sx={{ ml: 1 }}>
