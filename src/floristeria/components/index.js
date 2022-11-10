@@ -34,6 +34,8 @@ export * from "./customer/AutoCustomer";
 
 //* VENTAS
 export * from "./invoice/InvoiceTable";
-export * from "./invoice/SpeelInvoice";
-export * from "./invoice/InvoiceModal";
+export * from "./invoice/CreateInvoice";
+
+
+
 

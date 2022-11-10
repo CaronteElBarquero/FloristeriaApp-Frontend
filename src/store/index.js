@@ -11,6 +11,9 @@ export * from './customer/customerSlice';
 
 export * from './subs/subsSlice';
 
+export * from './invoice/invoiceSlice';
+
+
 
 export * from './ui/uiSlice';
 
