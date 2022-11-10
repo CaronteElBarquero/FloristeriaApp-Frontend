@@ -112,6 +112,7 @@ export const CardProducts = () => {
             variants={variantsCard}
             sx={{
               width: 230,
+        
               mt: 4, ml: 3,
               borderWidth: 0.1,
               borderRadius: '25px',

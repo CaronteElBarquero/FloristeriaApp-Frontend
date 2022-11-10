@@ -181,7 +181,7 @@ export const ProductModal = () => {
           variant="subtitle1"
           align="center"
           fontSize="large"
-          sx={{ m: 1 }}
+          sx={{ m: 1, color: "white" }}
         >
           {activeCreateProduct ? "Crear Producto" : "Editar Producto"}
         </Typography>

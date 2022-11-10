@@ -2,7 +2,7 @@ import {useEffect} from 'react';
 
 import { Navigate, Route, Routes } from "react-router-dom"
 
-import { SpeelProduct, SpeelCategory, SpeelCustomer, SpeelInvoice } from "../components"
+import { SpeelProduct, SpeelCategory, SpeelCustomer, CreateInvoice,  } from "../components"
 
 import {  FloristeriaPage, InvoicePage  } from "../pages"
 
@@ -29,7 +29,10 @@ export const FloristeriaRoute = () => {
 
             <Route path="customer" element={ <SpeelCustomer /> }  />
 
-            <Route path="invoice" element={ <SpeelInvoice /> }  />
+            <Route path="invoice" element={ <InvoicePage /> }  />
+
+            <Route path="create" element={ <CreateInvoice /> }  />
+
 
 
 

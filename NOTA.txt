@@ -1,3 +1,9 @@
+
+
+
+// "build-css": "tailwindcss build src/style/style.css"
+
+
 No hacer el push antes de revisar los 
 
 

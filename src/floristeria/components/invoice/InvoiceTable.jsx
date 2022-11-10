@@ -199,10 +199,8 @@ function EnhancedTableToolbar(props) {
       {numSelected > 0 ? (
 
         <>
-            {/* MAPEAR LOS PRODUCTOS SELECCIONADOS */}
 
-
-            <Tooltip title="Eliminar" onClick={ () => console.log( 'gola')  }>
+            <Tooltip title="Eliminar" >
                 <IconButton>
                     <Delete />
                 </IconButton>
@@ -229,6 +227,9 @@ function EnhancedTableToolbar(props) {
 EnhancedTableToolbar.propTypes = {
   numSelected: PropTypes.number.isRequired,
 };
+
+
+
 
 export const InvoiceTable = () => {
 
