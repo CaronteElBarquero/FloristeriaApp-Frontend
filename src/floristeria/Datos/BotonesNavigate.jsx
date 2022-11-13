@@ -79,19 +79,24 @@ const ImageMarked = styled('span')(({ theme }) => ({
 export const BotonesNavigate = () => {
 
 
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
-    const toCategory = () => {
-        navigate('/category')
-    }
+  const toCategory = () => {
+      navigate('/category')
+  }
 
-    const toProduct = () => {
-        navigate('/product')
-    }
+  const toProduct = () => {
+      navigate('/product')
+  }
 
-    const toCustomer = () => {
-        navigate('/customer')
-    }
+  const toCustomer = () => {  
+    navigate('/customer')
+  }
+
+  const toInvoice = () => {
+    navigate('/invoice')
+  }
+
 
   return (
     <Box sx={{ display: 'flex', flexWrap: 'wrap', minWidth: 300, width: '100%', mt: 3, ml:1 }}   gap={1} >
@@ -157,7 +162,7 @@ export const BotonesNavigate = () => {
         </ImageButton>
 
 
-        <ImageButton focusRipple style={{ width: '24%' }} onClick={toCategory} >
+        <ImageButton focusRipple style={{ width: '24%' }} onClick={ toInvoice } >
             <ImageSrc style={{ backgroundImage: 'url(http://localhost:3000/src/assets/5.jpg)'  }} />
             <ImageBackdrop className="MuiImageBackdrop-root" />
             <Image>
@@ -171,7 +176,7 @@ export const BotonesNavigate = () => {
                     // pt: (theme) => theme.spacing(2),
                 }}
                 >
-                ??
+                Ventas
                 <ImageMarked className="MuiImageMarked-root" />
                 </Typography>
             </Image>

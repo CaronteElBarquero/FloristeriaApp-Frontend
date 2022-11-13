@@ -76,7 +76,7 @@ export const NavBar = ( props ) => {
             sx={{ mr: 2 }}
           >
           </IconButton>
-          <img src="http://localhost:3000/src/ui/data/NolyLogo.png" alt="Logo" border="0" width="50" height="50" />
+          {/* <img src="http://localhost:3000/src/ui/data/NolyLogo.png" alt="Logo" border="0" width="50" height="50" /> */}
 
           <Typography variant="h6" component="div" sx={{ flexGrow: 1, ml: 1 }}>
             NolyGifts

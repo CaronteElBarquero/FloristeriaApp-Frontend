@@ -131,6 +131,7 @@ export const productSlice = createSlice({
 
 
 export const {
+  
   onAddNewProduct,
   onUpdateProduct,
   onDeleteProduct,

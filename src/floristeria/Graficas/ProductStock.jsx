@@ -25,7 +25,6 @@ import { Bar } from "react-chartjs-2";
 
 
 
-
 const options = {
 	fill: true,
 	animations: false,
@@ -39,11 +38,6 @@ const options = {
 		legend: {
 			display: true,
 		},
-
-
-
-
-
 	},
 
 };

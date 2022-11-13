@@ -236,9 +236,9 @@ export const Footer = () => {
         <Title>
           PAGOS
         </Title>
-        <PaymentMethods src="https://res.cloudinary.com/dwozn2lvh/image/upload/v1666755375/Logos/visa-logo_el6ylh.png" width={70} />
+        {/* <PaymentMethods src="https://res.cloudinary.com/dwozn2lvh/image/upload/v1666755375/Logos/visa-logo_el6ylh.png" width={70} height={10} />
         <PaymentMethods src="https://res.cloudinary.com/dwozn2lvh/image/upload/v1666755375/Logos/mastercard-logo_tiyvdu.png" width={55}/>
-        <PaymentMethods src="https://res.cloudinary.com/dwozn2lvh/image/upload/v1666755375/Logos/amex-logo_ljf86a.png" width={50} />
+        <PaymentMethods src="https://res.cloudinary.com/dwozn2lvh/image/upload/v1666755375/Logos/amex-logo_ljf86a.png" width={50} /> */}
 
         <Title>REDES SOCIALES</Title>
         <SocialContainer>

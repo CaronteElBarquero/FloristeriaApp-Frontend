@@ -1,4 +1,8 @@
 import { useState, useRef, useEffect } from "react"
+import { useNavigate } from "react-router-dom"
+import { useSelector } from "react-redux"
+import { useInvoiceStore, useProductStore } from "../../../hooks"
+
 import ClientDetails from "./ClientDetails"
 import Dates from "./Dates"
 import Footer from "./Footer"
@@ -9,22 +13,21 @@ import Table from "./Table"
 import TableForm from "./TableForm"
 import ReactToPrint from "react-to-print"
 import { DraweBar } from "../../../ui/components"
-import { useNavigate } from "react-router-dom"
+import { toast, ToastContainer } from "react-toastify"
+
 
 // import '../../../style/style_tail.css'
 
 
 
 
+
+
+
+
 export const CreateInvoice = () => {
 
-  const [name, setName] = useState("")
-  const [address, setAddress] = useState("")
-  const [email, setEmail] = useState("")
-  const [phone, setPhone] = useState("")
-  const [bankName, setBankName] = useState("")
-  const [bankAccount, setBankAccount] = useState("")
-  const [website, setWebsite] = useState("")
+
   const [clientName, setClientName] = useState("")
   const [clientAddress, setClientAddress] = useState("")
   const [invoiceNumber, setInvoiceNumber] = useState("")
@@ -34,11 +37,20 @@ export const CreateInvoice = () => {
   const [idProducto, setIdProduct] = useState("")
   const [quantity, setQuantity] = useState("")
   const [price, setPrice] = useState("")
-  const [discount, setDiscount] = useState("")
-  const [amount, setAmount] = useState("")
+  const [discount, setDiscount] = useState(0)
+  const [amount, setAmount] = useState(0)
   const [list, setList] = useState([])
   const [total, setTotal] = useState(0)
   const [isv, setIsv] = useState(0.15)
+
+
+  const { startSavingInvoice, startDeleteInvoice } = useInvoiceStore();
+  const { activeInvoice, activeCreateInvoice } = useSelector((state) => state.invoice); 
+
+  const { products } = useSelector(state => state.product)
+  const { startUpdateProduct  } = useProductStore();
+
+
 
   const [totalDiscount, setTotalDiscount] = useState(0)
   const [width] = useState(641)
@@ -57,29 +69,95 @@ export const CreateInvoice = () => {
   }
 
 
-
-
   useEffect(() => {
     if (window.innerWidth < width) {
-      alert("Place your phone in landscape mode for the best experience")
+      // alert("Place your phone in landscape mode for the best experience")
     }
   }, [width])
 
-  // useEffect(() => {
-  //   const quantityProducto = products.filter((product) => { product.id === idProducto })
-  //   if (quantityProducto.length > 0) {
-  //     console.log(quantityProducto, 'quantityProducto')
-  //     setQuantity(quantityProducto.stock);
-  //   }
-  // }, [idProducto, setIdProduct])
 
+
+  const handleSave = () => {
+
+    if ( activeCreateInvoice && list.length > 0 ) {
+      startSavingInvoice({
+        //guardar el id del producto en la list
+
+        product: [ ...list.map( item => item.id ) ],
+
+        invoiceDate,
+        dueDate,
+        discount: totalDiscount,
+        notes,
+        total
+
+      })
+
+
+      //restar la cantidad de productos vendidos de la cantidad de productos en stock y split
+
+
+      //actualizar la cantidad de los productos en stoc
+
+      
+
+      const newProducts = products.map( product => {
+        const productInList = list.find( item => item.id === product.id )
+        if ( productInList ) {
+          return {
+            ...product,
+            stock: product.stock - productInList.quantity
+          }
+        } else {
+          return product
+        }
+
+      })
+
+       //actyuallizar los productos
+      startUpdateProduct( newProducts ) 
+
+
+      console.log(newProducts)
+
+      
+
+
+
+      toast.success("Factura guardada con exito")
+
+
+    }
+
+    else {
+
+      toast.error("Los campos son necesarios")
+
+    }
+
+    setTotal(0);
+    setTotalDiscount(0);
+    setList([]);
+    setClientName("");
+    setClientAddress("");
+    setInvoiceNumber("");
+    setInvoiceDate("");
+    setDueDate("");
+    setNotes("");
+    setIdProduct("");
+    setQuantity("");
+    setPrice("");
+    setDiscount(0);
+    setAmount(0);
+    setIsv(0.15);
+
+  }
+
+
+  
   return (
-
-
-
-
+    
     <>
-
       <main className="m-1 p-4 xl:grid grid-cols-2 gap-6 xl:items-start ">
 
         <section>
@@ -91,127 +169,26 @@ export const CreateInvoice = () => {
               <button className=" mr-5 relative group overflow-hidden px-6 h-12 rounded-full flex space-x-2 items-center bg-gradient-to-r from-pink-500 to-purple-500 hover:to-purple-600"
                 onClick={toVentas}
               >
-                <span class="relative text-sm text-white">Volver</span>
-                <div class="flex items-center -space-x-3 translate-x-3">
-                  <div class="w-2.5 h-[1.6px] rounded bg-white origin-left scale-x-0 transition duration-300 group-hover:scale-x-100"></div>
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 stroke-white -translate-x-2 transition duration-300 group-hover:translate-x-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                <span className="relative text-sm text-white">Volver</span>
+                <div className="flex items-center -space-x-3 translate-x-3">
+                  <div className="w-2.5 h-[1.6px] rounded bg-white origin-left scale-x-0 transition duration-300 group-hover:scale-x-100"></div>
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 stroke  -translate-x-2 transition duration-300 group-hover:translate-x-0" color="white" fill="none" viewBox="0 0 24 24" stroke="currentColor" >
+                    <path strokeLinecap="round"  d="M9 5l7 7-7 7" />
                   </svg>
                 </div>
               </button>
 
               <button className=" ml-5 relative group overflow-hidden px-6 h-12 rounded-full flex space-x-2 items-center bg-gradient-to-r from-pink-500 to-purple-500 hover:to-purple-600"
-                onClick={() => console.log("guardado")}
+                onClick={ handleSave }
               >
                 <span className="relative text-sm text-white">Guardar</span>
-                <svg className="w-6 h-6" fill="none" stroke="white" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 13h6m-3-3v6m-9 1V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z"></path></svg>
+                <svg className="w-6 h-6" fill="currentColor" color="white" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path clipRule="evenodd" d="M4 4a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2V8a2 2 0 00-2-2h-5L9 4H4zm7 5a1 1 0 00-2 0v1H8a1 1 0 000 2h1v1a1 1 0 002 0v-1h1a1 1 0 000-2h-1V9z" fillRule="evenodd" /></svg>              
               </button>
             </div>
 
 
-
-
-
             <div className="flex flex-col justify-center">
 
-              {/* <article className="md:grid grid-cols-2 gap-8">
-                <div className="flex flex-col">
-                  <label htmlFor="name">Nombre del empleado</label>
-                  <input
-                    type="text"
-                    name="text"
-                    id="name"
-                    placeholder="Enter Your name"
-                    autoComplete="off"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                  />
-                </div>
-
-                <div className="flex flex-col">
-                  <label htmlFor="address">Direccion</label>
-                  <input
-                    type="text"
-                    name="address"
-                    id="address"
-                    placeholder="Enter your address"
-                    autoComplete="off"
-                    value={address}
-                    onChange={(e) => setAddress(e.target.value)}
-                  />
-                </div>
-              </article>
-
-              <article className="md:grid grid-cols-3 gap-6">
-                <div className="flex flex-col">
-                  <label htmlFor="email">Coreo</label>
-                  <input
-                    type="email"
-                    name="email"
-                    id="email"
-                    placeholder="Enter your email"
-                    autoComplete="off"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
-                </div>
-
-                <div className="flex flex-col">
-                  <label htmlFor="website">Sitio Web</label>
-                  <input
-                    type="url"
-                    name="website"
-                    id="website"
-                    placeholder="Enter your website"
-                    autoComplete="off"
-                    value={website}
-                    onChange={(e) => setWebsite(e.target.value)}
-                  />
-                </div>
-
-                <div className="flex flex-col">
-                  <label htmlFor="phone">Telefono</label>
-                  <input
-                    type="text"
-                    name="phone"
-                    id="phone"
-                    placeholder="Enter your phone"
-                    autoComplete="off"
-                    value={phone}
-                    onChange={(e) => setPhone(e.target.value)}
-                  />
-                </div>
-              </article>
-
-              <article className="md:grid grid-cols-2 gap-8">
-                <div className="flex flex-col">
-                  <label htmlFor="bankName">Banco</label>
-                  <input
-                    type="text"
-                    name="bankName"
-                    id="bankName"
-                    placeholder="Enter your bank name"
-                    autoComplete="off"
-                    value={bankName}
-                    onChange={(e) => setBankName(e.target.value)}
-                  />
-                </div>
-
-                <div className="flex flex-col">
-                  <label htmlFor="bankAccount">
-                    Cuenta de banco
-                  </label>
-                  <input
-                    type="text"
-                    name="bankAccount"
-                    id="bankAccount"
-                    placeholder="Enter your bank account number"
-                    autoComplete="off"
-                    value={bankAccount}
-                    onChange={(e) => setBankAccount(e.target.value)}
-                  />
-                </div>
-              </article> */}
 
               <article className="md:grid grid-cols-2 gap-10 md:mt-16">
                 <div className="flex flex-col">
@@ -337,8 +314,7 @@ export const CreateInvoice = () => {
             trigger={() => (
               <button className="relative group overflow-hidden px-6 h-12 rounded-full flex space-x-2 items-center bg-gradient-to-r from-pink-500 to-purple-500 hover:to-purple-600">
                 <span className="relative text-sm text-white">Imprimir / Descargar</span>
-                <svg className="w-6 h-6" fill="none" stroke="white" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
-              </button>
+                <svg className="w-6 h-6" color="white" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clipRule="evenodd" /></svg>              </button>
 
             )}
             content={() => componentRef.current}
@@ -346,7 +322,7 @@ export const CreateInvoice = () => {
           <div ref={componentRef} className="p-5">
             <Header handlePrint={handlePrint} />
 
-            <MainDetails name={name} address={address} />
+            {/* <MainDetails name={name} address={address} /> */}
 
             <ClientDetails
               clientName={clientName}
@@ -375,15 +351,17 @@ export const CreateInvoice = () => {
             <Notes notes={notes} />
 
             <Footer
-              name={name}
-              address={address}
-              website={website}
-              email={email}
-              phone={phone}
-              bankAccount={bankAccount}
-              bankName={bankName}
+              // name={name}
+              // address={address}
+              // website={website}
+              // email={email}
+              // phone={phone}
+              // bankAccount={bankAccount}
+              // bankName={bankName}
             />
           </div>
+
+          
           {/* <button
             onClick={() => setShowInvoice(false)}
             className="mt-5 bg-blue-500 text-white font-bold py-2 px-8 rounded shadow border-2 border-blue-500 hover:bg-transparent hover:text-blue-500 transition-all duration-300"

@@ -54,7 +54,6 @@ export const CustomerModal = () => {
   const { openDateModal } = useUiStore();
 
 
-
   const [formValues, setFormValues] = useState({
     name: "",
     lastName: "",

@@ -1,6 +1,10 @@
 import React from "react"
 
 export default function Table({ list, totalDiscount, total }) {
+  
+  
+
+
   return (
     <>
       <table width="100%" className="mb-8">
@@ -35,8 +39,8 @@ export default function Table({ list, totalDiscount, total }) {
         </h2>
 
         <h2 className="flex items-end justify-end text-gray-800 text-1xl font-bold">
-          <p className="md:mr-5">ISV:</p>
-            12%
+          <p className="md:mr-5">ISV: </p>
+            15%
         </h2>
 
         <h2 className="flex items-end justify-end text-gray-800 text-1xl font-bold">
