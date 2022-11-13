@@ -48,7 +48,7 @@ export const ProductModal = () => {
 
   const { isDateModalOpen, closeDateModal } = useUiStore();
 
-  const { categories } = useSelector( state => state.category);
+  const { categories } = useSelector(state => state.category);
 
   const { startLoadingCategory } = useCategoryStore();
 
@@ -94,7 +94,7 @@ export const ProductModal = () => {
           public_id: "",
           secure_url: "",
         },
-        
+
       });
     }
   }, [activeProduct]);
@@ -111,7 +111,7 @@ export const ProductModal = () => {
         price: activeProduct.price,
         stock: activeProduct.stock,
         category:
-          activeProduct.category._id + " " + activeProduct.category.name,
+          activeProduct.category?._id + " " + activeProduct.category?.name,
         image: activeProduct.image,
       });
     }
@@ -127,7 +127,7 @@ export const ProductModal = () => {
   const onSubmit = async (event) => {
     event.preventDefault();
 
-    if ( formValues.code.length <= 0 || formValues.name.length <= 0 || formValues.description.length <= 0 || formValues.price.length <= 0  || formValues.stock.length <= 0) {
+    if (formValues.code.length <= 0 || formValues.name.length <= 0 || formValues.description.length <= 0 || formValues.price.length <= 0 || formValues.stock.length <= 0) {
       Swal.fire("Campos Obligatorios", "Todos los campos son obligatorio", "error");
       return;
     }

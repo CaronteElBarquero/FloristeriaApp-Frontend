@@ -45,10 +45,10 @@ export const CreateInvoice = () => {
 
 
   const { startSavingInvoice, startDeleteInvoice } = useInvoiceStore();
-  const { activeInvoice, activeCreateInvoice } = useSelector((state) => state.invoice); 
+  const { activeInvoice, activeCreateInvoice } = useSelector((state) => state.invoice);
 
   const { products } = useSelector(state => state.product)
-  const { startUpdateProduct  } = useProductStore();
+  const { startUpdateProduct, startUpdateInvoice, startLoadingProduct } = useProductStore();
 
 
 
@@ -75,15 +75,17 @@ export const CreateInvoice = () => {
     }
   }, [width])
 
+  // useEffect(() => {
+  // }, [activeInvoice, products]);
 
 
   const handleSave = () => {
 
-    if ( activeCreateInvoice && list.length > 0 ) {
+    if (activeCreateInvoice && list.length > 0) {
       startSavingInvoice({
         //guardar el id del producto en la list
 
-        product: [ ...list.map( item => item.id ) ],
+        product: [...list.map(item => item.id)],
 
         invoiceDate,
         dueDate,
@@ -93,34 +95,37 @@ export const CreateInvoice = () => {
 
       })
 
+      startLoadingProduct();
 
       //restar la cantidad de productos vendidos de la cantidad de productos en stock y split
 
 
       //actualizar la cantidad de los productos en stoc
 
-      
 
-      const newProducts = products.map( product => {
-        const productInList = list.find( item => item.id === product.id )
-        if ( productInList ) {
-          return {
-            ...product,
-            stock: product.stock - productInList.quantity
-          }
-        } else {
-          return product
+
+      products.map(product => {
+        const productInList = list.find(item => item.id === product.id)
+        if (productInList) {
+
+          startUpdateInvoice({ ...product, stock: product.stock - productInList.quantity });
+          // return {
+          //   ...product,
+          //   stock: product.stock - productInList.quantity
+          // }
         }
+
+        // else {
+        //   return product
+        // }
 
       })
 
-       //actyuallizar los productos
-      startUpdateProduct( newProducts ) 
+      //actyuallizar los productos
+      // console.log(list, "list")
+      // console.log(newProducts)
 
 
-      console.log(newProducts)
-
-      
 
 
 
@@ -154,9 +159,9 @@ export const CreateInvoice = () => {
   }
 
 
-  
+
   return (
-    
+
     <>
       <main className="m-1 p-4 xl:grid grid-cols-2 gap-6 xl:items-start ">
 
@@ -173,16 +178,16 @@ export const CreateInvoice = () => {
                 <div className="flex items-center -space-x-3 translate-x-3">
                   <div className="w-2.5 h-[1.6px] rounded bg-white origin-left scale-x-0 transition duration-300 group-hover:scale-x-100"></div>
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 stroke  -translate-x-2 transition duration-300 group-hover:translate-x-0" color="white" fill="none" viewBox="0 0 24 24" stroke="currentColor" >
-                    <path strokeLinecap="round"  d="M9 5l7 7-7 7" />
+                    <path strokeLinecap="round" d="M9 5l7 7-7 7" />
                   </svg>
                 </div>
               </button>
 
               <button className=" ml-5 relative group overflow-hidden px-6 h-12 rounded-full flex space-x-2 items-center bg-gradient-to-r from-pink-500 to-purple-500 hover:to-purple-600"
-                onClick={ handleSave }
+                onClick={handleSave}
               >
                 <span className="relative text-sm text-white">Guardar</span>
-                <svg className="w-6 h-6" fill="currentColor" color="white" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path clipRule="evenodd" d="M4 4a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2V8a2 2 0 00-2-2h-5L9 4H4zm7 5a1 1 0 00-2 0v1H8a1 1 0 000 2h1v1a1 1 0 002 0v-1h1a1 1 0 000-2h-1V9z" fillRule="evenodd" /></svg>              
+                <svg className="w-6 h-6" fill="currentColor" color="white" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path clipRule="evenodd" d="M4 4a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2V8a2 2 0 00-2-2h-5L9 4H4zm7 5a1 1 0 00-2 0v1H8a1 1 0 000 2h1v1a1 1 0 002 0v-1h1a1 1 0 000-2h-1V9z" fillRule="evenodd" /></svg>
               </button>
             </div>
 
@@ -351,17 +356,17 @@ export const CreateInvoice = () => {
             <Notes notes={notes} />
 
             <Footer
-              // name={name}
-              // address={address}
-              // website={website}
-              // email={email}
-              // phone={phone}
-              // bankAccount={bankAccount}
-              // bankName={bankName}
+            // name={name}
+            // address={address}
+            // website={website}
+            // email={email}
+            // phone={phone}
+            // bankAccount={bankAccount}
+            // bankName={bankName}
             />
           </div>
 
-          
+
           {/* <button
             onClick={() => setShowInvoice(false)}
             className="mt-5 bg-blue-500 text-white font-bold py-2 px-8 rounded shadow border-2 border-blue-500 hover:bg-transparent hover:text-blue-500 transition-all duration-300"

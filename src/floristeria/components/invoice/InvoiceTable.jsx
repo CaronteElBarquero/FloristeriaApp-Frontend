@@ -4,7 +4,9 @@ import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { alpha } from '@mui/material/styles';
 import { useInvoiceStore } from "../../../hooks";
-
+import moment from 'moment';
+// import 'moment/locale/es';
+// moment.locale('es-hn');
 import {
   Box, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow, TableSortLabel, Toolbar, Typography,
   Paper, Checkbox, IconButton, Tooltip, FormControlLabel, Switch,
@@ -137,13 +139,17 @@ EnhancedTableHead.propTypes = {
   rowCount: PropTypes.number.isRequired,
 };
 
-function EnhancedTableToolbar({ numSelected, selected }) {
+function EnhancedTableToolbar({ numSelected, selected, funtionSet }) {
 
   const { startDeleteInvoice } = useInvoiceStore();
 
 
-  const onDelete = (id) => {
-    startDeleteInvoice("63701726e7228669a5a09fd8");
+  const onDelete = () => {
+    selected.map((id) => {
+      console.log(id, 'borrado')
+      startDeleteInvoice(id);
+    });
+    funtionSet([]);
   }
 
 
@@ -183,7 +189,7 @@ function EnhancedTableToolbar({ numSelected, selected }) {
 
         <>
           <Tooltip title="Eliminar">
-            <IconButton onClick={ onDelete } >
+            <IconButton onClick={onDelete} >
               <Delete />
             </IconButton>
           </Tooltip>
@@ -293,7 +299,7 @@ export const InvoiceTable = () => {
 
     <Box sx={{ width: '100%', mt: 5 }}>
       <Paper sx={{ width: '100%', mb: 2 }}>
-        <EnhancedTableToolbar numSelected={selected.length} selected={selected} />
+        <EnhancedTableToolbar numSelected={selected.length} selected={selected} funtionSet={setSelected} />
         <TableContainer>
           <Table
             sx={{ minWidth: 750 }}
@@ -323,7 +329,7 @@ export const InvoiceTable = () => {
                       role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
-                      key={invoice.id}
+                      key={invoice.id + index}
                       selected={isItemSelected}
                     >
                       <TableCell padding="checkbox">
@@ -345,13 +351,13 @@ export const InvoiceTable = () => {
                         {invoice.product.map((product) => (
                           <p key={product.name}>{product.name}</p>
                         ))}
-                          
+
                       </TableCell>
 
-                      <TableCell align="right">{ invoice.invoiceDate }</TableCell>
-                      <TableCell align="right">{ invoice.dueDate }</TableCell>
-                      <TableCell align="right">{ invoice.discount }</TableCell>
-                      <TableCell align="right">{ invoice.total }</TableCell>
+                      <TableCell align="right">{invoice.invoiceDate && moment(invoice.invoiceDate).format('L')}</TableCell>
+                      <TableCell align="right">{invoice.dueDate && moment(invoice.dueDate).format('L')}</TableCell>
+                      <TableCell align="right">{invoice.discount}</TableCell>
+                      <TableCell align="right">{invoice.total}</TableCell>
                     </TableRow>
                   );
                 })}

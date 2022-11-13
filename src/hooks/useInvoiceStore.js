@@ -17,13 +17,13 @@ export const useInvoiceStore = () => {
 
     const dispatch = useDispatch();
 
-    
 
-    const setActiveInvoice = ( invoiceEvent ) => {
-        dispatch(onSetActiveInvoice( invoiceEvent ))
+
+    const setActiveInvoice = (invoiceEvent) => {
+        dispatch(onSetActiveInvoice(invoiceEvent))
     };
 
-    const startSavingInvoice = async ( invoiceEvent ) => {
+    const startSavingInvoice = async (invoiceEvent) => {
 
         const { data } = await floristeriaApi.post('/invoice', invoiceEvent);
         // console.log(data);
@@ -39,10 +39,10 @@ export const useInvoiceStore = () => {
 
 
 
-    const startActiveIdInvoice = ( invoiceEvent ) => {
-        dispatch(onActiveInvoice( invoiceEvent ))
+    const startActiveIdInvoice = (invoiceEvent) => {
+        dispatch(onActiveInvoice(invoiceEvent))
     };
-    
+
 
 
     const startActiveCreateInvoice = () => {
@@ -55,10 +55,10 @@ export const useInvoiceStore = () => {
         try {
             const { data } = await floristeriaApi.get('/invoice');
 
-            const invoices = convertInvoiceToDateInvoice( data.invoices )
-            console.log(invoices);
+            const invoices = convertInvoiceToDateInvoice(data.invoices)
+            // console.log(invoices);
 
-            dispatch(onLoadInvoice( data.invoices ));
+            dispatch(onLoadInvoice(data.invoices));
 
         } catch (error) {
             console.log(error);
@@ -67,15 +67,15 @@ export const useInvoiceStore = () => {
 
 
 
-    const startDeleteInvoice = async ( id ) => {
+    const startDeleteInvoice = async (id) => {
         await floristeriaApi.delete(`/invoice/${id}`);
-        dispatch(onDeleteInvoice( id ));
+        dispatch(onDeleteInvoice(id));
     };
 
 
 
 
-    
+
 
 
 

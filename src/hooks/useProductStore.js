@@ -23,7 +23,7 @@ export const useProductStore = () => {
 
     const { activeProduct, activeImage } = useSelector(state => state.product);
     // const { fileUpload } = useFileUpload();
-    
+
 
     const setActiveProduct = (productEvent) => {
         dispatch(onSetActiveProduct(productEvent))
@@ -41,17 +41,18 @@ export const useProductStore = () => {
 
 
     const startUpdateProduct = async (productEvent) => {
+        // console.log(productEvent, "Este es el producto");
         const categoryData = productEvent.category?.split(' ');
         let dataFormat;
 
-        if(activeImage.public_id === ''){
+        if (activeImage.public_id === '') {
             dataFormat = { ...productEvent, category: categoryData[0] }
-            dispatch(onUpdateProduct({ ...productEvent, id: activeProduct.id, category: { _id: categoryData[0], name: categoryData[1] }}));
-        }else{
+            dispatch(onUpdateProduct({ ...productEvent, id: activeProduct.id, category: { _id: categoryData[0], name: categoryData[1] } }));
+        } else {
             dataFormat = { ...productEvent, category: categoryData[0], image: activeImage }
             dispatch(onUpdateProduct({ ...productEvent, id: activeProduct.id, category: { _id: categoryData[0], name: categoryData[1] }, image: activeImage }));
 
-        } 
+        }
         // if(activeImage.public_id === ''){
         //     dispatch(onUpdateProduct({ ...productEvent, id: activeProduct.id, category: { _id: categoryData[0], name: categoryData[1] }}));
         // }else{
@@ -59,6 +60,13 @@ export const useProductStore = () => {
         // }
 
         await floristeriaApi.put(`/product/${activeProduct.id}`, dataFormat);
+
+    };
+
+    const startUpdateInvoice = async (productEvent) => {
+        // console.log(productEvent, "Este es el producto");
+        dispatch(onUpdateProduct(productEvent));
+        await floristeriaApi.put(`/product/stock/${productEvent.id}`, productEvent);
 
     };
 
@@ -70,7 +78,7 @@ export const useProductStore = () => {
     };
 
     const startLoadingProduct = async () => {
-
+        // console.log('Esta cargando los productos')
         try {
             const { data } = await floristeriaApi.get('/product');
             dispatch(onLoadProduct(data.products));
@@ -111,7 +119,7 @@ export const useProductStore = () => {
 
     const startDataImageUpload = (file) => {
         dispatch(getPhotosToProduct(file))
-        
+
     }
 
 
@@ -130,7 +138,8 @@ export const useProductStore = () => {
         startIdActiveProduct,
         setActiveProduct,
         startImageUpload,
-        startDataImageUpload
+        startDataImageUpload,
+        startUpdateInvoice
 
 
     }
