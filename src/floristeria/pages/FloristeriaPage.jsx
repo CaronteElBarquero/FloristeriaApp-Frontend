@@ -3,16 +3,20 @@ import { CategoryModal, SpeelProduct, PrimerGrafica, Tarjetones, BotonesNavigate
 import { DraweBar } from "../../ui/components"
 import { Typography } from "@mui/material"
 import { floristeriaApi } from "../../api"
+import { NumberUser } from "../Graficas/NumberUser"
 // import EarningCard from "../components/InittionImages"
 // import { ProductPage } from "./ProductPage"
 
 
 export const FloristeriaPage = () => {
   const [product, setProduct] = useState();
+  const [customers, setCustomers] = useState();
 
   const getProduct = async () => {
-    const { data } = await floristeriaApi.get('/product');
-    setProduct(data.products);
+    const products = await floristeriaApi.get('/product');
+    const customers = await floristeriaApi.get('/customer');
+    setProduct(products.data.products);
+    setCustomers(customers.data.customers);
   };
 
   useEffect(() => {
@@ -37,6 +41,7 @@ export const FloristeriaPage = () => {
 
       {/* <PrimerGrafica /> */}
       <ProductStock products={product} />
+      <NumberUser users={customers} />
 
     </DraweBar>
   )
