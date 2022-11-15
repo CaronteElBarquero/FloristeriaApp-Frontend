@@ -14,7 +14,7 @@ import TableForm from "./TableForm"
 import ReactToPrint from "react-to-print"
 import { DraweBar } from "../../../ui/components"
 import { toast, ToastContainer } from "react-toastify"
-
+import moment from "moment"
 
 // import '../../../style/style_tail.css'
 
@@ -27,7 +27,7 @@ import { toast, ToastContainer } from "react-toastify"
 
 export const CreateInvoice = () => {
 
-
+  const [nroInvoice, setNroInvoice] = useState("")
   const [clientName, setClientName] = useState("")
   const [clientAddress, setClientAddress] = useState("")
   const [invoiceNumber, setInvoiceNumber] = useState("")
@@ -69,14 +69,13 @@ export const CreateInvoice = () => {
   }
 
 
-  useEffect(() => {
-    if (window.innerWidth < width) {
-      // alert("Place your phone in landscape mode for the best experience")
-    }
-  }, [width])
-
   // useEffect(() => {
-  // }, [activeInvoice, products]);
+  //   if (window.innerWidth < width) {
+  //     // alert("Place your phone in landscape mode for the best experience")
+  //   }
+  // }, [width])
+
+
 
 
   const handleSave = () => {
@@ -86,7 +85,7 @@ export const CreateInvoice = () => {
         //guardar el id del producto en la list
 
         product: [...list.map(item => item.id)],
-
+        nroInvoice,
         invoiceDate,
         dueDate,
         discount: totalDiscount,
@@ -105,41 +104,24 @@ export const CreateInvoice = () => {
 
 
       products.map(product => {
+
         const productInList = list.find(item => item.id === product.id)
+
         if (productInList) {
 
           startUpdateInvoice({ ...product, stock: product.stock - productInList.quantity });
-          // return {
-          //   ...product,
-          //   stock: product.stock - productInList.quantity
-          // }
+
         }
-
-        // else {
-        //   return product
-        // }
-
       })
-
-      //actyuallizar los productos
-      // console.log(list, "list")
-      // console.log(newProducts)
-
-
-
-
-
       toast.success("Factura guardada con exito")
 
-
-    }
-
-    else {
+    } else {
 
       toast.error("Los campos son necesarios")
 
     }
 
+    setNroInvoice("")
     setTotal(0);
     setTotalDiscount(0);
     setList([]);
@@ -195,7 +177,21 @@ export const CreateInvoice = () => {
             <div className="flex flex-col justify-center">
 
 
-              <article className="md:grid grid-cols-2 gap-10 md:mt-16">
+              <article className="md:grid grid-cols-3 gap-10 md:mt-16">
+
+                <div className="flex flex-col">
+                  <label htmlFor="nroInvoice">Nro.  de factura</label>
+                  <input
+                    type="text"
+                    name="nroInvoice"
+                    id="nroInvoice"
+                    placeholder="Nro."
+                    autoComplete="off"
+                    value={nroInvoice}
+                    onChange={(e) => setNroInvoice(e.target.value)}
+                  />
+                </div>
+
                 <div className="flex flex-col">
                   <label htmlFor="clientName">Nombre del cliente</label>
                   <input
@@ -330,6 +326,7 @@ export const CreateInvoice = () => {
             {/* <MainDetails name={name} address={address} /> */}
 
             <ClientDetails
+              nroInvoice={nroInvoice}
               clientName={clientName}
               clientAddress={clientAddress}
             />

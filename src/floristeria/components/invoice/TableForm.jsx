@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from "react"
+import { useSelector } from "react-redux"
+import { formatter } from "../../helpers"
+import { useInvoiceStore, useProductStore } from "../../../hooks"
+
 import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai"
 // import { v4 as uuidv4 } from "uuid"
 import { toast, ToastContainer } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
-import { useSelector } from "react-redux"
-import { useInvoiceStore, useProductStore } from "../../../hooks"
+
+
 
 export default function TableForm({
   setIdProduct,
@@ -239,7 +243,7 @@ export default function TableForm({
 
           <div className="flex flex-col">
             <label htmlFor="amount">Monto</label>
-            <p>{Math.round(amount)}</p>
+            <p>{ formatter.format(Math.round(amount)) }</p>
           </div>
 
         </div>
@@ -274,7 +278,7 @@ export default function TableForm({
                 <td>{quantity}</td>
                 <td>{price}</td>
                 <td className="discount" >{discount}</td>
-                <td className="amount">{Math.round(amount)}</td>
+                <td className="amount">{ Math.round(amount) }</td>
                 {/* <td className="discount">{discount}</td> */}
                 <td>
                   <button onClick={() => editRow(id)}>
@@ -293,7 +297,7 @@ export default function TableForm({
       </table>
       <div>
         <h2 className="flex items-end justify-end text-gray-800 text-4xl font-bold">
-          L {total.toLocaleString()}
+          { formatter.format(total) }
         </h2>
       </div>
     </>

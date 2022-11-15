@@ -25,7 +25,7 @@ export const CardCategory = () => {
     }, [])
 
     useEffect(() => {
-        console.log(categories)
+        // console.log(categories)
     }, [categories])
 
 

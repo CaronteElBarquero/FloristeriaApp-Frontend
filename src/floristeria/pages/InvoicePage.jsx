@@ -1,13 +1,14 @@
-import {  Button, Divider, Typography } from "@mui/material"
 import { useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
 import { useInvoiceStore, useProductStore } from "../../hooks"
-import { DraweBar } from "../../ui/components"
 
+import {  Button, Divider, Typography } from "@mui/material"
+import { DraweBar } from "../../ui/components"
 
 import { InvoiceTable } from "../components"
 
 import { onActiveInvoice, onAddNewInvoice, onActiveCreateInvoice, onSetActiveInvoice } from '../../store';
+import { Receipt } from "@mui/icons-material"
 
 // import { AutoCustomer, CardCustomer, CustomerModal } from "../components"
 
@@ -47,8 +48,15 @@ export const InvoicePage = () => {
 
             <Typography variant="h4"  align="center" ><strong>Ventas y Facturas</strong></Typography>
 
-            <Button onClick={ handleNewInvoice }>
-                Factura
+            <Button 
+                variant="contained" 
+                onClick={ handleNewInvoice }
+                sx={{ mt: 1, background: 'linear-gradient(100deg, #C22557 15%, #ED5887 79%, #FFF 150%)' }}
+
+            
+            >
+                <Receipt  sx={{ mr: 1}} />
+                Crear Factura
             </Button>
 
             <Divider />
