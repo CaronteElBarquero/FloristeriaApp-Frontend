@@ -1,13 +1,19 @@
 import React from "react"
+import { formatter } from "../../helpers"
+
+
+
 
 export default function Table({ list, totalDiscount, total }) {
+
+
   
   
 
 
   return (
     <>
-      <table width="100%" className="mb-8">
+      <table width="100%" className="mb-7">
         <thead>
           <tr className="bg-gray-100 p-">
             <td className="font-bold">Descripcion</td>
@@ -25,7 +31,7 @@ export default function Table({ list, totalDiscount, total }) {
                 <td>{quantity}</td>
                 <td>{price}</td>
                 <td>{discount}</td>
-                <td>{Math.round(amount)}</td>
+                <td>{  Math.round(amount) }</td>
               </tr>
             </tbody>
           </React.Fragment>
@@ -35,7 +41,7 @@ export default function Table({ list, totalDiscount, total }) {
       <div>
         <h2 className="flex items-end justify-end text-gray-800 text-1xl font-bold">
           <p className="md:mr-5">Descuento:</p>
-          L. {totalDiscount.toLocaleString()}
+            { formatter.format(totalDiscount) }
         </h2>
 
         <h2 className="flex items-end justify-end text-gray-800 text-1xl font-bold">
@@ -45,7 +51,7 @@ export default function Table({ list, totalDiscount, total }) {
 
         <h2 className="flex items-end justify-end text-gray-800 text-1xl font-bold">
           <p className="md:mr-5">Total:</p>
-          L. {total.toLocaleString()}
+           { formatter.format(total) }
         </h2>
       </div>
     </>

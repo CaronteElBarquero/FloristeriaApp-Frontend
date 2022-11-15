@@ -36,8 +36,12 @@ export const FloristeriaPage = () => {
       <BotonesNavigate />
 
       <br />
+      <br />
 
-      {/* <Tarjetones /> */}
+
+      <Tarjetones />
+
+      <br />
 
       {/* <PrimerGrafica /> */}
       <ProductStock products={product} />

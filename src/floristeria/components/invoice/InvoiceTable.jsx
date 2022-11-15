@@ -15,6 +15,11 @@ import {
 import { Delete, Edit, FilterList } from '@mui/icons-material';
 
 import { visuallyHidden } from '@mui/utils';
+import { formatter } from '../../helpers';
+import { createGlobalStyle } from 'styled-components';
+
+
+
 
 
 
@@ -50,7 +55,16 @@ function stableSort(array, comparator) {
 
 
 
+
 const headCells = [
+
+  {
+    id: 'nroInvoice',
+    numeric: false,
+    disablePadding: true,
+    label: 'Nro. Factura',
+  },
+
   {
     id: 'name',
     numeric: false,
@@ -232,10 +246,15 @@ export const InvoiceTable = () => {
 
   const { invoices } = useSelector((state) => state.invoice);
 
+  // const timeFormat = moment(d).format('DD/MM/YYYY');
+  // const time = invoices.map((invoice) => moment(invoice.invoiceDate).add(1, 'days').format('DD/MM/YYYY'));
+
+  // console.log(time, 'time');
+
+
   useEffect(() => {
     startLoadingInvoice();
   }, [])
-
 
 
 
@@ -295,6 +314,7 @@ export const InvoiceTable = () => {
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - invoices.length) : 0;
 
 
+
   return (
 
     <Box sx={{ width: '100%', mt: 5 }}>
@@ -341,6 +361,9 @@ export const InvoiceTable = () => {
                           }}
                         />
                       </TableCell>
+
+                      <TableCell align="left">{invoice.nroInvoice}</TableCell>
+
                       <TableCell
                         component="th"
                         id={labelId}
@@ -353,11 +376,13 @@ export const InvoiceTable = () => {
                         ))}
 
                       </TableCell>
+                      
+                      <TableCell align="right">{ moment(invoice.invoiceDate).add(1,'days').format('DD/MM/YYYY') }</TableCell>
+                      <TableCell align="right">{ moment(invoice.dueDate).add(1,'days').format('DD/MM/YYYY') }</TableCell>
+                      <TableCell align="right">{ invoice.discount }</TableCell>
 
-                      <TableCell align="right">{invoice.invoiceDate && moment(invoice.invoiceDate).format('L')}</TableCell>
-                      <TableCell align="right">{invoice.dueDate && moment(invoice.dueDate).format('L')}</TableCell>
-                      <TableCell align="right">{invoice.discount}</TableCell>
-                      <TableCell align="right">{invoice.total}</TableCell>
+                      {/* aplicar el formato al total */}
+                      <TableCell align="right">{formatter.format(invoice.total)}</TableCell>
                     </TableRow>
                   );
                 })}

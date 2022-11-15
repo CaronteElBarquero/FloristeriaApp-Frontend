@@ -42,10 +42,6 @@ export const useCustomerStore = () => {
     };
 
 
-
-    
-
-
     const startUpdateCustomer = async ( customerEvent ) => {
 
         await floristeriaApi.put(`/customer/${activeCustomer.id}`, customerEvent);
@@ -53,7 +49,7 @@ export const useCustomerStore = () => {
 
     };
 
-    
+
 
     const startLoadingCustomer = async () => {
         try {
