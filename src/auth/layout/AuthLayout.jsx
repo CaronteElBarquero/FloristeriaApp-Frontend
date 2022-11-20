@@ -12,7 +12,7 @@ export const AuthLayout = ({ children, title = "" }) => {
         sm={4}
         md={7}
         sx={{
-          backgroundImage: "url(http://localhost:3000/src/assets/flowers.jpg)",
+          backgroundImage: "url(http://nolygiftapp.vercel.app/src/assets/flowers.jpg)",
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
           backgroundPosition: "center",
