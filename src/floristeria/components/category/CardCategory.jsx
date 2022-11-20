@@ -33,12 +33,12 @@ export const CardCategory = () => {
     //IMAGEN ALEATORIA
     const randomImage = () => {
         const images = [
-            'http://localhost:3000/src/assets/categories/0.jpg',
-            'http://localhost:3000/src/assets/categories/1.jpg',
-            'http://localhost:3000/src/assets/categories/2.jpg',
-            'http://localhost:3000/src/assets/categories/3.jpg',
-            'http://localhost:3000/src/assets/categories/4.jpg',
-            'http://localhost:3000/src/assets/categories/5.jpg',
+            'https://res.cloudinary.com/dwozn2lvh/image/upload/v1668917850/5_aj4sfv.jpg',
+            'https://res.cloudinary.com/dwozn2lvh/image/upload/v1668917849/4_nd1m9e.jpg',
+            'https://res.cloudinary.com/dwozn2lvh/image/upload/v1668917849/3_kwsqss.jpg',
+            'https://res.cloudinary.com/dwozn2lvh/image/upload/v1668917848/2_pjh9mv.jpg',
+            'https://res.cloudinary.com/dwozn2lvh/image/upload/v1668917847/1_lltwry.jpg',
+            'https://res.cloudinary.com/dwozn2lvh/image/upload/v1668917847/0_axvnqi.jpg',
         ]
         return images[Math.floor(Math.random() * images.length)]
     }

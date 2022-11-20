@@ -128,7 +128,7 @@ export const CardProducts = () => {
               component="img"
               height="150px"
               sx={{ mt: 1.5 }}
-              image={product.image?.secure_url ? product.image.secure_url : 'http://localhost:3000/src/assets/1.jpg'}
+              image={product.image?.secure_url ? product.image.secure_url : 'https://res.cloudinary.com/dwozn2lvh/image/upload/v1668917833/1_xks83e.webp'}
               alt="Paella dish"
             />
             <CardContent>

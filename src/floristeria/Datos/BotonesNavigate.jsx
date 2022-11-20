@@ -102,7 +102,7 @@ export const BotonesNavigate = () => {
     <Box sx={{ display: 'flex', flexWrap: 'wrap', minWidth: 300, width: '100%', mt: 3, ml:1 }}   gap={1} >
 
         <ImageButton focusRipple style={{ width: '24%' }} onClick={toCategory} >
-            <ImageSrc style={{ backgroundImage: 'url(http://localhost:3000/src/assets/2.jpg)'  }} />
+            <ImageSrc style={{ backgroundImage: 'url(https://res.cloudinary.com/dwozn2lvh/image/upload/v1668917834/2_gt9lpq.webp)'  }} />
             <ImageBackdrop className="MuiImageBackdrop-root" />
             <Image>
                 <Typography
@@ -122,7 +122,7 @@ export const BotonesNavigate = () => {
         </ImageButton>
 
         <ImageButton focusRipple style={{ width: '24%' }} onClick={toProduct} >
-            <ImageSrc style={{ backgroundImage: 'url(http://localhost:3000/src/assets/3.jpg)'  }} />
+            <ImageSrc style={{ backgroundImage: 'url(https://res.cloudinary.com/dwozn2lvh/image/upload/v1668917834/3_us2yfp.webp)'  }} />
             <ImageBackdrop className="MuiImageBackdrop-root" />
             <Image>
                 <Typography
@@ -142,7 +142,7 @@ export const BotonesNavigate = () => {
         </ImageButton>
 
         <ImageButton focusRipple style={{ width: '24%' }} onClick={toCustomer} >
-            <ImageSrc style={{ backgroundImage: 'url(http://localhost:3000/src/assets/6.jpg)'  }} />
+            <ImageSrc style={{ backgroundImage: 'url(https://res.cloudinary.com/dwozn2lvh/image/upload/v1668917835/6_lil2fm.webp)'  }} />
             <ImageBackdrop className="MuiImageBackdrop-root" />
             <Image>
                 <Typography
@@ -163,7 +163,7 @@ export const BotonesNavigate = () => {
 
 
         <ImageButton focusRipple style={{ width: '24%' }} onClick={ toInvoice } >
-            <ImageSrc style={{ backgroundImage: 'url(http://localhost:3000/src/assets/5.jpg)'  }} />
+            <ImageSrc style={{ backgroundImage: 'url(https://res.cloudinary.com/dwozn2lvh/image/upload/v1668917834/5_w8slgo.webp)'  }} />
             <ImageBackdrop className="MuiImageBackdrop-root" />
             <Image>
                 <Typography

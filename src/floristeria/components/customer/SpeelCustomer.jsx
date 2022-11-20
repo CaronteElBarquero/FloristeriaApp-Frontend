@@ -42,6 +42,7 @@ export const SpeelCustomer = () => {
       name: "CREAR",
     },
 
+
   ];
 
   return (
@@ -51,7 +52,7 @@ export const SpeelCustomer = () => {
 
       <SpeedDial
         ariaLabel="SpeedDial openIcon example"
-        sx={{ position: "absolute", bottom: 700, right: "30px" }}
+        sx={{ position: "relative", bottom: "880px", left: "560px" }}
         icon={<SpeedDialIcon openIcon={<Edit />} />}
         direction="down"
       >

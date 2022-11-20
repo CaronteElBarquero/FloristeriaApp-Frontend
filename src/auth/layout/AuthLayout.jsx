@@ -12,7 +12,7 @@ export const AuthLayout = ({ children, title = "" }) => {
         sm={4}
         md={7}
         sx={{
-          backgroundImage: "url(http://nolygiftapp.vercel.app/src/assets/flowers.jpg)",
+          backgroundImage: "url(https://res.cloudinary.com/dwozn2lvh/image/upload/v1668916595/hermoso-arreglo-papel-tapiz-flores_23-2149057015_ufpzpv.webp)",
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
           backgroundPosition: "center",
