@@ -77,25 +77,13 @@ export const Tarjetones = () => {
   const todayCount = todayInvoices.length
 
 
-  
-
-  
-
-
-
 
 
   //total de las ventas el mes de hoy
-  const month = new Date().toLocaleDateString().split('-')[1]
-  const totalMonth = invoices.filter( invoice => invoice.invoiceDate.split('/')[1] === month ).reduce( (acc, invoice) => acc + invoice.total, 0 )
-  
+  // const month = new Date().toLocaleDateString().split('-')[1]
+  // const totalMonth = invoices.filter( invoice => invoice.invoiceDate.split('/')[1] === month ).reduce( (acc, invoice) => acc + invoice.total, 0 )
   // console.log(totalMonth)
  
-
-
-
-
-
 
 
 
@@ -234,7 +222,7 @@ export const Tarjetones = () => {
           >
           <CardContent>
               <Typography sx={{ fontSize: 15, color: 'ffff' }} color="text.secondary" gutterBottom>
-                  <BookmarkBorder sx={{ color: '#fff', width: '25x' }}  />  <strong>{ `Ventas De ${dateToday}`} </strong>
+                  <BookmarkBorder sx={{ color: '#fff', width: '25x' }}  />  <strong>{ `Total, ${dateToday}`} </strong>
                   
               </Typography>
               <br />
@@ -258,7 +246,7 @@ export const Tarjetones = () => {
           >
           <CardContent>
               <Typography sx={{ fontSize: 15, color: 'ffff' }} color="text.secondary" gutterBottom>
-                  <BookmarkBorder sx={{ color: '#fff', width: '25x' }}  />  <strong>{ `Productos ${dateToday}`} </strong>
+                  <BookmarkBorder sx={{ color: '#fff', width: '25x' }}  />  <strong>{ `Ventas, ${dateToday}`} </strong>
                   
               </Typography>
               <br />
@@ -276,21 +264,6 @@ export const Tarjetones = () => {
      
 
 
-
-        {/* <Card 
-          sx={{ minWidth: 250, 
-            borderRadius: '15px', 
-            color:'#ffff', 
-            backgroundImage: 'url(https://res.cloudinary.com/donirzfl2/image/upload/v1666849742/GridArt_20221026_234653550_yzok8s.jpg)', 
-            backgroundRepeat: "no-repeat",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            }}
-
-          >
-          <CardContent>
-          </CardContent>
-        </Card> */}
 
 
 

@@ -2,7 +2,6 @@
 @tailwind utilities;
 @tailwind base;
 
-@import url("https://fonts.googleapis.com/css2?family=Reem+Kufi:wght@400;700&display=swap");
 
 :root {
   --blue-card: #12036f;
