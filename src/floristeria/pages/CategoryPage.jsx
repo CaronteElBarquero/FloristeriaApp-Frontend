@@ -9,7 +9,7 @@ export const CategoryPage = () => {
         
         <DraweBar>
 
-            <Typography variant="h4"  align="center" ><strong>Bienvenido a categorias</strong></Typography>
+            <Typography variant="h4"  align="center" ><strong>Listado de categorias</strong></Typography>
             <Divider />
             {/* <h1>Bienvenido a categoria</h1> */}
             

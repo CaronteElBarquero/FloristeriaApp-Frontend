@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-import { Link as RouterLink } from "react-router-dom";
+import { Link as RouterLink, useNavigate } from "react-router-dom";
 
 import {
   Button, Grid, Link, Typography, IconButton, Input, FormControl, InputLabel, FilledInput, InputAdornment,
@@ -10,7 +10,7 @@ import { AuthLayout } from "../layout/AuthLayout";
 import Swal from "sweetalert2";
 
 import {
-  LoginOutlined, Visibility, VisibilityOff, Email,
+  LoginOutlined, Visibility, VisibilityOff, Email, Home,
 } from "@mui/icons-material";
 
 import { useAuthStore, useForm } from "../../hooks";
@@ -24,6 +24,12 @@ export const LoginPage = () => {
   const { startLogin, errorMessage } = useAuthStore();
 
   const { loginEmail, loginPassword, onInputChange } = useForm(loginFormFields);
+
+  const navigate = useNavigate();
+
+  const toInitio = () => {
+    navigate("/initio");
+  };
 
   const loginSubmit = (event) => {
     event.preventDefault();
@@ -124,16 +130,37 @@ export const LoginPage = () => {
                 <Typography sx={{ ml: 1 }}> Login </Typography>
               </Button>
             </Grid>
+
+            <Grid item xs={11.5} sm={11.5}>
+              <Button
+                variant="contained"
+                fullWidth
+                sx={{ mt: 1, mb: 0, background: 'linear-gradient(100deg, #C22557 35%, #ED5887 59%, #FFF 140%)' }}
+                // type="submit"
+                onClick={toInitio}
+
+              >
+                <Home />
+                <Typography sx={{ ml: 1 }}> Volver a Inicio </Typography>
+              </Button>
+            </Grid>
           </Grid>
           <Grid container direction="row" justifyContent="end" sx={{ m: 2 }}>
+
+
+
             <Link
+              sx={{ ml:19 }}
               component={RouterLink}
               color="primary"
               to="/auth/register"
             >
               Crear una cuenta
             </Link>
+
+
           </Grid>
+          
         </Grid>
       </form>
     </AuthLayout>

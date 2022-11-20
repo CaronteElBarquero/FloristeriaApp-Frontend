@@ -5,12 +5,16 @@ import { DraweBar } from "../../ui/components"
 
 export const ProductPage = () => {
 
+
+
   return (
 
     <DraweBar>
 
-      <Typography variant="h4"  align="center" ><strong>Bienvenido a productos</strong></Typography>
-      <Divider />      
+      <Typography variant="h4"  align="center" ><strong>Listado de productos</strong></Typography>
+
+
+      <Divider  />      
       <CardProducts />
       <ProductModal />
 

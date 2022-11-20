@@ -11,8 +11,7 @@ import {
 export const SpeelCategory = () => {
 
   const { openDateModal } = useUiStore();
-  const { categories, setActiveCategory, startActiveCreateCategory } =
-    useCategoryStore();
+  const { categories, setActiveCategory, startActiveCreateCategory } = useCategoryStore();
 
   //FUNCION PERMITE ABRIR EL MODAL PARA CREAR UNA NUEVA CATEGORIA
   const handleClickNew = () => {
@@ -53,9 +52,9 @@ export const SpeelCategory = () => {
 
       <SpeedDial
         ariaLabel="SpeedDial openIcon example"
-        sx={{ position: "absolute", bottom: 650, right: "30px" }}
+        sx={{ position: "absolute", bottom: 700, right: "30px" }}
         icon={<SpeedDialIcon openIcon={<Edit />} />}
-        direction="left"
+        direction="down"
       >
         {actions.map((action) => (
           <SpeedDialAction

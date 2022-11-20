@@ -56,6 +56,7 @@ export const CategoryModal = () => {
     });
   }, [activeCategoryUpdate]);
 
+  
   const onInputChanged = ({ target }) => {
     setFormValues({
       ...formValues,

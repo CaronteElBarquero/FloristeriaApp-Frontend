@@ -31,11 +31,13 @@ export const useCategoryStore = () => {
         dispatch(onAddNewCategory({ ...categoryEvent, id: data.category.id }))
     };
 
+
     const startUpdateCategory = async (categoryEvent) => {
         //ACTUALIZANDO
         await floristeriaApi.put(`/category/${activeCategoryUpdate.id}`, categoryEvent);
         dispatch(onUpdateCategory({ ...categoryEvent, id: activeCategoryUpdate.id }));
     };
+    
 
     const startDeleteCategory = async (idCategory) => {
         await floristeriaApi.delete(`/category/${idCategory}`);

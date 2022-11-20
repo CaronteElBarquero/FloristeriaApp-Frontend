@@ -1,4 +1,5 @@
 
+
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300&family=Poppins:ital,wght@0,500;1,400;1,700&display=swap');
 .fondo {
     object-fit: cover;
@@ -21,14 +22,17 @@
 
 .letra {
     font-family: poppins;
+    text-align: center;
+    font-size: 1.5rem;
+    color: #c22557;
+    font-weight: 700;
+    
+
 }
 
 .fondo {
     background-color: black;
 }
-
-
-
 
 
 /* Modal */
@@ -78,5 +82,6 @@
     padding: 10px;
     font-family: poppins;
 }
+
 
 

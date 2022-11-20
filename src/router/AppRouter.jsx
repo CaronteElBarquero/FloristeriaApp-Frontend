@@ -7,6 +7,11 @@ import { AuthRoute } from '../auth/routes/AuthRoute';
 import { FloristeriaRoute } from '../floristeria/routes/FloristeriaRoute';
 import { useCategoryStore } from '../hooks/useCategoryStore';
 
+import { HomePage } from '../ui/pages/HomePage';
+
+
+import { InitionRoutes } from '../ui/routes/InitionRoutes';
+
 export const AppRouter = () => {
 
     const {  checkAuthToken, status } = useAuthStore();
@@ -26,8 +31,10 @@ export const AppRouter = () => {
                 ( status === 'not-authenticated' || status === 'checking' )
                     ? (
                         <>
+                            <Route path="/*" element={<InitionRoutes />} />
+
                             <Route path="/auth/*" element={ <AuthRoute /> } />
-                            <Route path="/*" element={ <Navigate to="/auth/login" /> } />   
+                            {/* <Route path="/*" element={ <Navigate to="/auth/login" /> } />    */}
                         </>
 
                     )

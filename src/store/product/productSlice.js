@@ -7,25 +7,38 @@ export const productSlice = createSlice({
   name: "product",
 
   initialState: {
+
     products: [
       // tempCategory
     ],
+    
     activeProduct: null,
     activeCreateProduct: false,
     activeUpdateProduct: false,
-    activeProduct: {
-		code: '',
-		name: '',
-		description: '',
-		price: '',
-		stock: '',
-		category: null, 
-		image: ''
+    activeUploadImage: false,
+    activeImage: {
+      public_id: "",
+      secure_url: "",
     },
-    // errorMessage: undefined,
+    
+    activeProduct: {
+      code: '',
+      name: '',
+      description: '',
+      price: '',
+      stock: '',
+      category: null,
+      image: {
+        public_id: '',
+        secure_url: '',
+      },
+    },
+    // errorMessage,: undefined,
   },
 
   reducers: {
+
+
     onSetActiveProduct: (state, { payload }) => {
       state.activeProduct = payload;
     },
@@ -35,17 +48,23 @@ export const productSlice = createSlice({
       state.activeProduct = null;
       state.activeCreateProduct = true;
       state.activeUpdateProduct = false;
+      // state.activeImage.public_id = "";
+      // state.activeImage.secure_url = "";
     },
 
     onUpdateProduct: (state, { payload }) => {
+
       state.products = state.products.map((product) => {
+
         if (product.id === payload.id) {
           return payload;
         }
         return product;
       });
       state.activeUpdateProduct = true;
+      
       // errorMessage = payload;
+
     },
 
 
@@ -53,9 +72,9 @@ export const productSlice = createSlice({
       state.products = state.products.filter((product) => product.id !== payload);
     },
 
-    
+
     onLoadProduct: (state, { payload = [] }) => {
-    //   state.isLoadingCategory = false;
+      //   state.isLoadingCategory = false;
 
       payload.forEach((event) => {
         const exist = state.products.some(
@@ -71,6 +90,7 @@ export const productSlice = createSlice({
     onActiveCreateProduct: (state) => {
       state.activeCreateProduct = true;
       state.activeUpdateProduct = false;
+
     },
 
     onActiveUpdateProduct: (state) => {
@@ -81,17 +101,47 @@ export const productSlice = createSlice({
     onActiveProduct: (stata, { payload }) => {
       stata.activeProduct = payload;
     },
+
+    setPhotosToProduct: (state, { payload }) => {
+      state.activeUploadImage = payload;
+    },
+
+    getPhotosToProduct: (state, { payload }) => {
+      state.activeImage.public_id = payload.public_id;
+      state.activeImage.secure_url = payload.secure_url;
+
+    },
+
+    startPhotoUpload: (state) => {
+      state.activeImage.public_id;
+      state.activeImage.secure_url;
+    },
+
+    // startUpdatePhoto: (state, { payload }) => {
+ 
+    //   if ( payload ) {
+    //     state.activeImage.public_id = payload.public_id;
+    //     state.activeImage.secure_url = payload.secure_url;
+    //   }
+    // }
+
+
   },
 });
 
 
 export const {
-	onAddNewProduct, 
-	onUpdateProduct,
-	onDeleteProduct, 
-	onLoadProduct, 
-	onActiveCreateProduct, 
-	onActiveUpdateProduct, 
-	onActiveProduct,
-  onSetActiveProduct
+  
+  onAddNewProduct,
+  onUpdateProduct,
+  onDeleteProduct,
+  onLoadProduct,
+  onActiveCreateProduct,
+  onActiveUpdateProduct,
+  onActiveProduct,
+  onSetActiveProduct,
+  setPhotosToProduct,
+  getPhotosToProduct,
+  startPhotoUpload,
+
 } = productSlice.actions;

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { List, ListItem, ListItemButton, ListItemIcon, ListItemText } from "@mui/material"
-import { Home, ProductionQuantityLimits, Wysiwyg  } from '@mui/icons-material';
+import { ContentPaste, Home, ProductionQuantityLimits, Wysiwyg, AssignmentInd  } from '@mui/icons-material';
 import { useNavigate } from "react-router-dom";
 
 
@@ -21,11 +21,12 @@ export const ButtonList = () => {
     };
 
 
-    const toProduct = () => {
-        navigate("/product");
+    const toHome = () => {
+        navigate("/");
         // console.log('hola')
 
-    }; 
+    };
+
 
     const toCategory = () => {
         navigate("/category");
@@ -33,11 +34,26 @@ export const ButtonList = () => {
 
     }; 
 
-    const toHome = () => {
-        navigate("/");
+    const toProduct = () => {
+        navigate("/product");
         // console.log('hola')
 
+    }; 
+
+
+    const toCustomer = () => {
+        navigate("/customer");
+        // console.log('hola')
+        
     };
+
+
+    const toInvoice = () => {
+        navigate("/invoice");
+        // console.log('hola')
+        
+    };
+
 
 
   return (
@@ -111,6 +127,51 @@ export const ButtonList = () => {
                     <ListItemText primary="Producto" sx={{ opacity: open ? 0 : 1, ml:4, color: '#808080' }}  />
                 </ListItemButton>
             </ListItem>
+
+
+            <ListItem disablePadding  sx={{ display: 'block' }} onClick={ toCustomer }  >
+                <ListItemButton
+                    sx={{
+                        minHeight: 48,
+                        justifyContent: open ? 'initial' : 'center',
+                        px: 6,
+                    }}
+                >
+                    <ListItemIcon
+                        sx={{
+                            minWidth: 0,
+                            mr: open ? 3 : 'auto',
+                            justifyContent: 'center',
+                        }}
+                    >
+                        <AssignmentInd sx={{ color: 'primary.main' }} />
+                    </ListItemIcon>
+                    <ListItemText primary="Clientes" sx={{ opacity: open ? 0 : 1, ml:4, color: '#808080' }}  />
+                </ListItemButton>
+            </ListItem>
+
+
+            <ListItem disablePadding  sx={{ display: 'block' }} onClick={ toInvoice }  >
+                <ListItemButton
+                    sx={{
+                        minHeight: 48,
+                        justifyContent: open ? 'initial' : 'center',
+                        px: 6,
+                    }}
+                >
+                    <ListItemIcon
+                        sx={{
+                            minWidth: 0,
+                            mr: open ? 3 : 'auto',
+                            justifyContent: 'center',
+                        }}
+                    >
+                        <ContentPaste sx={{ color: 'primary.main' }} />
+                    </ListItemIcon>
+                    <ListItemText primary="Facturas" sx={{ opacity: open ? 0 : 1, ml:4, color: '#808080' }}  />
+                </ListItemButton>
+            </ListItem>
+
 
         </List>
     
