@@ -334,8 +334,6 @@ export const InvoiceTable = () => {
               rowCount={invoices.length}
             />
             <TableBody>
-              {/* if you don't need to support IE11, you can replace the `stableSort` call with:
-                 rows.sort(getComparator(order, orderBy)).slice() */}
               {stableSort(invoices, getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((invoice, index) => {

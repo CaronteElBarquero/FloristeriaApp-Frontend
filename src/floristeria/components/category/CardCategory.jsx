@@ -2,10 +2,13 @@ import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import { AutoFixHigh, Delete, DeleteForever } from '@mui/icons-material';
-import { Box, Button, Card, CardActions, CardContent, CardMedia, IconButton, Typography } from '@mui/material';
+import { Box, Button, Card, CardActions, CardContent, CardMedia, IconButton, InputBase, Typography } from '@mui/material';
+import SearchIcon from '@mui/icons-material/Search';
 import { useCategoryStore, useUiStore } from '../../../hooks';
+
 import Swal from 'sweetalert2'
 import 'sweetalert2/dist/sweetalert2.css'
+import { styled, alpha } from '@mui/material/styles';
 
 import { motion } from "framer-motion";
 import { variantsCard } from '../../../animation/framerValues';
@@ -17,6 +20,12 @@ export const CardCategory = () => {
     const { startLoadingCategory, startActiveUpdateCategory, startIdActiveCategory, startDeleteCategory } = useCategoryStore();
     const { openDateModal } = useUiStore();
     const MotionCard = motion(Card);
+
+    const [inputSearch, setinputSearch] = useState("")
+
+
+
+
 
 
     //LLAMAR LAS CATEGORIAS DEL BACKEND
@@ -93,49 +102,80 @@ export const CardCategory = () => {
 
     }
 
+    //busca por nombre
+
+    const handleSearch = (e) => {
+        setinputSearch(e.target.value)
+        console.log(inputSearch)
+    }
+
+
 
 
     return (
 
-        <Box sx={{ display: 'flex', flexWrap: 'wrap', minWidth: 300, width: '100%' }} >
 
-            {
-                categories[0]?.name !== 'Sin categoría' && (
-                    categories.slice(0).reverse().map(category => (
-                        <MotionCard
-                            whileHover="hover"
-                            initial="hidden"
-                            animate="visible"
-                            variants={variantsCard} sx={{ maxWidth: 320, mt: 9, ml: 4, borderRadius: '15px' }} key={category.id} >
-                            <CardMedia
-                                component="img"
-                                height="135"
-                                image={randomImage()}
-                                alt="imagen categoria"
-                            />
-                            <CardContent>
-                                <Typography gutterBottom variant="h5" noWrap component="div" sx={{ maxWidth: 200 }} >
-                                    <strong> {category.name} </strong>
-                                </Typography>
-                                <Typography variant="body2" noWrap color="text.secondary" sx={{ maxWidth: 175 }}>
-                                    {category.description ? category.description : category.name}
-                                </Typography>
-                            </CardContent>
-                            <CardActions sx={{ ml: 1 }}>
+        <>
+            <br />
+            <br />
 
-                                <IconButton size="small" sx={{ color: 'secondary.main' }} onClick={() => onUpdate(category)} >
-                                    <AutoFixHigh />
-                                </IconButton>
+            <InputBase
 
-                                <IconButton size="small" sx={{ color: 'secondary.main' }} onClick={() => onDelete(category.id)}>
-                                    <DeleteForever />
-                                </IconButton>
+                sx={{ ml: 5, flex: 1,  }}
+                placeholder="Buscador.."
+                inputProps={{ 'aria-label': 'search google maps' }}
+                onChange={handleSearch}
+            />
 
-                            </CardActions>
-                        </MotionCard>
-                    ))
-                )
-            }
-        </Box>
+            <IconButton type="button" sx={{ p: '10px' }} aria-label="search">
+                <SearchIcon />
+            </IconButton>
+
+
+
+            <Box sx={{ display: 'flex', flexWrap: 'wrap', minWidth: 300, width: '100%' }}  >
+
+                {
+                    categories[0]?.name !== 'Sin categoría' && (
+                        categories.slice(0).reverse().map(category => (
+                            <MotionCard
+                                whileHover="hover"
+                                initial="hidden"
+                                animate="visible"
+                                variants={variantsCard} sx={{ maxWidth: 320, mt: 3, ml: 4, borderRadius: '15px' }} key={category.id} >
+                                <CardMedia
+                                    component="img"
+                                    height="135"
+                                    image={randomImage()}
+                                    alt="imagen categoria"
+                                />
+                                <CardContent>
+                                    <Typography gutterBottom variant="h5" noWrap component="div" sx={{ maxWidth: 200 }} >
+                                        <strong> {category.name} </strong>
+                                    </Typography>
+                                    <Typography variant="body2" noWrap color="text.secondary" sx={{ maxWidth: 175 }}>
+                                        {category.description ? category.description : category.name}
+                                    </Typography>
+                                </CardContent>
+                                <CardActions sx={{ ml: 1 }}>
+
+                                    <IconButton size="small" sx={{ color: 'secondary.main' }} onClick={() => onUpdate(category)} >
+                                        <AutoFixHigh />
+                                    </IconButton>
+
+                                    <IconButton size="small" sx={{ color: 'secondary.main' }} onClick={() => onDelete(category.id)}>
+                                        <DeleteForever />
+                                    </IconButton>
+
+                                </CardActions>
+                            </MotionCard>
+                        ))
+                    )
+                }
+            </Box>
+        
+        
+        </>
+
     );
 }

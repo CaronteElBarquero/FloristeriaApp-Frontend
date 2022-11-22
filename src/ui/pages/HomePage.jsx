@@ -1,5 +1,6 @@
 import { Footer, ListInventory, NavBar, ShowCategories, SliderShow } from "../components";
 import { Banner } from "../components/Banner";
+import MapView from "../components/Map/MapView";
 
 
 export const HomePage = () => {
@@ -19,6 +20,16 @@ export const HomePage = () => {
       <hr /> */}
 
       <SliderShow />
+
+
+
+      
+      <h1 className="top">
+        {" "}
+        <strong> Nuestra Ubicacion </strong>
+      </h1>
+
+      <MapView />
 
       <h1 className="top">
         {" "}
