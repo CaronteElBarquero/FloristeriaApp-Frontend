@@ -4,11 +4,7 @@ import IconSvg from "../../../assets/venue_location_icon.svg";
 
 
 
-
-
-
 export const VenueLocationIcon = L.icon({
-
 
     iconUrl: IconSvg,
     inconRetinaUrl: IconSvg,
