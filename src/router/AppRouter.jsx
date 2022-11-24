@@ -69,7 +69,7 @@ export const AppRouter = () => {
                     )
             }
             
-            {/* <Route path='/*' element={ <Navigate to="/" /> } /> */}
+            <Route path='/*' element={ <Navigate to="/" /> } />
 
 
         </Routes>

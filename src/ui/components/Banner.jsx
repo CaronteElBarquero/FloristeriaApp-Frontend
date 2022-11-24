@@ -12,17 +12,21 @@ export const Banner = () => {
 
 
     return (
-        <Box component='main'  sx={{ m: 2.5, width: '100%' }} xs='auto' >
-            {/* <h1> hola, soy un banner </h1> */}
-            <video
-                width="100%"
-                height="100%"
-                autoPlay
-                loop
-                muted       
-                src={videoB} 
-            />
+        <>
+            <br />  
+        
+            <Box component='main'  sx={{  width: '100%' }} xs='auto' >
+                {/* <h1> hola, soy un banner </h1> */}
+                <video
+                    width="100%"
+                    height="100%"
+                    autoPlay
+                    loop
+                    muted       
+                    src={videoB} 
+                />
 
-        </Box>
+            </Box>
+        </>
     )
 }
