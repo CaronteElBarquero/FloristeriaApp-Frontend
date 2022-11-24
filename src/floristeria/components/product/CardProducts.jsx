@@ -6,7 +6,7 @@ import { useCategoryStore, useProductStore, useUiStore } from '../../../hooks';
 import { styled } from '@mui/material/styles';
 import { Card, CardMedia, CardContent, CardActions, Collapse, IconButton, Typography, Box, InputBase } from '@mui/material'
 import { DeleteForever, AutoFixHigh } from '@mui/icons-material';
-import SearchIcon from '@mui/icons-material/Search';
+
 
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
@@ -16,6 +16,8 @@ import 'sweetalert2/dist/sweetalert2.css'
 
 import { motion } from "framer-motion";
 import { variantsCard } from '../../../animation/framerValues';
+
+import { SearchInput } from '../SearchInput';
 
 
 const ExpandMore = styled((props) => {
@@ -36,8 +38,9 @@ export const CardProducts = () => {
   const { startLoadingProduct, startActiveUpdateProduct, startIdActiveProduct, startDeleteProduct, startDataImageUpload } = useProductStore();
   const { openDateModal } = useUiStore();
 
+  const [productData, setProductData] = useState(products);
   const [expanded, setExpanded] = useState(false);
-  const [inputSearch, setinputSearch] = useState("")
+  const [inputSearch, setInputSearch] = useState("")
 
 
   const MotionCard = motion(Card);
@@ -105,11 +108,15 @@ export const CardProducts = () => {
   }
 
 
-  const handleSearch = (e) => {
-    setinputSearch(e.target.value)
-    console.log(inputSearch)
-  }
+  useEffect(() => {
+    if (inputSearch.length === 0) return setProductData(products);
 
+    setProductData(
+      productData.filter(product =>
+        product.name.toLocaleLowerCase().includes(inputSearch.toLocaleLowerCase()),
+      ),
+    );
+  }, [inputSearch]);
 
 
   return (
@@ -120,22 +127,13 @@ export const CardProducts = () => {
       <br />
       <br />
 
-      <InputBase
-         sx={{ ml: 5, flex: 1,  }}
-          placeholder="Buscador.."
-          inputProps={{ 'aria-label': 'search google maps' }}
-          onChange={handleSearch}
-      />
-
-      <IconButton type="button" sx={{ p: '10px' }} aria-label="search">
-        <SearchIcon />
-      </IconButton>
+      <SearchInput onChange={setInputSearch} />
 
 
       <Box sx={{ display: 'flex', flexWrap: 'wrap', minWidth: 300, width: '100%' }} >
 
         {
-          products.slice(0).reverse().map(product => (
+          productData.slice(0).reverse().map(product => (
             <MotionCard
               whileHover="hover"
               initial="hidden"
@@ -143,7 +141,7 @@ export const CardProducts = () => {
               variants={variantsCard}
               sx={{
                 width: 230,
-          
+
                 mt: 3, ml: 3,
                 borderWidth: 0.1,
                 borderRadius: '25px',

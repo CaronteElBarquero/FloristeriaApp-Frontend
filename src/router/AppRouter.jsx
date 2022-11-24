@@ -14,26 +14,28 @@ import { InitionRoutes } from '../ui/routes/InitionRoutes';
 
 export const AppRouter = () => {
 
-    const {  checkAuthToken, status } = useAuthStore();
-    const { startLoadingCategory} = useCategoryStore();
+    const { checkAuthToken, status } = useAuthStore();
+    const { startLoadingCategory } = useCategoryStore();
+    const navigate = useNavigate();
 
     useEffect(() => {
         checkAuthToken();
         startLoadingCategory();
+        navigate('/'); // TODO: Posible solución para el problema de la ruta
     }, []);
 
-    
+
     return (
 
         <Routes>
 
             {
-                ( status === 'not-authenticated' || status === 'checking' )
+                (status === 'not-authenticated' || status === 'checking')
                     ? (
                         <>
                             <Route path="/*" element={<InitionRoutes />} />
 
-                            <Route path="/auth/*" element={ <AuthRoute /> } />
+                            <Route path="/auth/*" element={<AuthRoute />} />
                             {/* <Route path="/*" element={ <Navigate to="/auth/login" /> } />    */}
                         </>
 
@@ -42,15 +44,15 @@ export const AppRouter = () => {
 
                         <>
 
-                            <Route path="/*" element={ <FloristeriaRoute /> }  />
+                            <Route path="/*" element={<FloristeriaRoute />} />
                             {/* <Route path="/product" element={ <ProductPage /> }  /> */}
 
-                            <Route path="/*" element={ <Navigate to="/" /> } />   
+                            <Route path="/*" element={<Navigate to="/" />} />
 
                         </>
                     )
-            }           
-            
+            }
+
         </Routes>
 
     )

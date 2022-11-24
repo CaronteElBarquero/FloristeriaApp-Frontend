@@ -12,7 +12,7 @@ import { styled, alpha } from '@mui/material/styles';
 
 import { motion } from "framer-motion";
 import { variantsCard } from '../../../animation/framerValues';
-
+import { SearchInput } from '../SearchInput';
 
 export const CardCategory = () => {
 
@@ -21,7 +21,8 @@ export const CardCategory = () => {
     const { openDateModal } = useUiStore();
     const MotionCard = motion(Card);
 
-    const [inputSearch, setinputSearch] = useState("")
+    const [categoryData, setCategoryData] = useState(categories);
+    const [inputSearch, setInputSearch] = useState("")
 
 
 
@@ -102,14 +103,22 @@ export const CardCategory = () => {
 
     }
 
-    //busca por nombre
+    // //busca por nombre
 
-    const handleSearch = (e) => {
-        setinputSearch(e.target.value)
-        console.log(inputSearch)
-    }
+    // const handleSearch = (e) => {
+    //     setInputSearch(e.target.value)
+    //     console.log(inputSearch)
+    // }
 
+    useEffect(() => {
+        if (inputSearch.length === 0) return setCategoryData(categories);
 
+        setCategoryData(
+            categoryData.filter(category =>
+                category.name.toLocaleLowerCase().includes(inputSearch.toLocaleLowerCase()),
+            ),
+        );
+    }, [inputSearch]);
 
 
     return (
@@ -119,25 +128,15 @@ export const CardCategory = () => {
             <br />
             <br />
 
-            <InputBase
-
-                sx={{ ml: 5, flex: 1,  }}
-                placeholder="Buscador.."
-                inputProps={{ 'aria-label': 'search google maps' }}
-                onChange={handleSearch}
-            />
-
-            <IconButton type="button" sx={{ p: '10px' }} aria-label="search">
-                <SearchIcon />
-            </IconButton>
+            <SearchInput onChange={setInputSearch} />
 
 
 
             <Box sx={{ display: 'flex', flexWrap: 'wrap', minWidth: 300, width: '100%' }}  >
 
                 {
-                    categories[0]?.name !== 'Sin categoría' && (
-                        categories.slice(0).reverse().map(category => (
+                    categoryData[0]?.name !== 'Sin categoría' && (
+                        categoryData.slice(0).reverse().map(category => (
                             <MotionCard
                                 whileHover="hover"
                                 initial="hidden"
@@ -173,8 +172,8 @@ export const CardCategory = () => {
                     )
                 }
             </Box>
-        
-        
+
+
         </>
 
     );
