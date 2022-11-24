@@ -17,7 +17,7 @@ export const FloristeriaRoute = () => {
 
     useEffect(() => {
         startLoadingCategory();
-        // navigate('/');
+        navigate('/');
     }, []);
 
 

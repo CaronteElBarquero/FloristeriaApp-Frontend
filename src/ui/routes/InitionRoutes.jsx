@@ -24,7 +24,7 @@ export const InitionRoutes = () => {
 
             <Route path="initio" element={ <HomePage /> } />
 
-            {/* <Route path="/*" element={ <Navigate to="/initio" /> } />  */}
+            <Route path="/initio/*" element={ <Navigate to="/initio" /> } /> 
 
 
 

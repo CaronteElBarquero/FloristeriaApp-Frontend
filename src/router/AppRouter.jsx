@@ -17,9 +17,12 @@ export const AppRouter = () => {
     const { checkAuthToken, status } = useAuthStore();
     const { startLoadingCategory } = useCategoryStore();
     const navigate = useNavigate();
-    
-    
+   
 
+
+
+
+    //memorizar el estado de la autenticacion
 
     useEffect(() => {
         checkAuthToken();
@@ -39,10 +42,12 @@ export const AppRouter = () => {
 
                     ? (
                         <>
+
+
                             <Route path="/*" element={<InitionRoutes />} />
 
+
                             <Route path="/auth/*" element={<AuthRoute />} />
-                            <Route path="/*" element={ <Navigate to="/initio" /> } /> 
 
                         </>
 
