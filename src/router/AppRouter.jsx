@@ -44,8 +44,9 @@ export const AppRouter = () => {
                         <>
 
 
-                            <Route path="/*" element={<InitionRoutes />} />
-
+                            
+                            {/* <Route path="/*" element={<InitionRoutes />} /> */}
+                            <Route path="/initio/*" element={<HomePage />} />
 
                             <Route path="/auth/*" element={<AuthRoute />} />
 
