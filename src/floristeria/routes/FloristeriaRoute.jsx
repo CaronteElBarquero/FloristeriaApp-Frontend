@@ -30,21 +30,14 @@ export const FloristeriaRoute = () => {
 
             {/* Ruta las cuales entrara en la aplicacion */}
             <Route path="product" element={ <SpeelProduct /> }  />
-            
             <Route path="category" element={ <SpeelCategory /> }  />
-
             <Route path="customer" element={ <SpeelCustomer /> }  />
-
             <Route path="invoice" element={ <InvoicePage /> }  />
-
             <Route path="create" element={ <CreateInvoice /> }  />
-
-
 
 
             <Route path="dash" element={ <FloristeriaPage /> }  />
 
-            {/* <Route path="/*" element={ <Floristeria404 /> }  /> */}
 
             <Route path="/*" element={ <Navigate to="/dash" /> }  />
 

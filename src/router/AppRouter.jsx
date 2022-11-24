@@ -39,7 +39,7 @@ export const AppRouter = () => {
         <Routes>
 
             {
-                (status === 'not-authenticated' || status === 'checking')
+                (status === 'not-authenticated' )
 
                     ? (
                         <>
@@ -53,15 +53,12 @@ export const AppRouter = () => {
 
                             {/* <Route path='/*' element={ <Navigate to="/" /> } /> */}
 
-                           
-
                         </>
 
                     )
                     : (
 
                         <>
-
 
                             <Route path="/*" element={<FloristeriaRoute />} />
 

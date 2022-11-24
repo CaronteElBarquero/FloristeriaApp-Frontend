@@ -9,15 +9,16 @@ import moment from 'moment';
 // moment.locale('es-hn');
 import {
   Box, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow, TableSortLabel, Toolbar, Typography,
-  Paper, Checkbox, IconButton, Tooltip, FormControlLabel, Switch,
+  Paper, Checkbox, IconButton, Tooltip, FormControlLabel, Switch, Button,
 } from '@mui/material';
 
-import { Delete, Edit, FilterList } from '@mui/icons-material';
+import { Delete, FilterList, ImportExport,  } from '@mui/icons-material';
 
 import { visuallyHidden } from '@mui/utils';
 import { formatter } from '../../helpers';
-import { createGlobalStyle } from 'styled-components';
 
+
+import * as XLSX from 'xlsx';
 
 
 
@@ -208,11 +209,6 @@ function EnhancedTableToolbar({ numSelected, selected, funtionSet }) {
             </IconButton>
           </Tooltip>
 
-          {/* <Tooltip title="Editar">
-            <IconButton>
-              <Edit />
-            </IconButton>
-          </Tooltip> */}
         </>
 
       ) : (
@@ -240,16 +236,8 @@ export const InvoiceTable = () => {
   const [dense, setDense] = useState(false);
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
-
-
   const { startLoadingInvoice } = useInvoiceStore();
-
   const { invoices } = useSelector((state) => state.invoice);
-
-  // const timeFormat = moment(d).format('DD/MM/YYYY');
-  // const time = invoices.map((invoice) => moment(invoice.invoiceDate).add(1, 'days').format('DD/MM/YYYY'));
-
-  // console.log(time, 'time');
 
 
   useEffect(() => {
@@ -257,6 +245,34 @@ export const InvoiceTable = () => {
   }, [])
 
 
+  const handleOnExport = () => {
+
+
+    const data = invoices.map((invoice) => {
+
+      const produ = invoice.product.map((product) => {
+        return invoice.product.map((product) => {
+          return product.name;
+        })
+      })
+
+      return {
+
+        Numero_Factura: invoice.nroInvoice,
+        Producto: produ.toString(),
+        Fecha_Venta: moment(invoice.invoiceDate).add(1,'days').format('DD/MM/YYYY'),
+        Fecha_Exp: moment(invoice.dueDate).add(1,'days').format('DD/MM/YYYY'),
+        Descuento: invoice.discount,
+        Total: invoice.total,
+      }
+    })
+
+
+    var wb = XLSX.utils.book_new(),
+    ws = XLSX.utils.json_to_sheet(data);
+    XLSX.utils.book_append_sheet(wb, ws, "Ventas NolyGifts");
+    XLSX.writeFile(wb, "Ventas NolyGifts.xlsx");
+  }
 
 
   const handleRequestSort = (event, property) => {
@@ -316,98 +332,114 @@ export const InvoiceTable = () => {
 
 
   return (
+    <>
 
-    <Box sx={{ width: '100%', mt: 5 }}>
-      <Paper sx={{ width: '100%', mb: 2 }}>
-        <EnhancedTableToolbar numSelected={selected.length} selected={selected} funtionSet={setSelected} />
-        <TableContainer>
-          <Table
-            sx={{ minWidth: 750 }}
-            aria-labelledby="tableTitle"
-          >
-            <EnhancedTableHead
-              numSelected={selected.length}
-              order={order}
-              orderBy={orderBy}
-              onSelectAllClick={handleSelectAllClick}
-              onRequestSort={handleRequestSort}
-              rowCount={invoices.length}
-            />
-            <TableBody>
-              {stableSort(invoices, getComparator(order, orderBy))
-                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((invoice, index) => {
-                  const isItemSelected = isSelected(invoice.id);
-                  const labelId = `enhanced-table-checkbox-${index}`;
+      <Button
+        sx={{ mt: 2, background: 'linear-gradient(100deg, #C22557 15%, #ED5887 79%, #FFF 150%)' }}
+        variant="contained"
+        color="primary"
+        onClick={ handleOnExport }
+        startIcon={<ImportExport />}
+      >
+        Exportar  CSV
+      </Button>
 
-                  return (
-                    <TableRow
-                      hover
-                      onClick={(event) => handleClick(event, invoice.id)}
-                      role="checkbox"
-                      aria-checked={isItemSelected}
-                      tabIndex={-1}
-                      key={invoice.id + index}
-                      selected={isItemSelected}
-                    >
-                      <TableCell padding="checkbox">
-                        <Checkbox
-                          color="primary"
-                          checked={isItemSelected}
-                          inputProps={{
-                            'aria-labelledby': labelId,
-                          }}
-                        />
-                      </TableCell>
+      <Box sx={{ width: '100%', mt: 5 }}>
 
-                      <TableCell align="left">{invoice.nroInvoice}</TableCell>
+        <Paper sx={{ width: '100%', mb: 2 }}>
 
-                      <TableCell
-                        component="th"
-                        id={labelId}
-                        scope="row"
-                        padding="none"
+          <EnhancedTableToolbar numSelected={selected.length} selected={selected} funtionSet={setSelected} />
+
+          <TableContainer id="tableInvoice" >
+            <Table
+              sx={{ minWidth: 750 }}
+              aria-labelledby="tableTitle"
+            >
+              <EnhancedTableHead
+                numSelected={selected.length}
+                order={order}
+                orderBy={orderBy}
+                onSelectAllClick={handleSelectAllClick}
+                onRequestSort={handleRequestSort}
+                rowCount={invoices.length}
+              />
+              <TableBody>
+                {stableSort(invoices, getComparator(order, orderBy))
+                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                  .map((invoice, index) => {
+                    const isItemSelected = isSelected(invoice.id);
+                    const labelId = `enhanced-table-checkbox-${index}`;
+
+                    return (
+                      <TableRow
+                        hover
+                        onClick={(event) => handleClick(event, invoice.id)}
+                        role="checkbox"
+                        aria-checked={isItemSelected}
+                        tabIndex={-1}
+                        key={invoice.id + index}
+                        selected={isItemSelected}
                       >
-                        {/* listar el nombre de los productos comprados */}
-                        {invoice.product.map((product) => (
-                          <p key={product.name}>{product.name}</p>
-                        ))}
+                        <TableCell padding="checkbox">
+                          <Checkbox
+                            color="primary"
+                            checked={isItemSelected}
+                            inputProps={{
+                              'aria-labelledby': labelId,
+                            }}
+                          />
+                        </TableCell>
 
-                      </TableCell>
-                      
-                      <TableCell align="right">{ moment(invoice.invoiceDate).add(1,'days').format('DD/MM/YYYY') }</TableCell>
-                      <TableCell align="right">{ moment(invoice.dueDate).add(1,'days').format('DD/MM/YYYY') }</TableCell>
-                      <TableCell align="right">{ invoice.discount }</TableCell>
+                        <TableCell align="left">{invoice.nroInvoice}</TableCell>
 
-                      {/* aplicar el formato al total */}
-                      <TableCell align="right">{formatter.format(invoice.total)}</TableCell>
-                    </TableRow>
-                  );
-                })}
-              {emptyRows > 0 && (
-                <TableRow
-                  style={{
+                        <TableCell
+                          component="th"
+                          id={labelId}
+                          scope="row"
+                          padding="none"
+                        >
+                          {/* listar el nombre de los productos comprados */}
+                          {invoice.product.map((product) => (
+                            <p key={product.name}>{product.name}</p>
+                          ))}
 
-                    height: (dense ? 33 : 53) * emptyRows,
-                  }}
-                >
-                  <TableCell colSpan={6} />
-                </TableRow>
-              )}
-            </TableBody>
-          </Table>
-        </TableContainer>
-        <TablePagination
-          rowsPerPageOptions={[10, 15, 25]}
-          component="div"
-          count={invoices.length}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onPageChange={handleChangePage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
-        />
-      </Paper>
+                        </TableCell>
+                        
+                        <TableCell align="right">{ moment(invoice.invoiceDate).add(1,'days').format('DD/MM/YYYY') }</TableCell>
+                        <TableCell align="right">{ moment(invoice.dueDate).add(1,'days').format('DD/MM/YYYY') }</TableCell>
+                        <TableCell align="right">{ invoice.discount }</TableCell>
 
-    </Box>
+                        {/* aplicar el formato al total */}
+                        <TableCell align="right">{formatter.format(invoice.total)}</TableCell>
+                      </TableRow>
+                    );
+                  })}
+                {emptyRows > 0 && (
+                  <TableRow
+                    style={{
+
+                      height: (dense ? 33 : 53) * emptyRows,
+                    }}
+                  >
+                    <TableCell colSpan={6} />
+                  </TableRow>
+                )}
+              </TableBody>
+            </Table>
+          </TableContainer>
+          <TablePagination
+            rowsPerPageOptions={[10, 15, 25]}
+            component="div"
+            count={invoices.length}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            onPageChange={handleChangePage}
+            onRowsPerPageChange={handleChangeRowsPerPage}
+          />
+        </Paper>
+
+      </Box>
+    </>
+
   );
 }

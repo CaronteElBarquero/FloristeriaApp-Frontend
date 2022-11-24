@@ -19,9 +19,7 @@ export const InvoicePage = () => {
 
     // const {  } = useSelector( state => state.customer );
     
-    const {         setActiveInvoice,
-        startActiveIdInvoice,
-        startActiveCreateInvoice } = useInvoiceStore();
+    const { startActiveIdInvoice, startActiveCreateInvoice } = useInvoiceStore();
     
 
 
@@ -52,10 +50,8 @@ export const InvoicePage = () => {
                 variant="contained" 
                 onClick={ handleNewInvoice }
                 sx={{ mt: 1, background: 'linear-gradient(100deg, #C22557 15%, #ED5887 79%, #FFF 150%)' }}
-
-            
+                startIcon={ <Receipt /> }
             >
-                <Receipt  sx={{ mr: 1}} />
                 Crear Factura
             </Button>
 
