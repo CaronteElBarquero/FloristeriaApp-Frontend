@@ -28,7 +28,7 @@ export const LoginPage = () => {
   const navigate = useNavigate();
 
   const toInitio = () => {
-    navigate("/initio");
+    navigate("/");
   };
 
   const loginSubmit = (event) => {

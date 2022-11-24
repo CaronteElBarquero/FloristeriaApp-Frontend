@@ -1,5 +1,5 @@
 
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useAuthStore } from '../hooks';
 
 import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
@@ -18,7 +18,8 @@ export const AppRouter = () => {
     const { startLoadingCategory } = useCategoryStore();
     const navigate = useNavigate();
    
-
+    //memorizar status
+ 
 
 
 
@@ -45,10 +46,16 @@ export const AppRouter = () => {
 
 
                             
-                            <Route path="/*" element={<InitionRoutes />} />
-                            {/* <Route path="/initio" element={<HomePage />} /> */}
+                            <Route path="/" element={<InitionRoutes />} />
 
                             <Route path="/auth/*" element={<AuthRoute />} />
+                            
+
+                            {/* <Route path='/*' element={ <Navigate to="/" /> } /> */}
+
+                           
+
+
 
                         </>
 
@@ -58,13 +65,13 @@ export const AppRouter = () => {
                         <>
 
                             <Route path="/*" element={<FloristeriaRoute />} />
-                            {/* <Route path="/product" element={ <ProductPage /> }  /> */}
-
-                            <Route path="/*" element={<Navigate to="/" />} />
 
                         </>
                     )
             }
+            
+            <Route path='/*' element={ <Navigate to="/" /> } />
+
 
         </Routes>
 

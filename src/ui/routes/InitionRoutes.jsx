@@ -1,5 +1,6 @@
 import {useEffect} from 'react';
 import { Navigate, Route, Routes } from "react-router-dom"
+import { AuthRoute } from '../../auth/routes/AuthRoute';
 // import { SpeelProduct, SpeelCategory } from "../components"
 // import {  FloristeriaPage  } from "../pages"
 // import { Floristeria404 } from "../../ui/components"
@@ -22,9 +23,11 @@ export const InitionRoutes = () => {
 
             
 
-            <Route path="initio" element={ <HomePage /> } />
+            <Route path="/" element={ <HomePage /> } />
 
-            {/* <Route path="/*" element={ <Navigate to="/initio" /> } />  */}
+            <Route path='/*' element={ <Navigate to="/" /> } />
+
+    
 
 
 

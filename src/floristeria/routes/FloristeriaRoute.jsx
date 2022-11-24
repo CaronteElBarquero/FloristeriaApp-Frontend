@@ -42,11 +42,11 @@ export const FloristeriaRoute = () => {
 
 
 
-            <Route path="/" element={ <FloristeriaPage /> }  />
+            <Route path="/dash" element={ <FloristeriaPage /> }  />
 
             {/* <Route path="/*" element={ <Floristeria404 /> }  /> */}
 
-            <Route path="/*" element={ <Navigate to="/" /> }  />
+            <Route path="/*" element={ <Navigate to="/dash" /> }  />
 
         </Routes>
     
