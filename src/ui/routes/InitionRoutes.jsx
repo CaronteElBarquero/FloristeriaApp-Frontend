@@ -12,24 +12,21 @@ import { HomePage } from '../pages/HomePage';
 
 export const InitionRoutes = () => {
 
-    // const { startLoadingCategory, categories} = useCategoryStore();
-    
-    // useEffect(() => {
-    //     startLoadingCategory();
-    // }, []);
+
+
+
 
     return (
 
         <Routes>
 
-            {/* Rutas Iniciales de la aplicacion */}
+            
 
             <Route path="initio" element={ <HomePage /> } />
 
-            <Route path="/*" element={ <Navigate to="/initio" /> } /> 
+            {/* <Route path="/*" element={ <Navigate to="/initio" /> } />  */}
 
 
-            {/* <Route path="/*" element={ <Navigate to="/auth/login" /> } />  */}
 
 
         </Routes>

@@ -1,6 +1,6 @@
 import {useEffect} from 'react';
 
-import { Navigate, Route, Routes } from "react-router-dom"
+import { Navigate, Route, Routes, useNavigate } from "react-router-dom"
 
 import { SpeelProduct, SpeelCategory, SpeelCustomer, CreateInvoice,  } from "../components"
 
@@ -10,11 +10,17 @@ import { useCategoryStore } from '../../hooks/useCategoryStore';
 
 
 export const FloristeriaRoute = () => {
+
     const { startLoadingCategory, categories} = useCategoryStore();
-    
+    const navigate = useNavigate();
+
+
     useEffect(() => {
         startLoadingCategory();
+        // navigate('/');
     }, []);
+
+
     return (
 
         <Routes>

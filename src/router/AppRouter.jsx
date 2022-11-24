@@ -17,13 +17,18 @@ export const AppRouter = () => {
     const { checkAuthToken, status } = useAuthStore();
     const { startLoadingCategory } = useCategoryStore();
     const navigate = useNavigate();
+    
+    
+
 
     useEffect(() => {
         checkAuthToken();
         startLoadingCategory();
-        navigate('/'); // TODO: Posible solución para el problema de la ruta
+
+        
     }, []);
 
+    
 
     return (
 
@@ -31,12 +36,14 @@ export const AppRouter = () => {
 
             {
                 (status === 'not-authenticated' || status === 'checking')
+
                     ? (
                         <>
                             <Route path="/*" element={<InitionRoutes />} />
 
                             <Route path="/auth/*" element={<AuthRoute />} />
-                            {/* <Route path="/*" element={ <Navigate to="/auth/login" /> } />    */}
+                            <Route path="/*" element={ <Navigate to="/" /> } /> 
+
                         </>
 
                     )

@@ -13,6 +13,7 @@ export const AuthRoute = () => {
 
             <Route path="register" element={ <RegisterPage /> } />
 
+            {/* cambio que realice */}
             <Route path="/*" element={ <Navigate to="/auth/login" /> } /> 
 
             
