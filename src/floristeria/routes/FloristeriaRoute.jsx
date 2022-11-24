@@ -17,7 +17,7 @@ export const FloristeriaRoute = () => {
 
     useEffect(() => {
         startLoadingCategory();
-        navigate('/');
+
     }, []);
 
 
@@ -42,7 +42,7 @@ export const FloristeriaRoute = () => {
 
 
 
-            <Route path="/dash" element={ <FloristeriaPage /> }  />
+            <Route path="dash" element={ <FloristeriaPage /> }  />
 
             {/* <Route path="/*" element={ <Floristeria404 /> }  /> */}
 

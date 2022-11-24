@@ -55,8 +55,6 @@ export const AppRouter = () => {
 
                            
 
-
-
                         </>
 
                     )
@@ -64,13 +62,14 @@ export const AppRouter = () => {
 
                         <>
 
+
                             <Route path="/*" element={<FloristeriaRoute />} />
 
                         </>
                     )
             }
             
-            <Route path='/*' element={ <Navigate to="/" /> } />
+            {/* <Route path='/*' element={ <Navigate to="/" /> } /> */}
 
 
         </Routes>
