@@ -27,6 +27,14 @@ export const FloristeriaRoute = () => {
     }, []);
 
 
+    useEffect(() => {
+        if (status === 'authenticated') {
+            navigate('/dash');
+        }
+    }, [status]);
+    
+
+
     return (
 
         <Routes>

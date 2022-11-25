@@ -37,25 +37,6 @@ export const AppRouter = () => {
 
 
 
-
-
-
-    // if (status === 'checking') {
-    //     return <h1>checking</h1>
-    // }
-
-    // if (status === 'not-authenticated') {
-    //     return <h1>no-authenticado </h1>
-    // }
-
-    // if (status === 'authenticated') {
-    //     return <h1>authenticado </h1>
-    // }
-
-
-
-    
-
     return (
 
         <Routes>
