@@ -7,16 +7,20 @@ import { SpeelProduct, SpeelCategory, SpeelCustomer, CreateInvoice,  } from "../
 import {  FloristeriaPage, InvoicePage  } from "../pages"
 
 import { useCategoryStore } from '../../hooks/useCategoryStore';
+import { useProductStore } from '../../hooks';
 
 
 export const FloristeriaRoute = () => {
 
     const { startLoadingCategory, categories} = useCategoryStore();
+    const { startLoadingProduct} = useProductStore();
+
     const navigate = useNavigate();
 
 
     useEffect(() => {
         startLoadingCategory();
+        startLoadingProduct()
 
     }, []);
 
