@@ -1,5 +1,5 @@
 
-import { useEffect, useMemo } from 'react';
+import { useContext, useEffect, useMemo, useState } from 'react';
 import { useAuthStore } from '../hooks';
 
 import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
@@ -18,17 +18,14 @@ export const AppRouter = () => {
     const { startLoadingCategory } = useCategoryStore();
     const navigate = useNavigate();
    
-    //memorizar status
- 
+  
+   
 
-
-
-    //memorizar el estado de la autenticacion
 
     useEffect(() => {
         checkAuthToken();
         startLoadingCategory();
-        navigate('/dash');
+        // navigate('/dash');
         
     }, []);
 
@@ -38,20 +35,22 @@ export const AppRouter = () => {
 
         <Routes>
 
+            {/* verificar bien las rutas */}
+
             {
                 ( status === 'not-authenticated' || status === 'checking' ) 
+                    
 
                     ? (
                         <>
-
-
                             
                             <Route path="/" element={<InitionRoutes />} />
 
                             <Route path="/auth/*" element={<AuthRoute />} />
-                            
 
                             {/* <Route path='/*' element={ <Navigate to="/" /> } /> */}
+                            <Route path='/*' element={ <Navigate to="/" /> } />
+
 
                         </>
 
@@ -62,12 +61,16 @@ export const AppRouter = () => {
 
                             <Route path="/*" element={<FloristeriaRoute />} />
 
+                            {/* <Route path='/*' element={ <Navigate to="/dash" /> } /> */}
+
+      
+
                         </>
                     )
             }
             
-            <Route path='/*' element={ <Navigate to="/" /> } />
 
+            
 
         </Routes>
 

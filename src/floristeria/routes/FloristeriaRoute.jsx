@@ -7,10 +7,12 @@ import { SpeelProduct, SpeelCategory, SpeelCustomer, CreateInvoice,  } from "../
 import {  FloristeriaPage, InvoicePage  } from "../pages"
 
 import { useCategoryStore } from '../../hooks/useCategoryStore';
-import { useProductStore } from '../../hooks';
+import { useAuthStore, useProductStore } from '../../hooks';
 
 
 export const FloristeriaRoute = () => {
+
+    const { checkAuthToken, status } = useAuthStore();
 
     const { startLoadingCategory, categories} = useCategoryStore();
     const { startLoadingProduct} = useProductStore();
@@ -22,6 +24,7 @@ export const FloristeriaRoute = () => {
         startLoadingCategory();
         startLoadingProduct()
 
+
     }, []);
 
 
@@ -29,18 +32,15 @@ export const FloristeriaRoute = () => {
 
         <Routes>
 
-            {/* Rutas Iniciales de la aplicacion */}
-
-
             {/* Ruta las cuales entrara en la aplicacion */}
+            <Route path="dash" element={ <FloristeriaPage /> }  />
+
             <Route path="product" element={ <SpeelProduct /> }  />
             <Route path="category" element={ <SpeelCategory /> }  />
             <Route path="customer" element={ <SpeelCustomer /> }  />
             <Route path="invoice" element={ <InvoicePage /> }  />
             <Route path="create" element={ <CreateInvoice /> }  />
 
-
-            <Route path="dash" element={ <FloristeriaPage /> }  />
 
 
             <Route path="/*" element={ <Navigate to="/dash" /> }  />

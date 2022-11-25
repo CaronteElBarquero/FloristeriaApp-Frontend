@@ -18,6 +18,7 @@ export const InitionRoutes = () => {
 
             <Route path="/" element={ <HomePage /> } />
 
+
             <Route path='/*' element={ <Navigate to="/" /> } />
 
 

@@ -5,6 +5,11 @@ import { LoginPage, RegisterPage } from "../pages"
 
 export const AuthRoute = () => {
 
+
+
+
+
+
     return (
 
         <Routes>
@@ -14,9 +19,8 @@ export const AuthRoute = () => {
             <Route path="register" element={ <RegisterPage /> } />
 
           
-            <Route path="/*" element={ <Navigate to="/auth/login" /> } /> 
+            <Route path="/*" element={ <Navigate to="/" /> } /> 
 
-            
 
         </Routes>
 
