@@ -24,7 +24,6 @@ export const FloristeriaRoute = () => {
         startLoadingCategory();
         startLoadingProduct()
 
-
     }, []);
 
 
@@ -35,6 +34,9 @@ export const FloristeriaRoute = () => {
             {/* Ruta las cuales entrara en la aplicacion */}
             <Route path="dash" element={ <FloristeriaPage /> }  />
 
+
+
+
             <Route path="product" element={ <SpeelProduct /> }  />
             <Route path="category" element={ <SpeelCategory /> }  />
             <Route path="customer" element={ <SpeelCustomer /> }  />
@@ -42,8 +44,7 @@ export const FloristeriaRoute = () => {
             <Route path="create" element={ <CreateInvoice /> }  />
 
 
-
-            <Route path="/*" element={ <Navigate to="/dash" /> }  />
+            <Route path="/*" element={ <Navigate to="/dash" /> }  /> 
 
         </Routes>
     

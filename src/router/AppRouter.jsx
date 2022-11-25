@@ -19,7 +19,6 @@ export const AppRouter = () => {
     const navigate = useNavigate();
    
   
-   
 
 
     useEffect(() => {
@@ -28,6 +27,32 @@ export const AppRouter = () => {
         // navigate('/dash');
         
     }, []);
+
+
+    useEffect(() => {
+        if (status === 'authenticated') {
+            navigate('/dash');
+        }
+    }, [status]);
+
+
+
+
+
+
+    // if (status === 'checking') {
+    //     return <h1>checking</h1>
+    // }
+
+    // if (status === 'not-authenticated') {
+    //     return <h1>no-authenticado </h1>
+    // }
+
+    // if (status === 'authenticated') {
+    //     return <h1>authenticado </h1>
+    // }
+
+
 
     
 
@@ -38,32 +63,31 @@ export const AppRouter = () => {
             {/* verificar bien las rutas */}
 
             {
-                ( status === 'not-authenticated' || status === 'checking' ) 
+                ( status === 'authenticated'  ) 
                     
 
                     ? (
                         <>
                             
+
+                            <Route path="/*" element={<FloristeriaRoute />} />
+
+                        </>
+
+)
+                    : (
+
+                        <>
+
+
                             <Route path="/" element={<InitionRoutes />} />
 
                             <Route path="/auth/*" element={<AuthRoute />} />
 
                             {/* <Route path='/*' element={ <Navigate to="/" /> } /> */}
                             <Route path='/*' element={ <Navigate to="/" /> } />
-
-
-                        </>
-
-                    )
-                    : (
-
-                        <>
-
-                            <Route path="/*" element={<FloristeriaRoute />} />
-
                             {/* <Route path='/*' element={ <Navigate to="/dash" /> } /> */}
 
-      
 
                         </>
                     )
