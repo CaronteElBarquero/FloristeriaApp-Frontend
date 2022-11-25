@@ -22,34 +22,34 @@ export const ButtonList = () => {
 
 
     const toHome = () => {
-        navigate("/home");
+        navigate("/");
         // console.log('hola')
 
     };
 
 
     const toCategory = () => {
-        navigate("/home/category");
+        navigate("/category");
         // console.log('hola')
 
     }; 
 
     const toProduct = () => {
-        navigate("/home/product");
+        navigate("/product");
         // console.log('hola')
 
     }; 
 
 
     const toCustomer = () => {
-        navigate("/home/customer");
+        navigate("/customer");
         // console.log('hola')
         
     };
 
 
     const toInvoice = () => {
-        navigate("/home/invoice");
+        navigate("/invoice");
         // console.log('hola')
         
     };

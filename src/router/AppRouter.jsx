@@ -29,6 +29,13 @@ export const AppRouter = () => {
     }, []);
 
 
+    useEffect(() => {
+        if (status === 'authenticated') {
+            navigate('/dash');
+        }
+    }, [status]);
+
+
 
 
 
@@ -45,7 +52,9 @@ export const AppRouter = () => {
                     ? (
                         <>
 
-                            <Route path="/home/*" element={<FloristeriaRoute />} />
+                            <Route path="/*" element={<FloristeriaRoute />} />
+
+
 
                         </>
 
@@ -58,9 +67,7 @@ export const AppRouter = () => {
 
                             <Route path="/auth/*" element={<AuthRoute />} />
 
-                            {/* <Route path='/*' element={ <Navigate to="/" /> } /> */}
                             <Route path='/*' element={ <Navigate to="/" /> } />
-                            {/* <Route path='/*' element={ <Navigate to="/dash" /> } /> */}
 
 
                         </>

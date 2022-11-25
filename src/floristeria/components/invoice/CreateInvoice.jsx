@@ -69,11 +69,6 @@ export const CreateInvoice = () => {
   }
 
 
-  // useEffect(() => {
-  //   if (window.innerWidth < width) {
-  //     // alert("Place your phone in landscape mode for the best experience")
-  //   }
-  // }, [width])
 
 
 
