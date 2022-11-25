@@ -82,19 +82,19 @@ export const BotonesNavigate = () => {
   const navigate = useNavigate();
 
   const toCategory = () => {
-      navigate('/category')
+      navigate('/home/category')
   }
 
   const toProduct = () => {
-      navigate('/product')
+      navigate('/home/product')
   }
 
   const toCustomer = () => {  
-    navigate('/customer')
+    navigate('/home/customer')
   }
 
   const toInvoice = () => {
-    navigate('/invoice')
+    navigate('/home/invoice')
   }
 
 
