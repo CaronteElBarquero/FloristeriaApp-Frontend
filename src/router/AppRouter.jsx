@@ -66,7 +66,9 @@ export const AppRouter = () => {
 
                             <Route path="/auth/*" element={<AuthRoute />} />
 
-                            <Route path='/*' element={ <Navigate to="/" /> } />
+
+                            {/* CAUSANTE ERROR 404 */}
+                            {/* <Route path='/*' element={ <Navigate to="/" /> } /> */}
 
 
                         </>

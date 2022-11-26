@@ -28,6 +28,14 @@ export const FloristeriaRoute = () => {
     }, []);
 
 
+    useEffect(() => {
+        if (status === 'authenticated') {
+            navigate('/dash');
+        }
+
+    }, [status]);
+
+
 
 
 
@@ -39,7 +47,7 @@ export const FloristeriaRoute = () => {
             {/* Ruta las cuales entrara en la aplicacion */}
 
             {
-                ( status === 'authenticated' || status === 'checking'  )
+                ( status === 'authenticated'   )
 
                     ? (
 
@@ -48,7 +56,6 @@ export const FloristeriaRoute = () => {
                             <Route path="dash" element={ <FloristeriaPage /> } />
                         
                             <Route path="product" element={ <SpeelProduct /> }  />
-
 
                             <Route path="/*" element={ <Navigate to="/dash" /> } />
 
