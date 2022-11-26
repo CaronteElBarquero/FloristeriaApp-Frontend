@@ -46,14 +46,13 @@ export const AppRouter = () => {
             {/* verificar bien las rutas */}
 
             {
-                ( status === 'authenticated' || status === 'checking'  ) 
+                ( status === 'authenticated' ) 
                     
 
                     ? (
                         <>
 
                             <Route path="/*" element={<FloristeriaRoute />} />
-
 
 
                         </>

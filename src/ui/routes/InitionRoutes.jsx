@@ -21,13 +21,13 @@ export const InitionRoutes = () => {
         <Routes>
 
             {
-                ( status === 'authenticated' || status === 'checking'  )
+                ( status === 'authenticated' )
 
                     ? (
                         <Route path="/*" element={ <Navigate to="/dash" /> } />
                     )
                     : (
-                        <Route path="/*" element={ <AuthRoute /> } />
+                        <Route path="/*" element={ <HomePage /> } />
                     )
 
             }
