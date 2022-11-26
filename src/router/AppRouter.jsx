@@ -68,7 +68,7 @@ export const AppRouter = () => {
 
 
                             {/* CAUSANTE ERROR 404 */}
-                            {/* <Route path='/*' element={ <Navigate to="/" /> } /> */}
+                            <Route path='/*' element={ <Navigate to="/" /> } />
 
 
                         </>
