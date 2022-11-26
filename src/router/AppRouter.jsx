@@ -24,13 +24,13 @@ export const AppRouter = () => {
     useEffect(() => {
         checkAuthToken();
         startLoadingCategory();
-        navigate('/dash');
+        // navigate('/dash');
         
     }, []);
 
 
     useEffect(() => {
-        if (status === 'authenticated') {
+        if (status === 'authenticated' || status === 'checking') {
             navigate('/dash');
         }
     }, [status]);
@@ -41,16 +41,6 @@ export const AppRouter = () => {
             <h1>Checking...</h1>
         )
     }
-
-
-
-
-
-
-
-
-
-
 
 
     return (
