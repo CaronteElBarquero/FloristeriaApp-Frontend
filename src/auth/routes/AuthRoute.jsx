@@ -16,15 +16,17 @@ export const AuthRoute = () => {
 
         <Routes>
 
+
+
+
+
             {
-                ( status === 'not-authenticated' || status === 'checking' )
+                ( status === 'not-authenticated'  )
 
                     ? (
 
                         <>
-                            <Route path="login" element={ <LoginPage /> } />
-                            <Route path="register" element={ <RegisterPage /> } />
-                            <Route path="/*" element={ <Navigate to="/auth/login" /> } />
+
                         </>
 
                     )

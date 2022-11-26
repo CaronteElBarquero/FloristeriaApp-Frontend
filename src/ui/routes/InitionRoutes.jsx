@@ -36,7 +36,7 @@ export const InitionRoutes = () => {
                     )
                     : (
                         <Route path="/*" element={ <HomePage /> } />
-                        
+
                     )
 
             }

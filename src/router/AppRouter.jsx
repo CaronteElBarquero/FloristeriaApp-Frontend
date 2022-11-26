@@ -36,6 +36,13 @@ export const AppRouter = () => {
     }, [status]);
 
 
+    if (status === 'checking') {
+        return (
+            <h1>Checking...</h1>
+        )
+    }
+
+
 
 
 
@@ -46,7 +53,7 @@ export const AppRouter = () => {
             {/* verificar bien las rutas */}
 
             {
-                ( status === 'authenticated' ) 
+                ( status === 'authenticated'  ) 
                     
 
                     ? (
