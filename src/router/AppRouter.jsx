@@ -31,7 +31,7 @@ export const AppRouter = () => {
 
     useEffect(() => {
         if (status === 'authenticated') {
-            navigate('/dash');
+            // navigate('/dash');
         }
     }, [status]);
 

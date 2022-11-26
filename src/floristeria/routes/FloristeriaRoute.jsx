@@ -17,13 +17,14 @@ export const FloristeriaRoute = () => {
     const { startLoadingCategory, categories} = useCategoryStore();
     const { startLoadingProduct} = useProductStore();
 
+
+
     const navigate = useNavigate();
 
 
     useEffect(() => {
         startLoadingCategory();
         startLoadingProduct()
-
     }, []);
 
 
@@ -37,14 +38,37 @@ export const FloristeriaRoute = () => {
 
             {/* Ruta las cuales entrara en la aplicacion */}
 
-            <Route path="dash" element={ <FloristeriaPage /> } />
-            <Route path="product" element={ <SpeelProduct /> }  />
-            <Route path="category" element={ <SpeelCategory /> }  />
-            <Route path="customer" element={ <SpeelCustomer /> }  />
-            <Route path="invoice" element={ <InvoicePage /> }  />
-            <Route path="create" element={ <CreateInvoice /> }  />
+            {
+                ( status === 'authenticated' || status === 'checking'  )
 
-            <Route path="/*" element={ <Navigate to="/dash" /> } />
+                    ? (
+
+                        <>
+                        
+                            <Route path="dash" element={ <FloristeriaPage /> } />
+                        
+                            <Route path="product" element={ <SpeelProduct /> }  />
+
+
+                            <Route path="/*" element={ <Navigate to="/dash" /> } />
+
+                            {/* <Route path="/*" element={ <Navigate to="/dash" /> } />  */}
+
+                        </>
+                    )
+                    : (
+                        <Route path="/*" element={ <Navigate to="/auth/login" /> } />
+                    )  
+
+            }
+            
+
+
+            {/* <Route path="category" element={ <SpeelCategory /> }  /> */}
+            {/* <Route path="customer" element={ <SpeelCustomer /> }  /> */}
+            {/* <Route path="invoice" element={ <InvoicePage /> }  /> */}
+            {/* <Route path="create" element={ <CreateInvoice /> }  /> */}
+
 
 
 

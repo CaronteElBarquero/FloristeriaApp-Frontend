@@ -46,8 +46,8 @@ export const CardProducts = () => {
   const MotionCard = motion(Card);
 
   useEffect(() => {
-    startLoadingProduct();
     startLoadingCategory();
+    startLoadingProduct();
   }, [])
 
 
