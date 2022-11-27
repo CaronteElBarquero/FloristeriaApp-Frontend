@@ -1,4 +1,5 @@
-import { Navigate, Route, Routes } from "react-router-dom"
+import { Navigate, Route, Routes, useNavigate } from "react-router-dom"
+import React, { useEffect } from "react";
 import { useAuthStore } from "../../hooks";
 import { LoginPage, RegisterPage } from "../pages"
 
@@ -7,8 +8,11 @@ import { LoginPage, RegisterPage } from "../pages"
 export const AuthRoute = () => {
 
     const { checkAuthToken, status } = useAuthStore();
+    const navigate = useNavigate();
 
-
+    // useEffect(() => {
+    //     navigate('/');
+    // }, [])
 
 
 
@@ -25,7 +29,6 @@ export const AuthRoute = () => {
             <>
 
                 <Route path="login" element={<LoginPage />} />
-
                 <Route path="register" element={<RegisterPage />} />
 
                 {/* <Route path="/*" element={ <Navigate to="/login" /> } /> */}

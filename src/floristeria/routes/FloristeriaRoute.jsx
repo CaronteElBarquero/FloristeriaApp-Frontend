@@ -28,12 +28,12 @@ export const FloristeriaRoute = () => {
     }, []);
 
 
-    useEffect(() => {
-        if (status === 'authenticated') {
-            navigate('/dash');
-        }
+    // useEffect(() => {
+    //     if (status === 'authenticated') {
+    //         navigate('/dash');
+    //     }
 
-    }, [status]);
+    // }, [status]);
 
 
 

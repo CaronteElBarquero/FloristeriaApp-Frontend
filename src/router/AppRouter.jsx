@@ -24,7 +24,6 @@ export const AppRouter = () => {
     useEffect(() => {
         checkAuthToken();
         startLoadingCategory();
-        // navigate('/dash');
 
     }, []);
 
@@ -36,11 +35,11 @@ export const AppRouter = () => {
     // }, [status]);
 
 
-    // if (status === 'checking') {
-    //     return (
-    //         <h1>Checking...</h1>
-    //     )
-    // }
+    if (status === 'checking') {
+        return (
+            <h1>Checking...</h1>
+        )
+    }
 
 
     return (
@@ -50,35 +49,22 @@ export const AppRouter = () => {
             {/* verificar bien las rutas */}
 
             {
-                (status === 'not-authenticated' || status === 'checking')
+                (status === 'not-authenticated')
 
 
                     ? (
                         <>
-
-
                             <Route path="*" element={<InitionRoutes />} />
-
                             <Route path="/auth/*" element={<AuthRoute />} />
-
-
                             {/* CAUSANTE ERROR 404 */}
                             {/* <Route path='/*' element={ <Navigate to="/" /> } /> */}
-
-
-
                         </>
 
                     )
                     : (
 
                         <>
-
                             <Route path="/*" element={<FloristeriaRoute />} />
-
-
-
-
                         </>
                     )
             }
