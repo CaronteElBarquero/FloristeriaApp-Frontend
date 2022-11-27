@@ -1,4 +1,4 @@
-import {useEffect} from 'react';
+import { useEffect } from 'react';
 import { Navigate, Route, Routes, useNavigate } from "react-router-dom"
 import { AuthRoute } from '../../auth/routes/AuthRoute';
 import { useAuthStore } from '../../hooks';
@@ -27,22 +27,8 @@ export const InitionRoutes = () => {
     return (
 
         <Routes>
-
-            {
-                ( status === 'authenticated' )
-
-                    ? (
-                        <Route path="/*" element={ <Navigate to="/dash" /> } />
-                    )
-                    : (
-                        <Route path="/*" element={ <HomePage /> } />
-
-                    )
-
-            }
-
-
+            <Route path="/" element={<HomePage />} />
         </Routes>
-    
+
     )
 }

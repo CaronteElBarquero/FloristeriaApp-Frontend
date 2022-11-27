@@ -17,23 +17,23 @@ export const AppRouter = () => {
     const { checkAuthToken, status } = useAuthStore();
     const { startLoadingCategory } = useCategoryStore();
     const navigate = useNavigate();
-   
-  
+
+
 
 
     useEffect(() => {
         checkAuthToken();
         startLoadingCategory();
         // navigate('/dash');
-        
+
     }, []);
 
 
-    useEffect(() => {
-        if (status === 'authenticated' || status === 'checking') {
-            navigate('/dash');
-        }
-    }, [status]);
+    // useEffect(() => {
+    //     if (status === 'authenticated' || status === 'checking') {
+    //         navigate('/dash');
+    //     }
+    // }, [status]);
 
 
     // if (status === 'checking') {
@@ -50,13 +50,13 @@ export const AppRouter = () => {
             {/* verificar bien las rutas */}
 
             {
-                ( status === 'not-authenticated' || status === 'checking' ) 
-                    
+                (status === 'not-authenticated' || status === 'checking')
+
 
                     ? (
                         <>
 
-                        
+
                             <Route path="*" element={<InitionRoutes />} />
 
                             <Route path="/auth/*" element={<AuthRoute />} />
@@ -69,7 +69,7 @@ export const AppRouter = () => {
 
                         </>
 
-                    )   
+                    )
                     : (
 
                         <>
@@ -82,9 +82,9 @@ export const AppRouter = () => {
                         </>
                     )
             }
-            
 
-            
+
+
 
         </Routes>
 
