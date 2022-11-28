@@ -52,7 +52,7 @@ export const SpeelCustomer = () => {
 
       <SpeedDial
         ariaLabel="SpeedDial openIcon example"
-        sx={{ position: 'absolute', bottom: 500, right: 26 }}
+        sx={{ position: 'absolute', bottom: "520px", right: 26 }}
         icon={<SpeedDialIcon openIcon={<Edit />} />}
         direction="down"
       >
