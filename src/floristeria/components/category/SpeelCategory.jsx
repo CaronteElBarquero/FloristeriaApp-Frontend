@@ -6,6 +6,7 @@ import { Box, SpeedDial, SpeedDialIcon, SpeedDialAction } from "@mui/material";
 import {
   CreateNewFolder, DeleteForever, AutoFixHigh, Print, Edit,
 } from "@mui/icons-material";
+import { CardCategory } from "./CardCategory";
 
 
 export const SpeelCategory = () => {
@@ -46,24 +47,25 @@ export const SpeelCategory = () => {
   ];
 
   return (
-    <Box sx={{ height: "100vh", transform: "translateZ(0px)", flexGrow: 1 }}>
-      {/* PAGINA DE CATEGORIA */}
-      <CategoryPage />
 
-      <SpeedDial
-        ariaLabel="SpeedDial openIcon example"
-        sx={{ position: 'absolute', bottom: 535, right: 16 }}
-        icon={<SpeedDialIcon openIcon={<Edit />} />}
-        direction="down"
-      >
-        {actions.map((action) => (
-          <SpeedDialAction
-            key={action.name}
-            icon={action.icon}
-            tooltipTitle={action.name}
-          />
-        ))}
-      </SpeedDial>
-    </Box>
+      
+
+    <SpeedDial
+      ariaLabel="SpeedDial openIcon example"
+      //calcule la posicion del boton con calc(100% - 56px)
+
+      sx={{ position: 'absolute', bottom: `calc(536-240)`, right: 16, }}
+      icon={<SpeedDialIcon openIcon={<Edit />} />}
+      direction="down"
+    >
+      {actions.map((action) => (
+        <SpeedDialAction
+          key={action.name}
+          icon={action.icon}
+          tooltipTitle={action.name}
+        />
+      ))}
+    </SpeedDial>
+
   );
 };

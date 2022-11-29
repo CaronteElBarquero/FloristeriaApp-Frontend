@@ -13,6 +13,7 @@ import { styled, alpha } from '@mui/material/styles';
 import { motion } from "framer-motion";
 import { variantsCard } from '../../../animation/framerValues';
 import { SearchInput } from '../SearchInput';
+import { SpeelCategory } from '..';
 
 export const CardCategory = () => {
 
@@ -133,8 +134,6 @@ export const CardCategory = () => {
 
             <SearchInput onChange={setInputSearch} />
 
-
-
             <Box sx={{ display: 'flex', flexWrap: 'wrap', minWidth: 300, width: '100%' }}  >
 
                 {
@@ -175,6 +174,9 @@ export const CardCategory = () => {
                     )
                 }
             </Box>
+
+            
+
 
 
         </>

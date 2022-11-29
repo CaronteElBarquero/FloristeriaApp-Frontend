@@ -1,6 +1,6 @@
 import {  Divider, Typography } from "@mui/material"
 import { DraweBar } from "../../ui/components"
-import { AutoCustomer, CardCustomer, CustomerModal } from "../components"
+import { AutoCustomer, CardCustomer, CustomerModal, SpeelCustomer } from "../components"
 
 export const CustomerPage = () => {
 
@@ -13,6 +13,8 @@ export const CustomerPage = () => {
             {/* <h1>Bienvenido a categoria</h1> */}
             
             {/* <AutoCustomer /> */}
+            <SpeelCustomer />
+            <br />
             <CardCustomer />
             <CustomerModal />
             

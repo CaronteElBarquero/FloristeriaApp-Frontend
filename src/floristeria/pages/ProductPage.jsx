@@ -13,8 +13,10 @@ export const ProductPage = () => {
 
       <Typography variant="h4"  align="center" ><strong>Listado de productos</strong></Typography>
 
+      <Divider  />  
 
-      <Divider  />      
+      <SpeelProduct />
+      <br />
       <CardProducts />
       <ProductModal />
 

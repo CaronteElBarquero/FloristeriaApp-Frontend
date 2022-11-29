@@ -45,26 +45,20 @@ export const SpeelProduct = () => {
 
   return (
 
-    <Box sx={{ height: '100vh', transform: 'translateZ(0px)', flexGrow: 1 }}>
+    <SpeedDial
+      ariaLabel="SpeedDial openIcon example"
+      sx={{ position: 'absolute', bottom: `calc(536-240)`, right: 16, }}
+      icon={<SpeedDialIcon openIcon={<Edit />} />}
+      direction='down'
+    >
+      {actions.map((action) => (
+        <SpeedDialAction
+          key={action.name}
+          icon={action.icon}
+          tooltipTitle={action.name}
+        />
+      ))}
+    </SpeedDial>
 
-      {/* PAGINA DE PRODUCTOS */}
-      <ProductPage />
-
-      <SpeedDial
-        ariaLabel="SpeedDial openIcon example"
-        sx={{ position: 'absolute', bottom: 520, right: 26 }}
-        icon={<SpeedDialIcon openIcon={<Edit />} />}
-        direction='down'
-      >
-        {actions.map((action) => (
-          <SpeedDialAction
-            key={action.name}
-            icon={action.icon}
-            tooltipTitle={action.name}
-          />
-        ))}
-      </SpeedDial>
-    </Box>
-    // Subir al mai
   );
 }
