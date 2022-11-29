@@ -149,14 +149,14 @@ export const LoginPage = () => {
 
 
 
-            <Link
+            {/* <Link
               sx={{ ml:19 }}
               component={RouterLink}
               color="primary"
               to="/auth/register"
             >
               Crear una cuenta
-            </Link>
+            </Link> */}
 
 
           </Grid>
