@@ -32,11 +32,9 @@ export const AppRouter = () => {
     }, []);
 
 
-    // useEffect(() => {
-    //     if (status === 'authenticated' || status === 'checking') {
-    //         navigate('/dash');
-    //     }
-    // }, [status]);
+    if (status === 'checking') {
+        return <h1></h1>
+    }
 
 
 
@@ -47,7 +45,7 @@ export const AppRouter = () => {
             {/* verificar bien las rutas */}
 
             {
-                ( status === 'not-authenticated' || status === 'checking' ) 
+                ( status === 'not-authenticated' || status === 'checking' )
 
 
                     ? (

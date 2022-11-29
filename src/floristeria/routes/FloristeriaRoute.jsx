@@ -19,23 +19,11 @@ export const FloristeriaRoute = () => {
 
 
 
-    const navigate = useNavigate();
-
 
     useEffect(() => {
         startLoadingCategory();
         startLoadingProduct()
     }, []);
-
-
-    // useEffect(() => {
-    //     if (status === 'authenticated') {
-    //         navigate('/dash');
-    //     }
-
-    // }, [status]);
-
-
 
 
 
@@ -48,7 +36,7 @@ export const FloristeriaRoute = () => {
 
 
 
-            <>
+            {/* <> */}
 
                 <Route path="dash" element={<FloristeriaPage />} />
 
@@ -61,9 +49,8 @@ export const FloristeriaRoute = () => {
 
                 <Route path="/*" element={<Navigate to="/dash" />} />
 
-                {/* <Route path="/*" element={ <Navigate to="/dash" /> } />  */}
 
-            </>
+            {/* </> */}
 
 
 

@@ -93,19 +93,19 @@ export const ShowLogout = () => {
 
         <Divider />
 
-        <MenuItem>
+        {/* <MenuItem>
           <ListItemIcon>
             <PersonAdd sx={{ color: 'secondary.main' }} fontSize="small" />
           </ListItemIcon>
           Add another account
-        </MenuItem>
-
+        </MenuItem> */}
+{/* 
         <MenuItem>
           <ListItemIcon>
             <Settings sx={{ color: 'secondary.main' }} fontSize="small" />
           </ListItemIcon>
           Settings
-        </MenuItem>
+        </MenuItem> */}
 
         <MenuItem onClick={startLogout}>
           <ListItemIcon>

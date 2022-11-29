@@ -116,8 +116,9 @@ export const CardProducts = () => {
         product.name.toLocaleLowerCase().includes(inputSearch.toLocaleLowerCase()),
       ),
     );
-  }, [inputSearch]);
 
+   
+  }, [inputSearch, products]);
 
   return (
 

@@ -113,7 +113,7 @@ export const CategoryModal = () => {
           variant="subtitle1"
           align="center"
           fontSize="large"
-          sx={{ m: 1 }}
+          sx={{ m: 1, color: "white" }}
         >
           {
             activeCreateCategory ? 'Crear Categoria' : 'Editar Categoria'

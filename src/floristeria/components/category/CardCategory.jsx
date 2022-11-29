@@ -118,7 +118,10 @@ export const CardCategory = () => {
                 category.name.toLocaleLowerCase().includes(inputSearch.toLocaleLowerCase()),
             ),
         );
-    }, [inputSearch]);
+
+       
+
+    }, [inputSearch, categories]);
 
 
     return (

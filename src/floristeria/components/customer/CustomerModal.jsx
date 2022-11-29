@@ -149,7 +149,7 @@ export const CustomerModal = () => {
           variant="subtitle1"
           align="center"
           fontSize="large"
-          sx={{ m: 1 }}
+          sx={{ m: 1, color: "white" }}
         >
           {activeCreateCustomer ? "Crear Cliente" : "Editar Cliente"}
         </Typography>
