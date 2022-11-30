@@ -3,11 +3,14 @@ import { useAuthStore } from "../../hooks";
 
 import { Box, Avatar, Menu, MenuItem, ListItemIcon, Divider, IconButton, Tooltip } from '@mui/material';
 import {  PersonAdd, Settings, Logout  } from '@mui/icons-material';
+import { useNavigate } from "react-router-dom";
 
 
 export const ShowLogout = () => {
 
   const { startLogout, user } = useAuthStore();
+
+  const navigate = useNavigate()
 
   //FUNCION QUE ME RETORNE LAS INICIALES EN EL NOMBRE DEL USUARIO, PARA AGREGAR EN EL BOTON DE SALIDA
   const initial = () => {
@@ -33,6 +36,10 @@ export const ShowLogout = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  const onRegister = () => {
+    navigate('/register');
+  }
 
 
   return (
@@ -93,12 +100,12 @@ export const ShowLogout = () => {
 
         <Divider />
 
-        {/* <MenuItem>
+        <MenuItem onClick={ onRegister }>
           <ListItemIcon>
             <PersonAdd sx={{ color: 'secondary.main' }} fontSize="small" />
           </ListItemIcon>
           Add another account
-        </MenuItem> */}
+        </MenuItem> 
 {/* 
         <MenuItem>
           <ListItemIcon>

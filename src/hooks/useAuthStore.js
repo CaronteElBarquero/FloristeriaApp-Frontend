@@ -42,7 +42,7 @@ export const useAuthStore = () => {
 
             // Creacion de un nuevo token a la hora de registrarse
             localStorage.setItem('token-init-date', new Date().getTime());
-            dispatch(onLogin({ name: data.name, uid: data.uid }));
+            // dispatch(onLogin({ name: data.name, uid: data.uid }));
 
         } catch (error) {
 

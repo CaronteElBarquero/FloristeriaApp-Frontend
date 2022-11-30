@@ -8,6 +8,7 @@ import { CategoryPage, CustomerPage, FloristeriaPage, InvoicePage, ProductPage }
 
 import { useCategoryStore } from '../../hooks/useCategoryStore';
 import { useAuthStore, useProductStore } from '../../hooks';
+import { RegisterPage } from '../../auth/pages';
 
 
 export const FloristeriaRoute = () => {
@@ -46,6 +47,8 @@ export const FloristeriaRoute = () => {
                 <Route path="customer" element={<CustomerPage />} />
                 <Route path="invoice" element={<InvoicePage />} />
                 <Route path="create" element={<CreateInvoice />} />
+                <Route path="register" element={<RegisterPage />} />
+
 
                 <Route path="/*" element={<Navigate to="/dash" />} />
 

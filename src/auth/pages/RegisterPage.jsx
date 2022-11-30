@@ -26,6 +26,10 @@ export const RegisterPage = () => {
 
   const { errorMessage, startRegister } = useAuthStore();
 
+  const [formValues, setFormValues] = useState(
+    registerFormFields
+  )
+
 
   const { 
     registerName, registerEmail, registerPassword, onInputChange,
@@ -33,9 +37,14 @@ export const RegisterPage = () => {
   } = useForm( registerFormFields );
 
 
+
   const registerSubmit = ( event ) => {
     event.preventDefault();
     startRegister({ name: registerName, email: registerEmail, password: registerPassword});
+
+    //limpiar campos
+    
+    
   }
 
   useEffect(() => {
@@ -149,8 +158,8 @@ export const RegisterPage = () => {
 
             <Grid container direction='row' justifyContent='end' sx={{ m:2 }} >
               <Typography sx={{ mr: 5 }}> <strong> ¿Ya tienes cuenta?</strong></Typography>
-              <Link component={ RouterLink } color='primary.main' to="/auth/login">
-                Ingresar
+              <Link component={ RouterLink } color='primary.main' to="/dash">
+                Regresar
               </Link>
             </Grid>
 
