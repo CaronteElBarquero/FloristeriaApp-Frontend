@@ -47,7 +47,7 @@ export const useAuthStore = () => {
         } catch (error) {
 
             // Si el usuario ya existe me devolvera el error que existe, tambien devolvera error en los campos si no estan completos
-            dispatch(onLogout(error.response.data?.msg || 'Todos los campos son necesarios'));
+            // dispatch(onLogout(error.response.data?.msg || 'Todos los campos son necesarios'));
 
             // Limpia el error que puede exister en 10 s, me limpia la parte del reducer
             setTimeout(() => {

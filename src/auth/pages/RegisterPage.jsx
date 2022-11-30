@@ -21,6 +21,8 @@ const registerFormFields = {
 
 
 
+
+
 export const RegisterPage = () => {
 
 
@@ -31,31 +33,43 @@ export const RegisterPage = () => {
   )
 
 
-  const { 
-    registerName, registerEmail, registerPassword, onInputChange,
 
-  } = useForm( registerFormFields );
+
+  // const { 
+  //   registerName, registerEmail, registerPassword, onInputChange,
+
+  // } = useForm( registerFormFields );
 
 
 
   const registerSubmit = ( event ) => {
     event.preventDefault();
-    startRegister({ name: registerName, email: registerEmail, password: registerPassword});
 
-    //limpiar campos
-    
-    
-  }
-
-  useEffect(() => {
-
-    if ( errorMessage !== undefined ) {
-      Swal.fire('Error en la autentificacion', errorMessage, 'error');
-
+    if ( formValues.registerName.trim().length === 0 || formValues.registerEmail.trim().length === 0  ) {
+      return Swal.fire('Error', 'nombre y correo son requeridos', 'error');
     }
 
-  }, [errorMessage])
+    if ( formValues.registerPassword.length < 6 ) {
+      return Swal.fire('Error', 'La contraseña debe tener al menos 6 caracteres', 'error');
+    }
 
+    startRegister( formValues );
+
+    //mostrar mensaje de exito
+    Swal.fire('Exito', 'Usuario registrado correctamente', 'success');
+
+
+    //reseteo de campos
+    setFormValues( registerFormFields );
+
+  }
+
+  const onInputChange = ({ target }) => {
+    setFormValues({
+      ...formValues,
+      [target.name]: target.value
+    })
+  }
 
 
   // FUNCION MOSTRAR PASSWORD
@@ -92,7 +106,7 @@ export const RegisterPage = () => {
                       type="text"
                       placeholder='Nombre completo'
                       name="registerName" 
-                      value={ registerName }
+                      value={ formValues.registerName }
                       onChange={ onInputChange }
                       endAdornment={
                         <InputAdornment position="end">
@@ -109,7 +123,7 @@ export const RegisterPage = () => {
                       type="email"
                       placeholder='@gmail.com'
                       name="registerEmail" 
-                      value={ registerEmail }
+                      value={ formValues.registerEmail }
                       onChange={ onInputChange } 
                       endAdornment={
                         <InputAdornment position="end">
@@ -127,7 +141,7 @@ export const RegisterPage = () => {
                       label="Password"
                       type={values.showPassword ? 'text' : 'password'}
                       name="registerPassword" 
-                      value={ registerPassword }
+                      value={ formValues.registerPassword }
                       onChange={ onInputChange }
 
                       endAdornment={
