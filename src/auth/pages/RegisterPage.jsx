@@ -35,25 +35,23 @@ export const RegisterPage = () => {
 
 
 
-  // const { 
-  //   registerName, registerEmail, registerPassword, onInputChange,
-
-  // } = useForm( registerFormFields );
-
-
 
   const registerSubmit = ( event ) => {
     event.preventDefault();
 
-    if ( formValues.registerName.trim().length === 0 || formValues.registerEmail.trim().length === 0  ) {
-      return Swal.fire('Error', 'nombre y correo son requeridos', 'error');
-    }
+    // if ( formValues.registerName.trim().length === 0 || formValues.registerEmail.trim().length === 0  ) {
+    //   return Swal.fire('Error', 'nombre y correo son requeridos', 'error');
+    // }
 
-    if ( formValues.registerPassword.length < 6 ) {
-      return Swal.fire('Error', 'La contraseña debe tener al menos 6 caracteres', 'error');
-    }
+    // if ( formValues.registerPassword.length < 6 ) {
+    //   return Swal.fire('Error', 'La contraseña debe tener al menos 6 caracteres', 'error');
+    // }
 
-    startRegister( formValues );
+    
+  
+    startRegister({ name: formValues.registerName, email: formValues.registerEmail, password: formValues.registerPassword });
+
+    console.log(formValues);
 
     //mostrar mensaje de exito
     Swal.fire('Exito', 'Usuario registrado correctamente', 'success');

@@ -104,7 +104,7 @@ export const ShowLogout = () => {
           <ListItemIcon>
             <PersonAdd sx={{ color: 'secondary.main' }} fontSize="small" />
           </ListItemIcon>
-          Add another account
+          Añadir usuario
         </MenuItem> 
 {/* 
         <MenuItem>

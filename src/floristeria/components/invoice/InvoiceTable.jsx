@@ -341,7 +341,7 @@ export const InvoiceTable = () => {
         onClick={ handleOnExport }
         startIcon={<ImportExport />}
       >
-        Exportar  CSV
+        Exportar  Excel
       </Button>
 
       <Box sx={{ width: '100%', mt: 5 }}>

@@ -34,15 +34,17 @@ export const useAuthStore = () => {
 
     const startRegister = async ({ name, email, password }) => {
 
-        // dispatch( onChecking() );
+  
+            
 
         try {
             const { data } = await floristeriaApi.post('/auth/new', { name, email, password });
-            localStorage.setItem('token', data.token);
+            // localStorage.setItem('token', data.token);
+            console.log(data);
 
             // Creacion de un nuevo token a la hora de registrarse
             localStorage.setItem('token-init-date', new Date().getTime());
-            // dispatch(onLogin({ name: data.name, uid: data.uid }));
+            dispatch(onLogin({ name: data.name, uid: data.uid }));
 
         } catch (error) {
 
